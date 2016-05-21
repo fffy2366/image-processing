@@ -9,6 +9,7 @@ var shell = require('shelljs');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
+    console.log(__dirname) ;
   res.render('index', { title: 'Express' });
 });
 router.get('/socket', function (req, res) {
@@ -71,7 +72,7 @@ router.post('/upload',function(req,res){
                 }
                 console.log("i:" + i);//为啥i=1
                 if(type=="face"){
-                    if (shell.exec('cd ~/python/image-processing && python face.py '+newFile).code !== 0) {
+                    if (shell.exec('cd '+__dirname+'/..'+' && python face.py '+newFile).code !== 0) {
                         shell.echo('Error: failed');
                         res.send({status: "n", info: "失败", "path": target_path, "filename": newFile});
                     } else {
@@ -82,7 +83,7 @@ router.post('/upload',function(req,res){
                 if(type=="ocr"){
                     var exec = require('child_process').exec;
 
-                    var child = exec('cd ~/python/image-processing && python ocr.py '+newFile, function(err, stdout, stderr) {
+                    var child = exec('cd '+__dirname+'/..'+' && python ocr.py '+newFile, function(err, stdout, stderr) {
                         if (err) {
                             console.log(err) ;
                             res.send({status: "n", info: "失败", "path": target_path, "filename": newFile});
