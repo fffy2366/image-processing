@@ -1,0 +1,40 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <script src="/socket.io/socket.io.js"></script>
+    <!--<script src="/public/js/socket.io.min.js"></script>-->
+    <script>
+        if (/Firefox\/\s/.test(navigator.userAgent)){
+            alert(1) ;
+            var socket = io.connect(window.location.protocol+'//'+window.location.host,{transports:['xhr-polling']});
+        }
+        else if (/MSIE (\d+.\d+);/.test(navigator.userAgent)){
+            alert(2) ;
+            var socket = io.connect(window.location.protocol+'//'+window.location.host,{transports:['jsonp-polling']});
+        }
+        else {
+            //alert(3) ;
+            //alert(window.location.protocol+'//'+window.location.host) ;
+            var socket = io.connect(window.location.protocol+'//'+window.location.host);
+
+        }
+        //var socket = io.connect(window.location.protocol+'//'+window.location.host,{transports:['xhr-polling']});
+        //var socket = io.connect(window.location.protocol+'//'+window.location.host);
+
+        socket.emit('message', { a: '123',b:'123'});
+
+        socket.on('message', function (data) {
+            //alert(data) ;
+            console.log(data);
+        });
+
+
+
+
+    </script>
+</head>
+
+<body>
+
+</body>
+</html>

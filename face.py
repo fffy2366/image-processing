@@ -8,7 +8,7 @@ import sys
 import cv2
 
 # Get user supplied values
-imagePath = sys.argv[1]
+imagePath = "public/uploads/face/"+sys.argv[1]
 #cascPath = sys.argv[2]
 cascPath = "./data/haarcascades/haarcascade_frontalface_alt.xml"
 
@@ -34,7 +34,7 @@ print "Found {0} faces!".format(len(faces))
 for (x, y, w, h) in faces:
    cv2.rectangle(image, (x, y), (x+w, y+h), (0, 255, 0), 2)
 
-cv2.imwrite('images/output.jpg',image, [int(cv2.IMWRITE_JPEG_QUALITY), 100])
+cv2.imwrite('public/uploads/face/f_'+sys.argv[1],image, [int(cv2.IMWRITE_JPEG_QUALITY), 100])
 #显示
 #cv2.imshow("Faces found" ,image)
 #cv2.waitKey(0)   

@@ -1,0 +1,9 @@
+.clear{ clear:both; height:0; overflow:hidden;}
+.w147{ width:147px;}
+.fr{float:right;padding:20px}
+#spancalender{ color:#036; float:left; font-weight:bold; padding-right:5px;}
+.divcalendar{ background:#fff; border:1px solid #929292; -moz-border-radius:5px; -webkit-border-radius:5px; border-radius:5px; float:left; padding:2px 28px 2px 5px; position:relative;}
+.acalendar{ background:#003162 url(../images/arr2.gif) no-repeat 50% 50%; -moz-border-radius:3px; -webkit-border-radius:3px; border-radius:3px; display:inline-block; height:100%; position:absolute; right:0; top:0; width:23px;}
+.ID-menu_list{ background:#fff; border:1px solid #929292; -moz-border-radius:5px; -webkit-border-radius:5px; border-radius:5px; padding:5px; position:absolute; right:20px; z-index:100;display:none}
+
+.line{ border-bottom:1px solid #d0d0d0; height:0; margin-top:10px; overflow:hidden;}
