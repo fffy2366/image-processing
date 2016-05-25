@@ -8,6 +8,7 @@
 
 		uploadImage("#imgTitle","face") ;
         uploadImage("#imgTitleBig","ocr") ;
+        uploadImage("#bce","bceocr") ;
 
 		$("#autoplay").click(function(){
 			var check = $("#autoplay").is(':checked') ;

@@ -167,6 +167,22 @@ if(!!locals.category&&!!locals.cid){
         <%- !!locals.question && question.big_img ? '<a href="#" onclick="javascript:deleteFile(\'question_img_big\',this);" role="button" data-toggle="modal"><i class="icon-remove"></i></a>' : '' %>
 
         <p></p>
+
+        <input type="hidden" id="bce_inp" style="margin:0px 10px 0px 0px"/><input class="btn"
+                                                                                          style="margin-botton:10px"
+                                                                                          type="button"
+                                                                                          id="bce"
+                                                                                          value="BceOCR"/>
+        <input type="hidden" id="bce_filename"
+               value="<%= !!!locals.question ? '' : question.image %>"/>
+        <span id="bce_img">
+        <%- !!locals.question && question.big_img ? "<img src='/public/uploads/questions/" + question.big_img + "' style='height:80px'/>" : '' %>
+        </span>
+        <span id="bce_loading"></span>
+
+        <%- !!locals.question && question.big_img ? '<a href="#" onclick="javascript:deleteFile(\'question_img_big\',this);" role="button" data-toggle="modal"><i class="icon-remove"></i></a>' : '' %>
+
+        <p></p>
         <span id="msg"></span>
     </div>
 </div>

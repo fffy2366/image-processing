@@ -93,6 +93,19 @@ router.post('/upload',function(req,res){
                     });
 
                 }
+                if(type=="bceocr"){
+                    var exec = require('child_process').exec;
+
+                    var child = exec('cd '+__dirname+'/..'+' && python bceocr.py '+newFile, function(err, stdout, stderr) {
+                        if (err) {
+                            console.log(err) ;
+                            res.send({status: "n", info: "失败", "path": target_path, "filename": newFile});
+                        }
+                        console.log(stdout);
+                        res.send({status: "y", info: "上传成功", "path": target_path, "filename": newFile,"msg":stdout});
+                    });
+
+                }
 
             });
         }
