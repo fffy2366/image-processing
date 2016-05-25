@@ -48,10 +48,13 @@ class BceOCRAPI(object):
         )
         ocr_result = r.json()
         text = ''
-        for obj in ocr_result['results']:
-            text += u'{}\n'.format(obj['word'])
+        if ocr_result.has_key('results'):
+            for obj in ocr_result['results']:
+                text += u'{}\n'.format(obj['word'])
 
-        return text
+            return text
+        else:
+            return "no results"
 
     def get_ocr_text(self, content, language='CHN_ENG'):
         """
