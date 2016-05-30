@@ -66,12 +66,13 @@ def ocrone(file):
         content = base64.b64encode(content)
 
     try:
+        #result = ocr.get_ocr_text(content, language='ENG')
         #result = ocr.get_ocr_text(content, language='CHN_ENG')
-        result = ocr.get_ocr_text(content, language='CHN_ENG')
 
         #result = ocr.get_ocr_line(content, language='CHN_ENG')
 
-        # result = ocr.get_ocr_char(content, language='CHN_ENG')
+        result = ocr.get_ocr_char(content, language='CHN_ENG')
+        #result = ocr.get_ocr_char(content, language='ENG')
 
         #print("file:"+file+"----------result:"+result)
         logger.info("file:"+file+"----------result:"+result)
@@ -81,7 +82,12 @@ def ocrone(file):
 fileList = getFileList(IMAGE_DIR)
 #logger.info(fileList)
 #exit()
-for f in fileList:
-   ocrone(f)
+
+#for f in fileList:
+#   ocrone(f)
 
 #ocrone("1463988870263AE1CF23.jpg")
+#ocrone("1463989001869A87B3AA.jpg")
+#ocrone("1463989350600A622130.jpg")
+#ocrone("1463989383201A1FD90D.jpg")
+ocrone("ocr1.jpg")

@@ -1,10 +1,13 @@
 #!bin/evn python
 #-*-coding:utf8-*-
-
+'''
+python bceocr.py test.jpg
+'''
 from credential import BceCredentials
 from bceocrapi import BceOCRAPI
 import base64
 import sys
+import re
 
 reload(sys)
 sys.setdefaultencoding('utf-8')
@@ -22,5 +25,13 @@ result = ocr.get_ocr_text(content, language='CHN_ENG')
 #result = ocr.get_ocr_line(content, language='CHN_ENG')
 
 # result = ocr.get_ocr_char(content, language='CHN_ENG')
+#计算数字个数
 
-print(result)
+digitpatt = re.compile('\d')
+
+def countdigits(s):
+    return len(digitpatt.findall(s))
+
+l = countdigits(result)
+
+print(result+"=======数字个数："+str(l))
