@@ -87,3 +87,17 @@ import datetime
 ws['A2'] = datetime.datetime.now()
 # Save the file
 wb.save("sample.xlsx")
+
+
+[用NODEJS处理EXCEL文件导入导出](http://www.itnose.net/news/156/6290038)
+
+
+rm /usr/local/Cellar/tesseract/3.04.01_1/share/tessdata/num.traineddata
+
+tesseract ocr2.png result -l num
+more result.txt
+
+cp ~/python/image-processing/bin/num.traineddata /usr/local/Cellar/tesseract/3.04.01_1/share/tessdata/
+cp ~/Downloads/num/num.traineddata /usr/local/Cellar/tesseract/3.04.01_1/share/tessdata/
+
+cp chi_sim.traineddata /usr/local/Cellar/tesseract/3.04.01_1/share/tessdata/
