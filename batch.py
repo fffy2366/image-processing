@@ -14,6 +14,10 @@ import logging
 import datetime
 import cv2
 import re
+import threading
+
+image.LOAD_TRUNCATED_IMAGES = True
+
 
 reload(sys)
 sys.setdefaultencoding('utf-8')
@@ -72,7 +76,12 @@ def getFileList(p):
 # 人脸识别
 def face(file):
     # Get user supplied values
-    imagePath = IMAGE_DIR + file
+    oriImg = IMAGE_DIR + file
+
+    #图像压缩处理
+    disImg = IMAGE_DIR +"ocrdis"+file
+    newImg = resizeImg(ori_img=oriImg,dst_img=disImg,dst_w=2048,dst_h=2048,save_q=100)
+
     # cascPath = sys.argv[2]
     cascPath = "./data/haarcascades/haarcascade_frontalface_alt.xml"
 
@@ -80,7 +89,7 @@ def face(file):
     facecascade = cv2.CascadeClassifier(cascPath)
 
     # Read the image
-    image = cv2.imread(imagePath)
+    image = cv2.imread(newImg)
     gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
 
     # Detect faces in the image
@@ -97,15 +106,29 @@ def face(file):
 #黑白处理
 def blackWhite(filename):
     image_file = image.open(IMAGE_DIR+filename) # open colour image
-    image_file = image_file.convert('L') # convert image to black and white
+    #exception : Premature end of JPEG file . IOError: image file is truncated (1 bytes not processed)
+    try:
+        image_file = image_file.convert('L') # convert image to black and white
+    except Exception as e:
+        raise
+        return IMAGE_DIR+filename
+
+
     dst_path = IMAGE_DIR+"wb"+filename
     image_file.save(dst_path)
     return dst_path
+
 #数字识别
 def ocr(file):
     ocr = BceOCRAPI("02fbe03acf3042a1b40e067bba1971f7", "bb1d4aafe7924fc0829fc33fa26b3347");
     #黑白处理
+    # newImg = IMAGE_DIR +file
     newImg = blackWhite(file)
+
+    #图像压缩处理
+    disImg = IMAGE_DIR +"ocrdis"+file
+    newImg = resizeImg(ori_img=newImg,dst_img=disImg,dst_w=1600,dst_h=1600,save_q=100)
+
     with open(newImg, 'rb') as f:
         content = f.read()
         content = base64.b64encode(content)
@@ -167,9 +190,10 @@ def isnude(file):
     #图像压缩处理
     imagePath = IMAGE_DIR + file
     disImg = IMAGE_DIR +"dis"+file
-    newImg = resizeImg(ori_img=imagePath,dst_img=disImg,dst_w=300,dst_h=300,save_q=100)
+    newImg = resizeImg(ori_img=imagePath,dst_img=disImg,dst_w=1000,dst_h=1000,save_q=100)
 
     n = Nude(newImg)
+    # n.resize(1000,1000)
     n.parse()
     print n.result
     return 1 if n.result else 0
@@ -180,6 +204,22 @@ def countdigits(s):
 
     return len(digitpatt.findall(s))
 
+
+def delImg(file):
+    #黑白的
+    wbImg = IMAGE_DIR+"wb"+file
+    ocrImg300 = IMAGE_DIR +"dis"+file
+    #大于1600的
+    ocrImg1600 = IMAGE_DIR +"ocrdis"+file
+
+    if os.path.isfile(wbImg):
+        os.remove(wbImg)
+    if os.path.isfile(ocrImg300):
+        os.remove(ocrImg300)
+    if os.path.isfile(ocrImg1600):
+        os.remove(ocrImg1600)
+    #删除原文件
+    os.remove(IMAGE_DIR+file)
 
 def one(file):
     fc = face(file)
@@ -193,24 +233,66 @@ def one(file):
         is_qq = 1
     is_nude = isnude(file)
     i = Images()
-    i.insert({'name': file, 'is_face': fc, 'ocr': text, 'is_qq': is_qq,'is_nude': is_nude,
+    i.insert({'name': file, 'is_face': fc, 'ocr': text, 'is_qq': l,'is_nude': is_nude,
               'created_at': datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")})
-    #TODO: 删除图像
+    #删除图像
+    delImg(file)
 
 
 fileList = getFileList(IMAGE_DIR)
 # logger.info(fileList)
 # exit()
+def threadone(start,stop):
+    print "start:"+str(start)
+    print "stop:"+str(stop)
 
-for f in fileList:
-    if(f!=".DS_Store"):
-        one(f)
+    for j in range(start,stop,1):
+        if(fileList[j]!=".DS_Store"):
+            one(fileList[j])
+            #print fileList[j]
+            #print j
+            #pass
 
 # TODO：分组多线程
+total = len(fileList)
+#total = 18
+#4核cpu 所以设置4
+groutSize = 4
+listSize = total/groutSize
+currIndex = 0
+for i in range(0,groutSize,1):
+    start = i*listSize
+    stop = (i+1)*listSize
+    if i==groutSize-1:
+        stop = total
+    try:
+        threading.Thread(target=threadone, args=(start,stop)).start()
+    except Exception:
+        pass
 
 
-#one("1463989011986ACBE628.jpg")
+#print '==='
+#print len(fileList)
+# print listSize
+#
+# print fileList[-1]
+# print fileList[0]
+# print fileList[1]
+# print fileList[2]
+
+
+
+# for f in fileList:
+#     if(f!=".DS_Store"):
+#         one(f)
+
+
+
+# one("1463989011986ACBE628.jpg")
 # one("1463988870263AE1CF23.jpg")
-one("1463989001869A87B3AA.jpg")
-#one("1463989350600A622130.jpg")
-#one("1463989383201A1FD90D.jpg")
+# one("1463989001869A87B3AA.jpg")
+# one("1463989350600A622130.jpg")
+# one("1463989383201A1FD90D.jpg")
+#one("1463989897439A5767BB.jpg")
+#one("dis1463989897439A5767BB.jpg")
+#one("1464316744797A95F443.jpg")

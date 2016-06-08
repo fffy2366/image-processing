@@ -91,10 +91,20 @@ wb.save("sample.xlsx")
 
 [用NODEJS处理EXCEL文件导入导出](http://www.itnose.net/news/156/6290038)
 
+[Tesseract-OCR 字符识别---样本训练](http://blog.csdn.net/yasi_xi/article/details/8763385)
+
+[Tesseract Training on Mac OSX:](http://khalsa.guru/posts/16)
+[tesseract-ocr 第四课 如何训练新语言] (http://wangjunle23.blog.163.com/blog/static/117838171201323031458171/)
+[tessdata](https://github.com/tesseract-ocr/tessdata)
+
+error：pthread_cond_wait: Resource busy
 
 rm /usr/local/Cellar/tesseract/3.04.01_1/share/tessdata/num.traineddata
 
 tesseract ocr2.png result -l num
+tesseract ocr2.png result -l num -pms 6
+tesseract ocr2.png result -l num hocr
+
 more result.txt
 
 cp ~/python/image-processing/bin/num.traineddata /usr/local/Cellar/tesseract/3.04.01_1/share/tessdata/
