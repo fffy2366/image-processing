@@ -4,7 +4,7 @@ import re
 import sys
 
 #print(pytesseract.image_to_string(Image.open('src/test-european.jpg'), lang='fra'))
-str = pytesseract.image_to_string(Image.open('public/uploads/ocr/'+sys.argv[1])) ;
+str = pytesseract.image_to_string(Image.open('public/uploads/ocr/'+sys.argv[1]),lang='eng', boxes=False, config="-psm 6") ;
 
 print(str)
 ret = re.findall("\d{5,12}",str)
