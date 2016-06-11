@@ -103,7 +103,7 @@ error：pthread_cond_wait: Resource busy
 rm /usr/local/Cellar/tesseract/3.04.01_1/share/tessdata/num.traineddata
 
 tesseract ocr2.png result -l num
-tesseract ocr2.png result -l num -pms 6
+tesseract ocr2.png result -l num -psm 6
 tesseract ocr2.png result -l num hocr
 
 more result.txt

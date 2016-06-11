@@ -83,7 +83,7 @@ router.post('/upload',function(req,res){
                 if(type=="ocr"){
                     var exec = require('child_process').exec;
 
-                    var child = exec('cd '+__dirname+'/..'+' && python ocr.py '+newFile+' -pms 6', function(err, stdout, stderr) {
+                    var child = exec('cd '+__dirname+'/..'+' && python ocr.py '+newFile+' -psm 6', function(err, stdout, stderr) {
                         if (err) {
                             console.log(err) ;
                             res.send({status: "n", info: "失败", "path": target_path, "filename": newFile});
