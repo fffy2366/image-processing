@@ -99,6 +99,7 @@ wb.save("sample.xlsx")
 
 error：pthread_cond_wait: Resource busy
 
+## Test
 rm /usr/local/Cellar/tesseract/3.04.01_1/share/tessdata/num.traineddata
 
 tesseract ocr2.png result -l num
@@ -111,3 +112,6 @@ cp ~/python/image-processing/bin/num.traineddata /usr/local/Cellar/tesseract/3.0
 cp ~/Downloads/num/num.traineddata /usr/local/Cellar/tesseract/3.04.01_1/share/tessdata/
 
 cp chi_sim.traineddata /usr/local/Cellar/tesseract/3.04.01_1/share/tessdata/
+
+## PhpStorm 2016.1 Help/Viewing Structure of a Source File
+c class m method f function v variable f fields
