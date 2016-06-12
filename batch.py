@@ -79,8 +79,8 @@ def face(file):
     oriImg = IMAGE_DIR + file
 
     #图像压缩处理
-    disImg = IMAGE_DIR +"ocrdis"+file
-    newImg = resizeImg(ori_img=oriImg,dst_img=disImg,dst_w=2048,dst_h=2048,save_q=100)
+    # disImg = IMAGE_DIR +"ocrdis"+file
+    # newImg = resizeImg(ori_img=oriImg,dst_img=disImg,dst_w=2048,dst_h=2048,save_q=100)
 
     # cascPath = sys.argv[2]
     cascPath = "./data/haarcascades/haarcascade_frontalface_alt.xml"
@@ -89,7 +89,7 @@ def face(file):
     facecascade = cv2.CascadeClassifier(cascPath)
 
     # Read the image
-    image = cv2.imread(newImg)
+    image = cv2.imread(oriImg)
     gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
 
     # Detect faces in the image
@@ -100,7 +100,7 @@ def face(file):
         minSize=(30, 30),
         flags=cv2.cv.CV_HAAR_SCALE_IMAGE
     )
-    return len(faces)
+    return faces
 
 
 #黑白处理
@@ -190,9 +190,11 @@ def isnude(file):
     #图像压缩处理
     imagePath = IMAGE_DIR + file
     disImg = IMAGE_DIR +"dis"+file
-    newImg = resizeImg(ori_img=imagePath,dst_img=disImg,dst_w=1000,dst_h=1000,save_q=100)
+    newImg = resizeImg(ori_img=imagePath,dst_img=disImg,dst_w=300,dst_h=300,save_q=100)
 
+    faces = face("dis"+file)
     n = Nude(newImg)
+    n.setFaces(faces)
     # n.resize(1000,1000)
     n.parse()
     print n.result
@@ -233,7 +235,7 @@ def one(file):
         is_qq = 1
     is_nude = isnude(file)
     i = Images()
-    i.insert({'name': file, 'is_face': fc, 'ocr': text, 'is_qq': l,'is_nude': is_nude,
+    i.insert({'name': file, 'is_face': len(fc), 'ocr': text, 'is_qq': l,'is_nude': is_nude,
               'created_at': datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")})
     #删除图像
     delImg(file)
@@ -254,21 +256,22 @@ def threadone(start,stop):
             #pass
 
 # TODO：分组多线程
-total = len(fileList)
-#total = 18
-#4核cpu 所以设置4
-groutSize = 4
-listSize = total/groutSize
-currIndex = 0
-for i in range(0,groutSize,1):
-    start = i*listSize
-    stop = (i+1)*listSize
-    if i==groutSize-1:
-        stop = total
-    try:
-        threading.Thread(target=threadone, args=(start,stop)).start()
-    except Exception:
-        pass
+def t():
+    total = len(fileList)
+    #total = 18
+    #4核cpu 所以设置4
+    groutSize = 4
+    listSize = total/groutSize
+    currIndex = 0
+    for i in range(0,groutSize,1):
+        start = i*listSize
+        stop = (i+1)*listSize
+        if i==groutSize-1:
+            stop = total
+        try:
+            threading.Thread(target=threadone, args=(start,stop)).start()
+        except Exception:
+            pass
 
 
 #print '==='
@@ -296,3 +299,7 @@ for i in range(0,groutSize,1):
 #one("1463989897439A5767BB.jpg")
 #one("dis1463989897439A5767BB.jpg")
 #one("1464316744797A95F443.jpg")
+if __name__ == '__main__':
+    # t()
+    one("1464316839983A0C4E57.jpg")
+    pass
