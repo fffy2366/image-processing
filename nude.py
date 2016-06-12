@@ -18,7 +18,6 @@ def is_nude(path_or_io):
 
 
 class Nude(object):
-
     Skin = namedtuple("Skin", "id skin region x y checked")
 
     def __init__(self, path_or_io):
@@ -114,9 +113,9 @@ class Nude(object):
                     self.skin_map.append(self.Skin(_id, False, 0, x, y, False))
                 else:
                     # 排除人脸
-                    if self.isFace(x,y):
-                        self.skin_map.append(self.Skin(_id, False, 0, x, y, False))
-                        continue
+                    # if self.isFace(x,y):
+                    #     self.skin_map.append(self.Skin(_id, False, 0, x, y, False))
+                    #     continue
 
                     self.skin_map.append(self.Skin(_id, True, 0, x, y, False))
 
@@ -134,9 +133,9 @@ class Nude(object):
                             break
                         if self.skin_map[index].skin:
                             if (self.skin_map[index].region != region and
-                                    region != -1 and
-                                    self.last_from != region and
-                                    self.last_to != self.skin_map[index].region):
+                                        region != -1 and
+                                        self.last_from != region and
+                                        self.last_to != self.skin_map[index].region):
                                 self._add_merge(region, self.skin_map[index].region)
                             region = self.skin_map[index].region
                             checker = True
@@ -187,7 +186,7 @@ class Nude(object):
                 _tmp = copy.copy(self.merge_regions[from_index])
                 _tmp.extend(self.merge_regions[to_index])
                 self.merge_regions[from_index] = _tmp
-                del(self.merge_regions[to_index])
+                del (self.merge_regions[to_index])
             return
 
         if from_index == -1 and to_index == -1:
@@ -235,13 +234,20 @@ class Nude(object):
                 self.skin_regions.append(region)
 
     def _analyse_regions(self):
-
-        # if there are less than 3 regions
-        if len(self.skin_regions) < 3:
-            self.message = "Less than 3 skin regions ({_skin_regions_size})".format(
+        # if there are less than 1 regions
+        if len(self.skin_regions) < 1:
+            self.message = "Less than 1 skin regions ({_skin_regions_size})".format(
                 _skin_regions_size=len(self.skin_regions))
             self.result = False
             return self.result
+
+        ##    def _analyse_regions(self):
+        ##        # if there are less than 3 regions
+        ##        if len(self.skin_regions) < 3:
+        ##            self.message = "Less than 3 skin regions ({_skin_regions_size})".format(
+        ##                _skin_regions_size=len(self.skin_regions))
+        ##            self.result = False
+        ##            return self.result
 
         # sort the skin regions
         self.skin_regions = sorted(self.skin_regions, key=lambda s: len(s),
@@ -258,30 +264,56 @@ class Nude(object):
             return self.result
 
         # check if there are more than 15% skin pixel in the image
-        if total_skin / self.total_pixels * 100 < 15:
+        if total_skin / self.total_pixels * 100 < 20:
             # if the percentage lower than 15, it's not nude!
-            self.message = "Total skin percentage lower than 15 (%.3f%%)" % (
+            self.message = "Total skin percentage lower than 20 (%.3f%%)" % (
                 total_skin / self.total_pixels * 100)
             self.result = False
             return self.result
 
+        ##        if total_skin / self.total_pixels * 100 < 15:
+        ##            # if the percentage lower than 15, it's not nude!
+        ##            self.message = "Total skin percentage lower than 15 (%.3f%%)" % (
+        ##                total_skin / self.total_pixels * 100)
+        ##            self.result = False
+        ##            return self.result
+
         # check if the largest skin region is less than 35% of the total skin count
         # AND if the second largest region is less than 30% of the total skin count
         # AND if the third largest region is less than 30% of the total skin count
-        if len(self.skin_regions[0]) / total_skin * 100 < 35 and \
-           len(self.skin_regions[1]) / total_skin * 100 < 30 and \
-           len(self.skin_regions[2]) / total_skin * 100 < 30:
-            self.message = 'Less than 35%, 30%, 30% skin in the biggest regions'
+
+        if len(self.skin_regions[0]) / total_skin * 100 < 40 and \
+                                        len(self.skin_regions[1]) / total_skin * 100 < 35 and \
+                                        len(self.skin_regions[2]) / total_skin * 100 < 35:
+            self.message = 'Less than 40%, 35%, 35% skin in the biggest regions'
             self.result = False
             return self.result
 
+        ##        if len(self.skin_regions[0]) / total_skin * 100 < 35 and \
+        ##           len(self.skin_regions[1]) / total_skin * 100 < 30 and \
+        ##           len(self.skin_regions[2]) / total_skin * 100 < 30:
+        ##            self.message = 'Less than 35%, 30%, 30% skin in the biggest regions'
+        ##            self.result = False
+        ##            return self.result
+
+
+
+
+
+
         # check if the number of skin pixels in the largest region is
         # less than 45% of the total skin count
-        if len(self.skin_regions[0]) / total_skin * 100 < 45:
-            self.message = "The biggest region contains less than 45 (%.3f%%)" % (
+        if len(self.skin_regions[0]) / total_skin * 100 < 40:
+            self.message = "The biggest region contains less than 40 (%.3f%%)" % (
                 len(self.skin_regions[0]) / total_skin * 100)
             self.result = False
             return self.result
+
+        ##        if len(self.skin_regions[0]) / total_skin * 100 < 45:
+        ##            self.message = "The biggest region contains less than 45 (%.3f%%)" % (
+        ##                len(self.skin_regions[0]) / total_skin * 100)
+        ##            self.result = False
+        ##            return self.result
 
         # TODO:
         # build the bounding polygon by the regions edge values:
@@ -297,11 +329,17 @@ class Nude(object):
         # TODO: include bounding polygon functionality
         # if there are more than 60 skin regions and the average intensity
         # within the polygon is less than 0.25 the image is not nude
-        if len(self.skin_regions) > 60:
-            self.message = "More than 60 skin regions ({_skin_regions_size})".format(
+        if len(self.skin_regions) > 200:
+            self.message = "More than 200 skin regions ({_skin_regions_size})".format(
                 _skin_regions_size=len(self.skin_regions))
             self.result = False
             return self.result
+
+        ##        if len(self.skin_regions) > 60:
+        ##            self.message = "More than 60 skin regions ({_skin_regions_size})".format(
+        ##                _skin_regions_size=len(self.skin_regions))
+        ##            self.result = False
+        ##            return self.result
 
         # otherwise it is nude
         self.message = "Nude!!"
@@ -311,27 +349,27 @@ class Nude(object):
     # A Survey on Pixel-Based Skin Color Detection Techniques
     def _classify_skin(self, r, g, b):
         rgb_classifier = r > 95 and \
-            g > 40 and g < 100 and \
-            b > 20 and \
-            max([r, g, b]) - min([r, g, b]) > 15 and \
-            abs(r - g) > 15 and \
-            r > g and \
-            r > b
+                         g > 40 and g < 100 and \
+                         b > 20 and \
+                         max([r, g, b]) - min([r, g, b]) > 15 and \
+                         abs(r - g) > 15 and \
+                         r > g and \
+                         r > b
 
         nr, ng, nb = self._to_normalized(r, g, b)
         norm_rgb_classifier = nr / ng > 1.185 and \
-            float(r * b) / ((r + g + b) ** 2) > 0.107 and \
-            float(r * g) / ((r + g + b) ** 2) > 0.112
+                              float(r * b) / ((r + g + b) ** 2) > 0.107 and \
+                              float(r * g) / ((r + g + b) ** 2) > 0.112
 
         # TODO: Add normalized HSI, HSV, and a few non-parametric skin models too
 
         h, s, v = self._to_hsv(r, g, b)
         hsv_classifier = h > 0 and \
-            h < 35 and \
-            s > 0.23 and \
-            s < 0.68
+                         h < 35 and \
+                         s > 0.23 and \
+                         s < 0.68
 
-        y, cb, cr = self._to_ycbcr(r, g,  b)
+        y, cb, cr = self._to_ycbcr(r, g, b)
         # Based on this paper http://research.ijcaonline.org/volume94/number6/pxc3895695.pdf
         ycbcr_classifier = 97.5 <= cb <= 142.5 and 134 <= cr <= 176
 
@@ -363,9 +401,9 @@ class Nude(object):
     def _to_ycbcr(self, r, g, b):
         # Copied from here.
         # http://stackoverflow.com/questions/19459831/rgb-to-ycbcr-conversion-problems
-        y = .299*r + .587*g + .114*b
-        cb = 128 - 0.168736*r - 0.331364*g + 0.5*b
-        cr = 128 + 0.5*r - 0.418688*g - 0.081312*b
+        y = .299 * r + .587 * g + .114 * b
+        cb = 128 - 0.168736 * r - 0.331364 * g + 0.5 * b
+        cr = 128 + 0.5 * r - 0.418688 * g - 0.081312 * b
         return y, cb, cr
 
     def _to_hsv(self, r, g, b):
@@ -444,13 +482,13 @@ def main():
         callback = _poolcallbackverbose
 
     # If the user tuned on multi processing
-    if(args.threads):
+    if (args.threads):
         threadlist = []
         pool = multiprocessing.Pool(args.threads)
         for fname in args.files:
             if os.path.isfile(fname):
-                threadlist.append(pool.apply_async(_testfile, (fname, ),
-                                  {'resize': args.resize}, callback))
+                threadlist.append(pool.apply_async(_testfile, (fname,),
+                                                   {'resize': args.resize}, callback))
             else:
                 print(fname, "is not a file")
         pool.close()
@@ -467,6 +505,7 @@ def main():
                 callback(_testfile(fname, resize=args.resize))
             else:
                 print(fname, "is not a file")
+
 
 if __name__ == "__main__":
     main()

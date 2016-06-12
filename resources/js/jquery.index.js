@@ -9,6 +9,7 @@
 		uploadImage("#imgTitle","face") ;
         uploadImage("#imgTitleBig","ocr") ;
         uploadImage("#bce","bceocr") ;
+        uploadImage("#nude","nude") ;
 
 		$("#autoplay").click(function(){
 			var check = $("#autoplay").is(':checked') ;
@@ -56,7 +57,7 @@
 		        $(id+"_loading").empty() ;
 		        
 		        if(response.status == "y"){
-					$(id+"_img").html("<img style=\"height:80px\" src=\"/uploads/"+type+"/"+response.filename+"\"/>") ;
+					$(id+"_img").html("<img style=\"height:180px\" src=\"/uploads/"+type+"/"+response.filename+"\"/>") ;
 					$(id+"_inp").val(file) ;
 					$(id+"_filename").val(response.filename) ;
 		        }
@@ -64,7 +65,7 @@
 		        	alert(response.info) ;
 		        }
                 if(response.msg &&response.msg!=""){
-                    $("#msg").html(response.msg) ;
+                    $("#msg").html(unescape(response.msg)) ;
                 }
 		    }
 		});

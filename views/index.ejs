@@ -183,6 +183,22 @@ if(!!locals.category&&!!locals.cid){
         <%- !!locals.question && question.big_img ? '<a href="#" onclick="javascript:deleteFile(\'question_img_big\',this);" role="button" data-toggle="modal"><i class="icon-remove"></i></a>' : '' %>
 
         <p></p>
+
+        <input type="hidden" id="nude_inp" style="margin:0px 10px 0px 0px"/><input class="btn"
+                                                                                          style="margin-botton:10px"
+                                                                                          type="button"
+                                                                                          id="nude"
+                                                                                          value="鉴黄"/>
+        <input type="hidden" id="nude_filename"
+               value="<%= !!!locals.question ? '' : question.image %>"/>
+        <span id="nude_img">
+        <%- !!locals.question && question.big_img ? "<img src='/public/uploads/questions/" + question.big_img + "' style='height:80px'/>" : '' %>
+        </span>
+        <span id="nude_loading"></span>
+
+        <%- !!locals.question && question.big_img ? '<a href="#" onclick="javascript:deleteFile(\'question_img_big\',this);" role="button" data-toggle="modal"><i class="icon-remove"></i></a>' : '' %>
+
+        <p></p>
         <span id="msg"></span>
     </div>
 </div>
