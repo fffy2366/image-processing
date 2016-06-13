@@ -256,10 +256,10 @@ class Nude(object):
         # count total skin pixels
         total_skin = float(sum([len(skin_region) for skin_region in self.skin_regions]))
         # check if face area more than 25% skin pixel in the image
-        if self.getFaceArea()/total_skin  * 100 > 25:
+        if self.getFaceArea()/total_skin  * 100 > 28:
             # if the percentage lower than 25, it's not nude!
-            self.message = "Face skin/Total skin percentage moreer than 25 (%.3f%%)" % (
-                total_skin / self.total_pixels * 100)
+            self.message = "Face skin/Total skin percentage moreer than 28 (%.3f%%)" % (
+                self.getFaceArea()/total_skin * 100)
             self.result = False
             return self.result
 

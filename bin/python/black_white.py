@@ -52,7 +52,7 @@ def RGB2BlackWhite(filename):
             n= r*rate1/1000 + g*rate2/1000 + b*rate3/1000
             #print "n:",n
 
-            if n>=70 and n <=80:
+            if n>=200 and n <=250:
                 #white
                 im.putpixel( pos,(255,255,255))
                 pass
@@ -75,7 +75,7 @@ def saveAsBmp(fname):
 if __name__=="__main__":
     #filename=saveAsBmp("1463988841228ABFC41A.jpg")
     #filename=saveAsBmp("test110.jpg")
-    filename=saveAsBmp("1463904063966A83D54C.jpg")
+    filename=saveAsBmp("1463815812385A98C108.jpg")
     RGB2BlackWhite(filename)
 
     #faceBlankWhite("p3.png")

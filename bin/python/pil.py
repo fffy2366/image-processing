@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 __author__ = 'feng'
-path = "/Users/fengxuting/Downloads/ocr3.png"
+# path = "/Users/fengxuting/Downloads/ocr3.png"
+path = "/Users/fengxuting/Downloads/1463815812385A98C108.jpg"
 
 from PIL import Image, ImageDraw
 

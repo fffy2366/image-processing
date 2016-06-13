@@ -96,6 +96,10 @@ wb.save("sample.xlsx")
 [Tesseract Training on Mac OSX:](http://khalsa.guru/posts/16)
 [tesseract-ocr 第四课 如何训练新语言] (http://wangjunle23.blog.163.com/blog/static/117838171201323031458171/)
 [tessdata](https://github.com/tesseract-ocr/tessdata)
+[ocr 下载](https://sourceforge.net/projects/tesseract-ocr-alt/files/?source=navbar)
+[ocr wiki](https://github.com/tesseract-ocr/tesseract/wiki)
+[Improving the quality of the output](https://github.com/tesseract-ocr/tesseract/wiki/ImproveQuality#Segmentation_method)
+[ MAC用homebrew安装imagemagick](http://blog.csdn.net/cloudsben/article/details/8164047)
 
 error：pthread_cond_wait: Resource busy
 
@@ -103,8 +107,9 @@ error：pthread_cond_wait: Resource busy
 rm /usr/local/Cellar/tesseract/3.04.01_1/share/tessdata/num.traineddata
 
 tesseract ocr2.png result -l num
-tesseract ocr2.png result -l num -psm 6
+tesseract ocr2.png result -l num -psm 6 digits
 tesseract ocr2.png result -l num hocr
+tesseract ocr2.png result -l num digits
 
 more result.txt
 
@@ -115,3 +120,24 @@ cp chi_sim.traineddata /usr/local/Cellar/tesseract/3.04.01_1/share/tessdata/
 
 ## PhpStorm 2016.1 Help/Viewing Structure of a Source File
 c class m method f function v variable f fields
+
+
+
+
+/Users/fengxuting/python/image-processing/bin/shell/textcleaner -g -e none -f 15 -o 20 result.jpg text.jpg
+
+sudo sh /Users/fengxuting/python/image-processing/bin/shell/textcleaner -g -e none -f 15 -o 20 result.jpg text.jpg
+
+chmod -R 777 textcleaner
+./textcleaner -g -e none -f 15 -o 20 result.jpg text.jpg
+./textcleaner -g -e stretch -f 25 -o 20 -s 1 result.jpg text.jpg
+./textcleaner -g -e stretch -f 25 -o 5 -s 1 result.jpg text.jpg
+./textcleaner -g -e stretch -f 25 -o 10 -s 1 result.jpg text.jpg
+./textcleaner -e normalize -f 15 -o 5 -S 200 -s 1 result.jpg text.jpg
+./textcleaner -g -e none -f 15 -o 10 result.jpg text.jpg
+./textcleaner -g -e normalize -f 15 -o 10 result.jpg text.jpg
+./textcleaner -g -e normalize -f 15 -o 10 -s 1 result.jpg text.jpg
+
+
+./textcleaner -e normalize -f 15 -o 5 -S 200 -s 1 test108.jpg text.jpg
+./textcleaner -g -e normalize -f 15 -o 10 -s 1 test108.jpg text.jpg
