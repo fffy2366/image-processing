@@ -15,6 +15,7 @@ import datetime
 import cv2
 import re
 import threading
+import multiprocessing
 
 image.LOAD_TRUNCATED_IMAGES = True
 
@@ -44,7 +45,8 @@ logger.addHandler(fh)
 
 # 记录一条日志
 # logger.info('foorbar')
-IMAGE_DIR = "/Users/fengxuting/Downloads/testphoto/"
+# IMAGE_DIR = "/Users/fengxuting/Downloads/testphoto/"
+IMAGE_DIR = "/Users/fengxuting/Downloads/0614-1/"
 
 
 def getDirList(p):
@@ -197,7 +199,7 @@ def isnude(file):
     n.setFaces(faces)
     # n.resize(1000,1000)
     n.parse()
-    print n.result
+    # print n.result
     return 1 if n.result else 0
 
 
@@ -214,31 +216,36 @@ def delImg(file):
     #大于1600的
     ocrImg1600 = IMAGE_DIR +"ocrdis"+file
 
+
     if os.path.isfile(wbImg):
         os.remove(wbImg)
     if os.path.isfile(ocrImg300):
         os.remove(ocrImg300)
     if os.path.isfile(ocrImg1600):
         os.remove(ocrImg1600)
+
     #删除原文件
     os.remove(IMAGE_DIR+file)
 
 def one(file):
-    fc = face(file)
-    text = ""
-    text = ocr(file)
-    text = text.encode("utf-8")
+    if(file!=".DS_Store" and os.path.isfile(IMAGE_DIR+file)):
+        fc = face(file)
+        text = ""
+        text = ocr(file)
+        text = text.encode("utf-8")
 
-    l = countdigits(text)
-    is_qq = 0
-    if (l > 4):
-        is_qq = 1
-    is_nude = isnude(file)
-    i = Images()
-    i.insert({'name': file, 'is_face': len(fc), 'ocr': text, 'is_qq': l,'is_nude': is_nude,
-              'created_at': datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")})
-    #删除图像
-    delImg(file)
+        l = countdigits(text)
+        is_qq = 0
+        if (l > 4):
+            is_qq = 1
+        is_nude = isnude(file)
+        i = Images()
+        i.insert({'name': file, 'is_face': len(fc), 'ocr': text, 'is_qq': l,'is_nude': is_nude,
+                  'created_at': datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")})
+        #删除图像
+        delImg(file)
+    else:
+        print(file, "is not a img file")
 
 
 fileList = getFileList(IMAGE_DIR)
@@ -273,15 +280,17 @@ def t():
         except Exception:
             pass
 
+# 多进程
+def main():
+    count = multiprocessing.cpu_count()-1
+    pool = multiprocessing.Pool(processes=count)
+    for f in fileList:
+        pool.apply_async(one, (f,))  # 维持执行的进程总数为processes，当一个进程执行完毕后会添加新的进程进去
 
-#print '==='
-#print len(fileList)
-# print listSize
-#
-# print fileList[-1]
-# print fileList[0]
-# print fileList[1]
-# print fileList[2]
+    print "Mark~ Mark~ Mark~~~~~~~~~~~~~~~~~~~~~~"
+    pool.close()
+    pool.join()  # 调用join之前，先调用close函数，否则会出错。执行完close后不会有新的进程加入到pool,join函数等待所有子进程结束
+    print "Sub-process(es) done."
 
 
 
@@ -301,5 +310,6 @@ def t():
 #one("1464316744797A95F443.jpg")
 if __name__ == '__main__':
     # t()
-    one("1464316839983A0C4E57.jpg")
+    # one("1464317267291AD791DC.jpeg")
+    main()
     pass

@@ -38,7 +38,7 @@
 		    },
 		    onSubmit: function(file, ext){
 		        // Allow only images. You should add security check on the server-side.
-		        if (ext && /^(gif|jpg|png)$/i.test(ext)) {                            
+		        if (ext && /^(gif|jpg|png|jpeg)$/i.test(ext)) {
 		            this.setData({
 		                'limitMaxSize': '2',
 		                'type':type,
