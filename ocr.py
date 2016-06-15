@@ -18,14 +18,15 @@ def delImg(file):
         print(file+" not a file")
 
 #图像处理
-image = cv2.imread('public/uploads/ocr/'+sys.argv[1])
+ofile = 'public/uploads/ocr/'+sys.argv[1]
+image = cv2.imread(ofile)
 #str = pytesseract.image_to_string(Image.open('public/uploads/ocr/'+sys.argv[1]),lang='num+eng', boxes=False, config="-psm 6 digits")
 
 
 (h,w) = image.shape[:2]
 center = (w / 2,h / 2)
 
-s = ""
+s = pytesseract.image_to_string(Image.open(ofile),lang='eng', boxes=False, config="-psm 6")
 #90 -90 10度一个图
 c = 1
 for i in range(-90,100,10):
