@@ -6,13 +6,19 @@ import pytesseract
 import re
 import sys
 import cv2
+import os
 
 #print(pytesseract.image_to_string(Image.open('src/test-european.jpg'), lang='fra'))
 #str = pytesseract.image_to_string(Image.open('public/uploads/ocr/'+sys.argv[1]),lang='eng', boxes=False, config="-psm 6")
 #str = pytesseract.image_to_string(Image.open('public/uploads/ocr/'+sys.argv[1]),lang='chi_sim', boxes=False, config="-psm 6")
+def delImg(file):
+    if os.path.isfile(file):
+        os.remove(file)
+    else:
+        print(file+" not a file")
 
 #图像处理
-image = cv2.imread("/Users/fengxuting/Downloads/1463815812385A98C108.jpg")
+image = cv2.imread('public/uploads/ocr/'+sys.argv[1])
 #str = pytesseract.image_to_string(Image.open('public/uploads/ocr/'+sys.argv[1]),lang='num+eng', boxes=False, config="-psm 6 digits")
 
 
@@ -28,8 +34,10 @@ for i in range(-90,100,10):
     rotated = cv2.warpAffine(image,M,(w,h))
     file = 'public/uploads/ocr/f'+str(c)+'_'+sys.argv[1]
     cv2.imwrite(file,rotated, [int(cv2.IMWRITE_JPEG_QUALITY), 100])
-    s = s+pytesseract.image_to_string(Image.open(file),lang='num+eng', boxes=False, config="-psm 6")
+    s = s+"||||"+pytesseract.image_to_string(Image.open(file),lang='eng', boxes=False, config="-psm 6")
     c = c+1
+    #删除
+    delImg(file)
 
 print(s)
 ret = re.findall("\d{4,12}",s)
