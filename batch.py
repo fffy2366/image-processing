@@ -46,7 +46,7 @@ logger.addHandler(fh)
 # 记录一条日志
 # logger.info('foorbar')
 # IMAGE_DIR = "/Users/fengxuting/Downloads/testphoto/"
-IMAGE_DIR = "/Users/fengxuting/Downloads/0614-1/"
+IMAGE_DIR = "/Users/fengxuting/Downloads/0614-6/"
 
 
 def getDirList(p):
@@ -155,37 +155,35 @@ def resizeImg(**args):
 
     im = image.open(arg['ori_img'])
     ori_w, ori_h = im.size
+
+    widthRatio = heightRatio = None
+    ratio = 1
     if (ori_w and ori_w > arg['dst_w']) or (ori_h and ori_h > arg['dst_h']):
+        if arg['dst_w'] and ori_w > arg['dst_w']:
+            widthRatio = float(arg['dst_w']) / ori_w  # 正确获取小数的方式
+        if arg['dst_h'] and ori_h > arg['dst_h']:
+            heightRatio = float(arg['dst_h']) / ori_h
 
-        widthRatio = heightRatio = None
-        ratio = 1
-        if (ori_w and ori_w > arg['dst_w']) or (ori_h and ori_h > arg['dst_h']):
-            if arg['dst_w'] and ori_w > arg['dst_w']:
-                widthRatio = float(arg['dst_w']) / ori_w  # 正确获取小数的方式
-            if arg['dst_h'] and ori_h > arg['dst_h']:
-                heightRatio = float(arg['dst_h']) / ori_h
-
-            if widthRatio and heightRatio:
-                if widthRatio < heightRatio:
-                    ratio = widthRatio
-                else:
-                    ratio = heightRatio
-
-            if widthRatio and not heightRatio:
+        if widthRatio and heightRatio:
+            if widthRatio < heightRatio:
                 ratio = widthRatio
-            if heightRatio and not widthRatio:
+            else:
                 ratio = heightRatio
 
-            newWidth = int(ori_w * ratio)
-            newHeight = int(ori_h * ratio)
-        else:
-            newWidth = ori_w
-            newHeight = ori_h
+        if widthRatio and not heightRatio:
+            ratio = widthRatio
+        if heightRatio and not widthRatio:
+            ratio = heightRatio
 
-        im.resize((newWidth, newHeight), image.ANTIALIAS).save(arg['dst_img'], quality=arg['save_q'])
-        return arg['dst_img']
+        newWidth = int(ori_w * ratio)
+        newHeight = int(ori_h * ratio)
     else:
-        return arg['ori_img']
+        newWidth = ori_w
+        newHeight = ori_h
+
+    im.resize((newWidth, newHeight), image.ANTIALIAS).save(arg['dst_img'], quality=arg['save_q'])
+    return arg['dst_img']
+
 
 #鉴别黄色图片
 def isnude(file):
@@ -310,6 +308,6 @@ def main():
 #one("1464316744797A95F443.jpg")
 if __name__ == '__main__':
     # t()
-    # one("1464317267291AD791DC.jpeg")
+    # one("1464319290670A14CAB1.jpg")
     main()
     pass
