@@ -99,6 +99,7 @@ wb.save("sample.xlsx")
 [ocr 下载](https://sourceforge.net/projects/tesseract-ocr-alt/files/?source=navbar)
 [ocr wiki](https://github.com/tesseract-ocr/tesseract/wiki)
 [Improving the quality of the output](https://github.com/tesseract-ocr/tesseract/wiki/ImproveQuality#Segmentation_method)
+https://gist.github.com/endolith/334196bac1cac45a4893
 [ MAC用homebrew安装imagemagick](http://blog.csdn.net/cloudsben/article/details/8164047)
 [skimage](http://scikit-image.org/download.html)
 pip install -U scikit-image
@@ -145,6 +146,9 @@ chmod -R 777 textcleaner
 ./textcleaner -g -e normalize -f 15 -o 10 -s 1 test108.jpg text.jpg
 ./textcleaner -g -e normalize -f 15 -o 10 -s 1 1463815812385A98C108.jpg text.jpg
 
+## OCR
+
+[Noise Removal](http://cn.mathworks.com/help/images/noise-removal.html?requestedDomain=www.mathworks.com)
 
 [使用ImageMagick和Tesseract做中文文本识别](http://www.ziliao1.com/Article/Show/31F48139995AD93496EA962776C6A99F.html)
 
@@ -182,3 +186,42 @@ convert -compress none -depth 8 -alpha off  -monochrome ./1463904063966A83D54C.j
 tesseract ocr.tif result
 convert 1463473924704AD5ADD3.jpg -colorspace Gray ocr.tif
 convert 1463473924704AD5ADD3.jpg -colorspace Gray -monochrome  ocr.tif
+
+## 鉴别色情图片
+http://v2ex.com/t/286041#reply103
+
+https://github.com/nixuehan/rabbit
+
+[php](http://www.phpclasses.org/package/3269-PHP-Determine-whether-an-image-may-contain-nudity.html)
+
+## 图像搜索：
+[Google 以图搜图 - 相似图片搜索原理 - Java实现](http://m.blog.csdn.net/article/details?plg_nld=1&id=7100058&plg_auth=1&plg_uin=1&plg_usr=1&plg_vkey=1&plg_nld=1&plg_dev=1)
+[利用图片指纹检测高相似度图片](http://python.jobbole.com/81277/)
+
+https://github.com/fffy2366/image-fingerprinting
+
+
+[用Python和OpenCV创建一个图片搜索引擎的完整指南](http://python.jobbole.com/80860/)
+http://python.jobbole.com/80860/
+[image-search-engine-python-opencv](http://www.pyimagesearch.com/2014/12/01/complete-guide-building-image-search-engine-python-opencv/)
+
+[图像处理之K-Means算法演示](http://blog.csdn.net/jia20003/article/details/8828648)
+
+
+
+INSTALL:
+wget http://www.cl.cam.ac.uk/Research/DTG/attarchive/pub/data/att_faces.tar.Z
+tar zxvf att_faces.tar.Z
+mv orl_faces/ images
+sudo easy_install setuptools pycurl
+sudo pip install peewee
+sudo pip install -U scikit-learn
+
+wget http://github.com/downloads/facebook/tornado/tornado-1.2.1.tar.gz
+
+
+## 人脸识别
+[使用 OpenCV 与 Face++ 实现人脸解锁](http://python.jobbole.com/84666/)
+https://github.com/cyh24/Joint-Bayesian
+
+[opencv人脸匹配](http://docs.opencv.org/2.4/doc/tutorials/imgproc/histograms/template_matching/template_matching.html)
