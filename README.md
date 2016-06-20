@@ -16,7 +16,7 @@ e628
 confidence >0.8
 
 
-
+## python
 [python操作MySQL数据库](http://www.cnblogs.com/rollenholt/archive/2012/05/29/2524327.html)
 ##安装msyql
 
@@ -69,7 +69,7 @@ python
 import MySQLdb
 
 成功！
-
+centos7安装mysqldb：yum install MySQL-python
 
 [推荐 Python 读写 Excel 2010 xlsx/xlsm](https://pypi.python.org/pypi/openpyxl)
 

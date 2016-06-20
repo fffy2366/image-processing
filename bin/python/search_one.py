@@ -64,7 +64,7 @@ results = searcher.search(queryFeatures)
 
 
 # loop over the top ten results
-for j in xrange(0, 50):
+for j in xrange(0, len(results)):
     # grab the result (we are using row-major order) and
     # load the result image
     (score, imageName) = results[j]
