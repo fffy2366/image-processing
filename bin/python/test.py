@@ -13,4 +13,6 @@ def countdigits(s):
 
     return len(digitpatt.findall(s))
 
-print countdigits("f . 1")>4
+#print countdigits("f . 1")>4
+
+

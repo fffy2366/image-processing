@@ -121,6 +121,20 @@ router.post('/upload',function(req,res){
                     });
 
                 }
+                if(type=="similar"){
+                    var exec = require('child_process').exec;
+                    var shell = 'cd '+__dirname+'/../bin/python'+' && python search_one.py --dataset ../../public/uploads/similar --index ../../public/uploads/similar.cpickle --query '+newFile
+                    var child = exec(shell, function(err, stdout, stderr) {
+                        if (err) {
+                            console.log(err) ;
+                            res.send({status: "n", info: "失败", "path": target_path, "filename": newFile});
+                        }else{
+                            console.log(stdout);
+                            res.send({status: "y", info: "上传成功", "path": target_path, "filename": newFile,"msg":escape(stdout)});
+                        }
+                    });
+
+                }
 
             });
         }
@@ -142,4 +156,50 @@ router.get('/shell', function(req, res) {
     }
 });
 
+var Pluploader = require('node-pluploader');
+
+var pluploader = new Pluploader({
+    uploadLimit: 6, //单个文件最大，MB
+    //uploadDir: '/Users/fengxuting/python/image-processing/public/uploads/similar'
+});
+
+ /*
+  * Emitted when an entire file has been uploaded.
+  *
+  * @param file {Object} An object containing the uploaded file's name, type, buffered data & size
+  * @param req {Request} The request that carried in the final chunk
+  */
+pluploader.on('fileUploaded', function(file, req) {
+    StringUtils.mkdirSync('../public/uploads/similar');
+    var target_path = "./public/uploads/similar/"+file.name
+    fs.writeFile(target_path, file.data,function(err){
+        console.log(file);
+        var exec = require('child_process').exec;
+        var shell = 'cd '+__dirname+'/../bin/python'+' && python search_index_one.py --dataset ../../public/uploads/similar --index ../../public/uploads/similar.cpickle --file '+file.name
+        console.log(shell) ;
+        var child = exec(shell, function(err, stdout, stderr) {
+            if (err) {
+                console.log(err) ;
+
+            }
+            console.log(stdout);
+
+        });
+    }) ;
+
+});
+
+/*
+  * Emitted when an error occurs
+  *
+  * @param error {Error} The error
+  */
+pluploader.on('error', function(error) {
+    throw error;
+});
+
+// This example assumes you're using Express
+router.post('/plupload', function(req, res){
+  pluploader.handleRequest(req, res);
+});
 module.exports = router;

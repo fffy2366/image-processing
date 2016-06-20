@@ -13,7 +13,7 @@ OperationalError = MySQLdb.OperationalError
 
 
 class MySQL:
-    def __init__(self, host, user, password, port=3306, charset="utf8"):
+    def __init__(self, host='localhost', user='root', password='1234', port=3306, charset="utf8"):
         self.host = host
         self.port = port
         self.user = user

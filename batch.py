@@ -1,21 +1,21 @@
 #!bin/evn python
 # -*-coding:utf8-*-
 
-from credential import BceCredentials
-from bceocrapi import BceOCRAPI
-from bin.python.images import Images
-from nude import Nude
-from PIL import Image as image
-
 import base64
 import sys
 import os
 import logging
 import datetime
-import cv2
 import re
 import threading
 import multiprocessing
+
+from PIL import Image as image
+import cv2
+
+from bceocrapi import BceOCRAPI
+from bin.python.models.images import Images
+from nude import Nude
 
 image.LOAD_TRUNCATED_IMAGES = True
 

@@ -1,15 +1,16 @@
 #!bin/evn python
 # -*-coding:utf8-*-
-from mysql import MySQL
 import datetime
 import sys
-import types
+
+from bin.python.models.mysql import MySQL
+
 reload(sys)
 sys.setdefaultencoding('utf-8')
 
 class Images:
     def insert(self,d):
-        n = MySQL('127.0.0.1', 'root', '1234', 3306)
+        n = MySQL()
 
         n.selectDb('images')
         tbname = 'images'

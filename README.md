@@ -225,3 +225,12 @@ wget http://github.com/downloads/facebook/tornado/tornado-1.2.1.tar.gz
 https://github.com/cyh24/Joint-Bayesian
 
 [opencv人脸匹配](http://docs.opencv.org/2.4/doc/tutorials/imgproc/histograms/template_matching/template_matching.html)
+
+
+## plupload
+[plupload](http://www.plupload.com/download)
+
+http://chaping.github.io/plupload/demo/index4.html
+
+[前端上传组件Plupload使用指南](http://www.cnblogs.com/2050/p/3913184.html)
+[plupload](http://www.ophome.cn/question/60639)

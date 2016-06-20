@@ -41,6 +41,7 @@ Array.prototype.in_array = function (e) {
     <script language="javascript"
             src="/resources/js/jquery-ui-1.9.2.custom/i18n/jquery-ui-timepicker-zh-cn.js"></script>
     <script src="/resources/js/fileuploader/ajaxupload.js"></script>
+    <script src="/resources/js/plupload.full.min.js"></script>
     <script>
 
 
@@ -69,7 +70,23 @@ Array.prototype.in_array = function (e) {
             font-weight: bold;
         }
     </style>
-
+<style>
+	body{ font-size: 12px;}
+	body,p,div{ padding: 0; margin: 0;}
+	._wraper{ padding: 30px 0;}
+	.btn-wraper{ text-align: center;}
+	.btn-wraper input{ margin: 0 10px;}
+	#file-list{ width: 350px; margin: 20px auto;}
+	#file-list li{ margin-bottom: 10px;}
+	.file-name{ line-height: 30px;}
+	.progress{ height: 4px; font-size: 0; line-height: 4px; background: orange; width: 0;}
+    .tip1{text-align: center; font-size:14px; padding-top:10px;}
+    .tip2{text-align: center; font-size:12px; padding-top:10px; color:#b00}
+	#drag-area{ border: 1px solid #ccc; height: 150px; line-height: 150px; text-align: center; color: #aaa; width: 600px; margin: 10px auto;}
+	.catalogue{ position: fixed; _position:absolute; _width:200px; left: 0; top: 0; border: 1px solid #ccc;padding: 10px; background: #eee}
+    .catalogue a{ line-height: 30px; color: #0c0}
+    .catalogue li{ padding: 0; margin: 0; list-style: none;}
+	</style>
     <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
@@ -199,7 +216,36 @@ if(!!locals.category&&!!locals.cid){
         <%- !!locals.question && question.big_img ? '<a href="#" onclick="javascript:deleteFile(\'question_img_big\',this);" role="button" data-toggle="modal"><i class="icon-remove"></i></a>' : '' %>
 
         <p></p>
+
+        <input type="hidden" id="similar_inp" style="margin:0px 10px 0px 0px"/><input class="btn"
+                                                                                          style="margin-botton:10px"
+                                                                                          type="button"
+                                                                                          id="similar"
+                                                                                          value="对比"/>
+        <input type="hidden" id="similar_filename"
+               value="<%= !!!locals.question ? '' : question.image %>"/>
+        <span id="similar_img">
+        <%- !!locals.question && question.big_img ? "<img src='/public/uploads/questions/" + question.big_img + "' style='height:80px'/>" : '' %>
+        </span>
+        <span id="similar_loading"></span>
+
+        <%- !!locals.question && question.big_img ? '<a href="#" onclick="javascript:deleteFile(\'question_img_big\',this);" role="button" data-toggle="modal"><i class="icon-remove"></i></a>' : '' %>
+
+        <p></p>
         <span id="msg"></span>
+
+
+        <p class="tip1">拖拽上传对比图库</p>
+	    <div class="wraper">
+            <p id="drag-area">把要上传的文件拖放到这里(请使用支持html5的浏览器)</p>
+            <div class="btn-wraper">
+                <input type="button" class="btn" value="选择文件..." id="browse" />
+                <input type="button" class="btn" value="开始上传" id="upload-btn" />
+            </div>
+            <ul id="file-list">
+
+            </ul>
+	    </div>
     </div>
 </div>
 
