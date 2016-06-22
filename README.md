@@ -230,7 +230,45 @@ https://github.com/cyh24/Joint-Bayesian
 ## plupload
 [plupload](http://www.plupload.com/download)
 
-http://chaping.github.io/plupload/demo/index4.html
+[demo](http://chaping.github.io/plupload/demo/index4.html)
 
 [前端上传组件Plupload使用指南](http://www.cnblogs.com/2050/p/3913184.html)
 [plupload](http://www.ophome.cn/question/60639)
+
+
+##rar
+<命令>
+  e             解压文件到当前目录
+  l[t,b]        列出压缩文档信息[technical, bare]
+  p             打印文件到标准输出
+  t             测试压缩我俄当
+  v[t,b]        列出压缩文档的详细信息[technical,bare]
+  x             解压文件到完整路径
+
+rar x abc.rar
+
+## MySQL
+select count(*) from images ; 
+select id 序号, `name` 照片名称,is_face 人脸识别结论,is_qq QQ号识别结论,is_nude 黄色图片识别结论 from images  where id>2623 group by `name` order by created_at desc, name asc;
+
+
+## 运行
+nohup python batch.py &
+[1] 15890
+ps aux|grep 15890
+
+## 导出excel
+```
+#!/bin/bash
+# export table tablename to excel
+# author:frank
+# date:2014-09-08
+user=root
+pass=db2016
+db=images
+table=images
+#mkdir -p /backups/
+dir=/backups/
+file={table}.xls
+mysql --default-character-set='gb2312' -u${user} -p${pass} -e "select id 序号, name 照片名称,is_face 人脸识别结论,is_qq QQ号识别结论,is_nude 黄色图片识别结论  from ${db}.${table} where id>0 group by name order by created_at desc, name asc" > ${dir}${file}
+```

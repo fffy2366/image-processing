@@ -1,3 +1,7 @@
+'''
+author:xue
+func:image process for ocr
+'''
 import cv2.cv as cv
 import cv2
 import sys
@@ -9,10 +13,12 @@ import numpy as np
 a = array([[1, 2, 3, 4, 3, 5, 5], [3, 4, 2, 3, 2, 2, 3], [5, 4, 3, 2, 3, 6, 7]])
 print a
 b = a[0::1, 2::]
+c = a[0::1,0:]
 print b
 print len(a)
 print len(b)
 
+sys.exit(0)
 
 # Get user supplied values
 ##imagePath = sys.argv[1]
