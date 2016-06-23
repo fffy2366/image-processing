@@ -5,7 +5,7 @@ var fs = require('fs') ;
 var multiparty = require('multiparty');
 var StringUtils = require('../components/StringUtils') ;
 var uuid = require('node-uuid') ;
-var shell = require('shelljs');
+var shelljs = require('shelljs');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -72,11 +72,11 @@ router.post('/upload',function(req,res){
                 }
                 console.log("i:" + i);//为啥i=1
                 if(type=="face"){
-                    if (shell.exec('cd '+__dirname+'/..'+' && python face.py '+newFile).code !== 0) {
-                        shell.echo('Error: failed');
+                    if (shelljs.exec('cd '+__dirname+'/..'+' && python face.py '+newFile).code !== 0) {
+                        shelljs.echo('Error: failed');
                         res.send({status: "n", info: "失败", "path": target_path, "filename": newFile});
                     } else {
-                        shell.echo('success');
+                        shelljs.echo('success');
                         res.send({status: "y", info: "上传成功", "path": target_path, "filename": "f_"+newFile});
                     }
                 }
@@ -144,15 +144,15 @@ router.post('/upload',function(req,res){
 }) ;
 
 router.get('/shell', function(req, res) {
-    if (shell.exec('cd ~/python/image-processing && python face.py 2e66ebc0-1f3a-11e6-89c9-ddb2ad1cd177.jpg').code !== 0) {
-        shell.echo('Error: failed');
+    if (shelljs.exec('cd ~/python/image-processing && python face.py 2e66ebc0-1f3a-11e6-89c9-ddb2ad1cd177.jpg').code !== 0) {
+        shelljs.echo('Error: failed');
         res.send("Error: failed");
     } else {
-        shell.echo('success');
+        shelljs.echo('success');
         res.send("success");
         //var sleep = require('sleep');
         //sleep.sleep(3)
-        //shell.exec('pm2 restart 0');
+        //shelljs.exec('pm2 restart 0');
     }
 });
 
