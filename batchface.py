@@ -47,7 +47,7 @@ def detect(filename):
         face_area = w * h
         # 脸占整个图的比例
         face_scale = (face_area) / float(height * width) * 100
-        print("name %s,scale %s" % (filename,face_scale))
+        print("name %s,scale %s,x %s,y %s" % (filename,face_scale,x,y))
         if face_scale<0.5:
             continue
         faces_area.append(face_area)
@@ -93,4 +93,6 @@ if __name__ == '__main__':
         #     break
 
     # detect('1464319613177A1D9E90.jpg')
-    main()
+    # detect('1464319804427A27BB9A.jpg')
+    detect('1464319922780AEAE79B.png')
+    # main()
