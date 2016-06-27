@@ -79,10 +79,11 @@ class MySQL:
 
     def update(self, tbname, data, condition):
         _fields = []
-        _prefix = "".join(['UPDATE `', tbname, '`', 'SET'])
+        _prefix = "".join(['UPDATE `', tbname, '`', 'SET '])
         for key in data.keys():
             _fields.append("%s = %s" % (key, data[key]))
-        _sql = "".join([_prefix, _fields, "WHERE", condition])
+        _fieldsStr = ",".join([_field for _field in _fields])
+        _sql = "".join([_prefix, _fieldsStr, " WHERE ", condition])
 
         return self.cur.execute(_sql)
 

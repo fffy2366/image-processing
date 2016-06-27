@@ -226,7 +226,15 @@ https://github.com/cyh24/Joint-Bayesian
 
 [opencv人脸匹配](http://docs.opencv.org/2.4/doc/tutorials/imgproc/histograms/template_matching/template_matching.html)
 [百度人脸识别服务](https://segmentfault.com/a/1190000000485028?page=1)
+```
+scaleFactor=1.1,
+minNeighbors=5,
+minSize=(30, 30),
+flags=cv2.cv.CV_HAAR_SCALE_IMAGE
+```
+scaleFactor     :    官网文档说是每次图片缩小的比例,其实可以这么理解,距离相机不同的距离,物体大小是不一样的,在物体大小不一致的情况下识别一个东西是不方便的,这就需要进行多次的缩放,这就是这个参数的作用.
 
+minNeighbors :   可以理解为每次检测时,对检测点(Scale)周边多少有效点同时检测,因为可能选取的检测点大小不足而导致遗漏
 ## plupload
 [plupload](http://www.plupload.com/download)
 

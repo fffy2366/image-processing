@@ -10,7 +10,7 @@ import cv2
 # Get user supplied values
 imagePath = "public/uploads/face/" + sys.argv[1]
 # cascPath = sys.argv[2]
-cascPath = "./data/haarcascades/haarcascade_frontalface_alt.xml"
+cascPath = "./data/haarcascades/haarcascade_frontalface_alt2.xml"
 
 # Create the haar 级联
 facecascade = cv2.CascadeClassifier(cascPath)
@@ -24,7 +24,7 @@ gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
 faces = facecascade.detectMultiScale(
     gray,
     scaleFactor=1.1,
-    minNeighbors=5,
+    minNeighbors=2,
     minSize=(30, 30),
     flags=cv2.cv.CV_HAAR_SCALE_IMAGE
 )
