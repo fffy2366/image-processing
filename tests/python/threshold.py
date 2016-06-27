@@ -1,6 +1,8 @@
 #!bin/evn python
 # -*-coding:utf8-*-
 '''
+[Python-OpenCV 处理图像（八）：图像二值化处理](https://segmentfault.com/a/1190000003755115)
+
 0x02. cv.Threshold
 cv.Threshold(src, dst, threshold, maxValue, thresholdType)
 
@@ -27,15 +29,21 @@ threshold_type=CV_THRESH_TOZERO_INV:如果 src(x,y)>threshold，dst(x,y) = 0 ; �
 '''
 import cv2.cv as cv
 # image = cv.LoadImage('../../public/images/skew-linedetection.png')
-image = cv.LoadImage('/Users/fengxuting/Downloads/test122.jpg')
+# image = cv.LoadImage('/Users/fengxuting/Downloads/test122.jpg')
+image = cv.LoadImage('/Users/fengxuting/Downloads/1463990231976A3329FF(1).jpg')
 
+# 灰度化
 new = cv.CreateImage(cv.GetSize(image), image.depth, 1)
-cv.ShowImage('a_window', new)
-cv.WaitKey(0)
 for i in range(image.height):
     for j in range(image.width):
-        new[i,j] = max(image[i,j][0], image[i,j][1], image[i,j][2])
+        # 最大值法
+        # new[i,j] = max(image[i,j][0], image[i,j][1], image[i,j][2])
+        #加权平均法
+        new[i,j] = 0.3 * image[i,j][0] + 0.59 * image[i,j][1] +  0.11 * image[i,j][2]
 
-cv.Threshold(new, new, 10, 255, cv.CV_THRESH_BINARY_INV)
+# cv.ShowImage('a_window', new)
+# cv.WaitKey(0)
+# 二值化
+cv.Threshold(new, new, 120, 235, cv.CV_THRESH_BINARY_INV)
 cv.ShowImage('b_window', new)
 cv.WaitKey(0)

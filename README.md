@@ -225,7 +225,7 @@ wget http://github.com/downloads/facebook/tornado/tornado-1.2.1.tar.gz
 https://github.com/cyh24/Joint-Bayesian
 
 [opencv人脸匹配](http://docs.opencv.org/2.4/doc/tutorials/imgproc/histograms/template_matching/template_matching.html)
-
+[百度人脸识别服务](https://segmentfault.com/a/1190000000485028?page=1)
 
 ## plupload
 [plupload](http://www.plupload.com/download)
@@ -248,10 +248,11 @@ https://github.com/cyh24/Joint-Bayesian
 rar x abc.rar
 
 ## MySQL
+truncate table images ;
 select count(*) from images ; 
 select id 序号, `name` 照片名称,is_face 人脸识别结论,is_qq QQ号识别结论,is_nude 黄色图片识别结论 from images  where id>2623 group by `name` order by created_at desc, name asc;
 
-
+mysqldump -uroot -p images >/backups/xx.sql
 ## 运行
 nohup python batch.py &
 [1] 15890
@@ -272,3 +273,12 @@ dir=/backups/
 file={table}.xls
 mysql --default-character-set='gb2312' -u${user} -p${pass} -e "select id 序号, name 照片名称,is_face 人脸识别结论,is_qq QQ号识别结论,is_nude 黄色图片识别结论  from ${db}.${table} where id>0 group by name order by created_at desc, name asc" > ${dir}${file}
 ```
+
+
+## 优图
+http://open.youtu.qq.com/welcome/index
+
+http://api.youtu.qq.com/youtu/imageapi/imageporn
+
+## 微软 认知服务
+https://www.azure.cn/cognitive-services/zh-cn/face-api

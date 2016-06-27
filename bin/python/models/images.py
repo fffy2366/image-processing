@@ -16,7 +16,13 @@ class Images:
         tbname = 'images'
         n.insert(tbname, d)
         n.commit()
+    def findByFace(self,v):
+        n = MySQL()
 
+        n.selectDb('images')
+        tbname = 'images'
+        n.query("select name from %s where is_face = %s" %(tbname,v))
+        return n.fetchAll()
 
 if __name__ == '__main__':
     i = Images()

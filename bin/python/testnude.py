@@ -41,7 +41,7 @@ def facedetect(file):
     return faces
 print('start waiting', time.strftime('%H:%M:%S'))
 # n = Nude("/Users/fengxuting/Downloads/testphoto/1464317011202A33605A.jpg")
-file = ROOT+"/public/uploads/nude/dd8062a0-3059-11e6-8d73-395302bcadab.jpg"
+file = ROOT+"/public/uploads/nude/1464319781149AC72DF3.jpg"
 faces = facedetect(file)
 
 #计算人脸面积占整个图片的比例

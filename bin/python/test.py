@@ -50,6 +50,7 @@ a = np.array([[1,2,3,4,5,6,7],[1,2,3,4,3,5,5],[3,4,2,3,2,2,3],[5,4,3,2,3,6,7]])
 
 a.shape = 1,-1
 print a[0].tolist().count(2)
+print("aaaa%sbb%scc"%("11","22"))
 sys.exit(0)
 
 
