@@ -28,7 +28,8 @@ class Images:
 
         n.selectDb('images')
         tbname = 'images'
-        n.query("select name from %s where updated_at <'2016-06-27 00:00:00'" %(tbname) )
+        # n.query("select name from %s where updated_at <'2016-06-27 00:00:00'" %(tbname) )
+        n.query("select name from %s where is_face!=1 " %(tbname) )
         return n.fetchAll()
     def updateFace(self,filename,count):
         n = MySQL()

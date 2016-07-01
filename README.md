@@ -187,7 +187,7 @@ tesseract ocr.tif result
 convert 1463473924704AD5ADD3.jpg -colorspace Gray ocr.tif
 convert 1463473924704AD5ADD3.jpg -colorspace Gray -monochrome  ocr.tif
 
-## 鉴别色情图片
+## 鉴别色情图片 nude
 http://v2ex.com/t/286041#reply103
 
 https://github.com/nixuehan/rabbit
@@ -221,6 +221,10 @@ wget http://github.com/downloads/facebook/tornado/tornado-1.2.1.tar.gz
 
 
 ## 人脸识别
+[linux下查看opencv版本](http://blog.csdn.net/shaoxiaohu1/article/details/24308335)
+```
+$ pkg-config --modversion opencv 
+```
 [使用 OpenCV 与 Face++ 实现人脸解锁](http://python.jobbole.com/84666/)
 https://github.com/cyh24/Joint-Bayesian
 
@@ -235,6 +239,8 @@ flags=cv2.cv.CV_HAAR_SCALE_IMAGE
 scaleFactor     :    官网文档说是每次图片缩小的比例,其实可以这么理解,距离相机不同的距离,物体大小是不一样的,在物体大小不一致的情况下识别一个东西是不方便的,这就需要进行多次的缩放,这就是这个参数的作用.
 
 minNeighbors :   可以理解为每次检测时,对检测点(Scale)周边多少有效点同时检测,因为可能选取的检测点大小不足而导致遗漏
+[【原】训练自己haar-like特征分类器并识别物体（2）](http://www.cnblogs.com/wengzilin/p/3849118.html)
+
 ## plupload
 [plupload](http://www.plupload.com/download)
 
@@ -286,7 +292,13 @@ mysql --default-character-set='gb2312' -u${user} -p${pass} -e "select id 序号,
 ## 优图
 http://open.youtu.qq.com/welcome/index
 
+http://open.youtu.qq.com/welcome/developer#/api-face-analysis-detect
+
 http://api.youtu.qq.com/youtu/imageapi/imageporn
+
+https://github.com/TencentYouTu/python_sdk
 
 ## 微软 认知服务
 https://www.azure.cn/cognitive-services/zh-cn/face-api
+
+## [用Python做科学计算](http://old.sebug.net/paper/books/scipydoc/index.html)

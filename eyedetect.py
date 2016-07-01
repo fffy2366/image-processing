@@ -1,10 +1,10 @@
 #!bin/evn python
 # -*-coding:utf8-*-
 '''
-从数据库选取图片
-批量检测人脸
-name:batchface.py
-$ python batchface.py
+
+检测眼睛
+name:eyedetect.py
+$ python eyedetect.py
 '''
 import sys
 import cv2
@@ -14,69 +14,56 @@ import multiprocessing
 
 
 imgDir = "/Users/fengxuting/Downloads/photo/photo_pass/photo_pass/"
-def show(name,img):
-    cv2.imshow(name, img)
-    cv2.waitKey(0)
-    # cv2.destroyAllWindows()
+def detecteyes(img, cascade):
+    rects = cascade.detectMultiScale(img, scaleFactor=1.3, minNeighbors=4, minSize=(30, 30), flags = cv2.cv.CV_HAAR_SCALE_IMAGE)
+    if len(rects) == 0:
+        return []
+    rects[:,2:] += rects[:,:2]
+    return rects
+def draw_rects(img, rects, color):
+    for x1, y1, x2, y2 in rects:
+        cv2.rectangle(img, (x1, y1), (x2, y2), color, 2)
 def detect(filename):
     # Get user supplied values
     imagePath = imgDir + filename
-    # cascPath = "./data/haarcascades/haarcascade_frontalface_alt2.xml"
-    cascPath = "./data/lbpcascades/lbpcascade_frontalface.xml"
+    # cascPath = "./data/haarcascades/haarcascade_eye.xml"
+    # cascPath = "./data/haarcascades/haarcascade_mcs_nose.xml"
+    cascPath = "./data/haarcascades/haarcascade_mcs_mouth.xml"
     # cascPath = "./data/haarcascades/haarcascades_frontalface_alt_tree.xml"
 
     # Create the haar 级联
-    facecascade = cv2.CascadeClassifier(cascPath)
+    eyecascade = cv2.CascadeClassifier(cascPath)
 
     # Read the image
     image = cv2.imread(imagePath)
     gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
-    gray = cv2.equalizeHist(gray,gray)#直方图均衡化：直方图均衡化是通过拉伸像素强度分布范围来增强图像对比度的一种方法。
-    # show("img1",gray)
-    gray = cv2.medianBlur(gray,3)#降噪？
-    # show("img2",gray)
     # print(image.shape)
     (height, width, a) = image.shape
     # Detect faces in the image
-    faces = facecascade.detectMultiScale(
-        gray,
-        scaleFactor=1.1,
-        minNeighbors=2,
-        minSize=(30, 30),
-        flags=cv2.cv.CV_HAAR_SCALE_IMAGE
-    )
+    # eyes = eyecascade.detectMultiScale(
+    #     gray,
+    #     scaleFactor=1.1,
+    #     minNeighbors=2,
+    #     minSize=(30, 30),
+    #     flags=cv2.cv.CV_HAAR_SCALE_IMAGE
+    # )
+    eyes = detecteyes(gray.copy(), eyecascade)
+    vis = image.copy()
+    draw_rects(vis, eyes, (255, 0, 0))
+    cv2.imshow('facedetect', vis)
+    cv2.waitKey(0)
+    cv2.destroyAllWindows()
 
-    print "Found {0} faces!".format(len(faces))
-    # show("img3",gray)
-    # cv2.destroyAllWindows()
+    print "Found {0} eyes!".format(len(eyes))
+
     # Draw a rectangle around the faces
     # 1，如果小于0.5%的 不认为头像。2，多个头像的  与最大的对比，如果比值小于50%，不认为是头像。
     faces_area = []
-    face_count = 0
-    for (x, y, w, h) in faces:
-        face_area = w * h
-        # 脸占整个图的比例
-        face_scale = (face_area) / float(height * width) * 100
-        print("name %s,scale %s,x %s,y %s" % (filename,face_scale,x,y))
-        # if face_scale<0.5:
-        #     continue
-        faces_area.append(face_area)
 
-    if(len(faces_area)>1):
-        face_max = max(faces_area)
-        for fa in faces_area:
-            # 脸占最大脸的比例
-            scale = fa/float(face_max) * 100
-            print("scale %s" % (scale))
-            if(scale<50):
-                continue
-            else:
-                face_count += 1
-    else:
-        face_count = len(faces_area)
-    print "Filter Found {0} faces!".format(face_count)
+
+    print "Filter Found {0} eyes!".format(len(eyes))
     # 更新监测人脸数到数据库
-    images = Images().updateFace(filename,face_count)
+    # images = Images().updateFace(filename,len(faces))
 
 # 多进程
 def main():
@@ -104,7 +91,7 @@ if __name__ == '__main__':
         # if c >5 :
         #     break
 
-    # detect('1464319613177A1D9E90.jpg')
+    detect('1464319613177A1D9E90.jpg')
     # detect('1464319804427A27BB9A.jpg')
     # detect('1464319922780AEAE79B.png')
-    main()
+    # main()

@@ -10,10 +10,12 @@ import cv2
 # Get user supplied values
 imagePath = "public/uploads/face/" + sys.argv[1]
 # cascPath = sys.argv[2]
-cascPath = "./data/haarcascades/haarcascade_frontalface_alt2.xml"
+cascPath = "./data/haarcascades/haarcascade_frontalface_alt.xml"
+cascPath2 = "./data/haarcascades/haarcascade_frontalface_alt2.xml"
+cascPath_lbp = "./data/lbpcascades/lbpcascade_frontalface.xml"
 
 # Create the haar 级联
-facecascade = cv2.CascadeClassifier(cascPath)
+facecascade = cv2.CascadeClassifier(cascPath2)
 
 # Read the image
 image = cv2.imread(imagePath)
