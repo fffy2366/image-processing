@@ -13,7 +13,7 @@ import threading
 import multiprocessing
 
 
-imgDir = "/Users/fengxuting/Downloads/photo/photo_pass/photo_pass/"
+imgDir = "/Users/fengxuting/Downloads/photo/photo_del/photo_del/"
 def show(name,img):
     cv2.imshow(name, img)
     cv2.waitKey(0)

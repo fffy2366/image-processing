@@ -72,13 +72,24 @@ router.post('/upload',function(req,res){
                 }
                 console.log("i:" + i);//为啥i=1
                 if(type=="face"){
-                    if (shelljs.exec('cd '+__dirname+'/..'+' && python face.py '+newFile).code !== 0) {
+                    /*if (shelljs.exec('cd '+__dirname+'/..'+' && python face.py '+newFile).code !== 0) {
                         shelljs.echo('Error: failed');
                         res.send({status: "n", info: "失败", "path": target_path, "filename": newFile});
                     } else {
                         shelljs.echo('success');
                         res.send({status: "y", info: "上传成功", "path": target_path, "filename": "f_"+newFile});
-                    }
+                    }*/
+                    var exec = require('child_process').exec;
+                    var cmd = 'cd '+__dirname+'/..'+' && python face.py '+newFile ;
+                    console.log("cmd:"+cmd) ;
+                    var child = exec(cmd, function(err, stdout, stderr) {
+                        if (err) {
+                            console.log(err) ;
+                            res.send({status: "n", info: "失败", "path": target_path, "filename": newFile});
+                        }
+                        console.log(stdout);
+                        res.send({status: "y", info: "上传成功", "path": target_path, "filename": "f_"+newFile,"msg":escape(stdout)});
+                    });
                 }
                 if(type=="ocr"){
                     var exec = require('child_process').exec;

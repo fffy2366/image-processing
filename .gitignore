@@ -3,3 +3,4 @@
 /public/uploads
 
 *.pyc
+*.log
