@@ -6,6 +6,8 @@ var multiparty = require('multiparty');
 var StringUtils = require('../components/StringUtils') ;
 var uuid = require('node-uuid') ;
 var shelljs = require('shelljs');
+var Sign = require('../models/sign')
+var moment = require('moment');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -146,6 +148,9 @@ router.post('/upload',function(req,res){
                     });
 
                 }
+                if(type=="photo"){
+                    res.send({status: "y", info: "上传成功", "path": target_path, "filename": newFile});
+                }
 
             });
         }
@@ -170,7 +175,7 @@ router.get('/shell', function(req, res) {
 var Pluploader = require('node-pluploader');
 
 var pluploader = new Pluploader({
-    uploadLimit: 6, //单个文件最大，MB
+    uploadLimit: 6 //单个文件最大，MB
     //uploadDir: '/Users/fengxuting/python/image-processing/public/uploads/similar'
 });
 
@@ -213,4 +218,47 @@ pluploader.on('error', function(error) {
 router.post('/plupload', function(req, res){
   pluploader.handleRequest(req, res);
 });
+/**
+ * 图片检测
+ * https://cnodejs.org/topic/4f939c84407edba2143c12f7
+ */
+router.post('/detect', function(req, res){
+    //接收前台POST过来的base64
+    var imgData = req.body.imgData;
+    //过滤data:URL
+    var base64Data = imgData.replace(/^data:image\/\w+;base64,/, "");
+    var dataBuffer = new Buffer(base64Data, 'base64');
+    fs.writeFile("out.png", dataBuffer, function(err) {
+        if(err){
+            res.send(err);
+        }else{
+            res.send("保存成功！");
+        }
+    });
+});
+/**
+ * 聚会报名
+ */
+router.get('/sign', function(req, res){
+    res.render('sign', { title: 'Express' });
+});
+/**
+ * 姓名  电话  常住城市   上传一张个人近照
+ */
+router.post('/sign', function(req, res){
+    var username = req.body.username ;
+    var mobile = req.body.mobile ;
+    var address = req.body.address ;
+    var photo = req.body.photo ;
+    var created_at = moment().format("YYYY-MM-DD HH:mm:ss") ;
+    Sign.save(username,mobile,address,photo,created_at,function(err,result){
+        if(err){
+            res.send({status: "n", info: "报名失败" });
+        }else{
+            res.send({status: "y", info: "报名成功" });
+        }
+    }) ;
+
+});
+
 module.exports = router;

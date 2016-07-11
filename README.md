@@ -302,3 +302,24 @@ https://github.com/TencentYouTu/python_sdk
 https://www.azure.cn/cognitive-services/zh-cn/face-api
 
 ## [用Python做科学计算](http://old.sebug.net/paper/books/scipydoc/index.html)
+
+
+## 爬虫
+
+http://scrapy.org/download/
+
+
+## API
+1 -检测到一个人脸
+2 -检测到多个人脸
+3 -数字不通过
+4 -鉴黄不通过
+等
+2，我们告诉他一个需要的图片的尺寸  如 600*800
+他会对原始图片 resize 之后传给咱们
+3，他还需要一个图片的角度  值需要  0  +90  -90  180
+
+
+
+https://github.com/component/focus
+
