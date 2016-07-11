@@ -102,7 +102,7 @@ var signSubmit = function(){
 	var username = $("input[name='username']").val() ;
 	var mobile = $("input[name='mobile']").val() ;
 	var address = $("input[name='address']").val() ;
-	var photo = $("#imgTitle_inp").val() ;
+	var photo = $("#imgTitle_filename").val() ;
 
 	if(username==""){
 		alert("请填写姓名") ;
