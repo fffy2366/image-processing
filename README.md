@@ -318,7 +318,7 @@ http://scrapy.org/download/
 2，我们告诉他一个需要的图片的尺寸  如 600*800
 他会对原始图片 resize 之后传给咱们
 3，他还需要一个图片的角度  值需要  0  +90  -90  180
-
+[利用图片指纹检测高相似度图片](http://python.jobbole.com/81277/)
 
 
 https://github.com/component/focus

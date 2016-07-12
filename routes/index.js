@@ -8,6 +8,9 @@ var uuid = require('node-uuid') ;
 var shelljs = require('shelljs');
 var Sign = require('../models/sign')
 var moment = require('moment');
+var logger = require('../config/Logger') ;
+var crypto = require('crypto');
+var settings = require('../config/settings') ;
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -223,18 +226,53 @@ router.post('/plupload', function(req, res){
  * https://cnodejs.org/topic/4f939c84407edba2143c12f7
  */
 router.post('/detect', function(req, res){
-    //接收前台POST过来的base64
-    var imgData = req.body.imgData;
-    //过滤data:URL
-    var base64Data = imgData.replace(/^data:image\/\w+;base64,/, "");
-    var dataBuffer = new Buffer(base64Data, 'base64');
-    fs.writeFile("out.png", dataBuffer, function(err) {
-        if(err){
-            res.send(err);
-        }else{
-            res.send("保存成功！");
-        }
+
+    req.rawBody = '';
+    var json = {};
+    req.setEncoding('utf8');
+
+    req.on('data', function (chunk) {
+        req.rawBody += chunk;
     });
+    req.on('end', function () {
+        var key = settings.youyuan_key ;
+        var bodyObj = JSON.parse(req.rawBody) ;
+        var timestamp = bodyObj.timestamp ;
+        logger.info(timestamp) ;
+        //验证请求时间，跟当前时间比较上下不超过5分钟
+        logger.info(parseInt((moment().unix()-timestamp)/60)>5) ;
+        if(parseInt((moment().unix()-timestamp)/60)>5){
+            res.send({"retcode":"2","retmsg":"非法请求！"}) ;
+        }
+        //验证签名
+        var sign = bodyObj.sign ;
+        var md5 = crypto.createHash('md5');
+        md5.update(timestamp+key);
+        var vilidSign = md5.digest('hex');
+        if(vilidSign!=sign){
+            res.send({"retcode":"3","retmsg":"签名错误！"}) ;
+        }
+        //保存图片
+        var base64Data = bodyObj.base64 ;
+        var newFile = uuid.v1() + "." + png;
+            var target_path = "./public/uploads/" + type + "/" + newFile;
+
+        logger.info(base64Data) ;
+        var dataBuffer = new Buffer(base64Data, 'base64');
+
+        fs.writeFile("public/uploads/out.png", dataBuffer, function(err) {
+            if(err){
+                logger.error(err) ;
+                res.send({"retcode":"1","retmsg":err});
+            }else{
+                res.send({"retcode":"1","retmsg":"保存成功！"}) ;
+            }
+        });
+
+    }) ;
+
+
+
 });
 /**
  * 聚会报名
