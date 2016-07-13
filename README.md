@@ -187,6 +187,9 @@ tesseract ocr.tif result
 convert 1463473924704AD5ADD3.jpg -colorspace Gray ocr.tif
 convert 1463473924704AD5ADD3.jpg -colorspace Gray -monochrome  ocr.tif
 
+
+[matlab 车牌号码识别程序代码](http://wenku.baidu.com/link?url=jdOAtiTIx6JiFzb6VSCVN9_USnZuOkT8QJ5Px0kYEi5fBelPn0Hg2zQhctW1spk67fGstdOwSrMPSrmd82lg2ukQnUsjdErcqur-i_o03SG)
+
 ## 鉴别色情图片 nude
 http://v2ex.com/t/286041#reply103
 
@@ -323,3 +326,25 @@ http://scrapy.org/download/
 
 https://github.com/component/focus
 
+
+win10:
+npm config set msvs_version 2013 --global
+npm install --msvs_version=2015
+
+安装vs2015
+
+python下如何安装.whl包？
+python培训 python培训 2015-02-08 18:34:40
+下载.whl包
+先pip install wheel
+
+之后pip install 包名字.whl 即可安装某模块包
+
+
+到哪找.whl文件？
+http://www.lfd.uci.edu/~gohlke/pythonlibs/
+
+python -m pip install --upgrade pip
+pip install numpy -U
+
+[国内使用easy_install和pip超时问题解决](http://www.toxingwang.com/linux-unix/shell/2633.html)
