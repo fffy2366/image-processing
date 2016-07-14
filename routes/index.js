@@ -254,18 +254,34 @@ router.post('/detect', function(req, res){
         }
         //保存图片
         var base64Data = bodyObj.base64 ;
-        var newFile = uuid.v1() + "." + png;
-            var target_path = "./public/uploads/" + type + "/" + newFile;
+        var newFile = uuid.v1() + ".png";
+        StringUtils.mkdirSync('../public/uploads/api');
+        var target_path = "./public/uploads/api/" + newFile;
 
-        logger.info(base64Data) ;
+//        logger.info(base64Data) ;
         var dataBuffer = new Buffer(base64Data, 'base64');
 
-        fs.writeFile("public/uploads/out.png", dataBuffer, function(err) {
+        fs.writeFile(target_path, dataBuffer, function(err) {
             if(err){
                 logger.error(err) ;
                 res.send({"retcode":"1","retmsg":err});
             }else{
-                res.send({"retcode":"1","retmsg":"保存成功！"}) ;
+                //res.send({"retcode":"1","retmsg":"保存成功！"}) ;
+                //调用python检测图片，返回结果
+                //删除图片
+                var exec = require('child_process').exec;
+                var shell = 'cd '+__dirname+'/..'+' && python api.py '+newFile
+                var child = exec(shell, function(err, stdout, stderr) {
+                    if (err) {
+                        console.log(err) ;
+                        res.send({retcode: 1, info: "fail"});
+                    }else{
+                        console.log(stdout);
+                        var out_arr = stdout.split(",") ;
+                        var results = {"face_count":out_arr[0],"digital_count":out_arr[1],"is_nude":out_arr[2],"pass":out_arr[2]}
+                        res.send({retcode: 0, retmsg: "success","results":results});
+                    }
+                });
             }
         });
 

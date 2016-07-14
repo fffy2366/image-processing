@@ -36,6 +36,7 @@ for (x, y, w, h) in faces:
     cv2.rectangle(image, (x, y), (x + w, y + h), (0, 255, 0), 2)
 
 cv2.imwrite('../../public/uploads/face/f_'+sys.argv[1],image, [int(cv2.IMWRITE_JPEG_QUALITY), 100])
+
 # 显示
 #cv2.imshow("Faces found", gray)
 # cv2.imshow("Faces found" ,image)

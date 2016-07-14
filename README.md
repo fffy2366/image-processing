@@ -348,3 +348,14 @@ python -m pip install --upgrade pip
 pip install numpy -U
 
 [国内使用easy_install和pip超时问题解决](http://www.toxingwang.com/linux-unix/shell/2633.html)
+
+
+"node-pluploader": "0.0.5",
+q:
+error
+ MSB8036: The Windows SDK version 8.1 was not found. Install the required version of Windows SDK or change the SDK vers
+ion in the project property pages or by right-clicking the solution and selecting "Retarget solution".
+a:
+https://developer.microsoft.com/en-us/windows/downloads/windows-8-1-sdk
+q&a:
+[Visual studio doesn't have cl.exe [closed]](http://stackoverflow.com/questions/31953769/visual-studio-doesnt-have-cl-exe}

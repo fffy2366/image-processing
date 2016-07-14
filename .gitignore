@@ -3,4 +3,9 @@
 /public/uploads
 
 *.pyc
+bin/python/*.pyc
 *.log
+.idea
+
+build/
+logs/

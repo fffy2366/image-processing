@@ -69,7 +69,9 @@ class Http((object)):
         # print data
         res = self.post('http://localhost:3002/detect', data)
 
-        print res['retmsg']
+        print res
+        # print res['results']
+        # print res['retmsg']
 if __name__ == '__main__':
     h = Http()
     h.detect("../../../public/images/damita2.jpg")
