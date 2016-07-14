@@ -67,7 +67,8 @@ class Http((object)):
             "base64": base64Img
         }
         # print data
-        res = self.post('http://localhost:3002/detect', data)
+        # res = self.post('http://localhost:3002/detect', data)
+        res = self.post('http://180.76.143.82:3002/detect', data)
 
         print res
         # print res['results']

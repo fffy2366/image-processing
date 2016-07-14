@@ -229,7 +229,7 @@ def one(file):
         #删除图像
         delImg(file)
         is_pass = 1
-        if(len(fc)!=1 or l>6 or is_nude):
+        if(len(fc)!=1 or l>6 or is_nude==1):
             is_pass = 0
         # print {"face_count":len(fc),"digital_count":l,"is_nude":is_nude,"pass":is_pass}
         print str(len(fc))+","+str(l)+","+str(is_nude)+","+str(is_pass)
