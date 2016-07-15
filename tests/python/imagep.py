@@ -24,7 +24,9 @@ sys.exit(0)
 ##imagePath = sys.argv[1]
 ##cascPath = sys.argv[2]
 ##imagePath = ('images/371.jpg')
-im = Image.open("/Users/fengxuting/Downloads/test122.jpg")
+f = "../../public/images/damita.jpg" ;
+# im = Image.open("/Users/fengxuting/Downloads/test122.jpg")
+im = Image.open(f)
 im_arr = array(im.convert('L'), 'int')
 
 ##pix = im.load()

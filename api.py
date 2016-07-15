@@ -47,18 +47,6 @@ logger.addHandler(fh)
 # IMAGE_DIR = "/Users/fengxuting/Downloads/testphoto/"
 IMAGE_DIR = "public/uploads/api/"
 
-
-def getDirList(p):
-    p = str(p)
-    if p == "":
-        return []
-        # p = p.replace( "/","\\")
-        # if p[ -1] != "\\":
-        # p = p+"\\"
-    a = os.listdir(p)
-    b = [x for x in a if os.path.isdir(p + x)]
-    return b
-
 # 人脸识别
 def face(file):
     # Get user supplied values
@@ -68,7 +56,6 @@ def face(file):
     # disImg = IMAGE_DIR +"ocrdis"+file
     # newImg = resizeImg(ori_img=oriImg,dst_img=disImg,dst_w=2048,dst_h=2048,save_q=100)
 
-    # cascPath = sys.argv[2]
     # cascPath = "./data/haarcascades/haarcascade_frontalface_alt.xml"
     cascPath = "./data/lbpcascades/lbpcascade_frontalface.xml"
 
@@ -78,7 +65,8 @@ def face(file):
     # Read the image
     image = cv2.imread(oriImg)
     gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
-
+    gray = cv2.equalizeHist(gray, gray)  # 直方图均衡化：直方图均衡化是通过拉伸像素强度分布范围来增强图像对比度的一种方法。
+    gray = cv2.medianBlur(gray, 3)  # 降噪？
     # Detect faces in the image
     faces = facecascade.detectMultiScale(
         gray,
@@ -185,13 +173,13 @@ def isnude(file):
     # print n.result
     return 1 if n.result else 0
 
-
+# 统计数字个数
 def countdigits(s):
     digitpatt = re.compile('\d')
 
     return len(digitpatt.findall(s))
 
-
+# 删除图片
 def delImg(file):
     #黑白的
     wbImg = IMAGE_DIR+"wb"+file

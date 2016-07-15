@@ -359,3 +359,9 @@ a:
 https://developer.microsoft.com/en-us/windows/downloads/windows-8-1-sdk
 q&a:
 [Visual studio doesn't have cl.exe [closed]](http://stackoverflow.com/questions/31953769/visual-studio-doesnt-have-cl-exe}
+
+
+pylab 包含numpy ,scipy,matplotlib ,从http://www.lfd.uci.edu/~gohlke/pythonlibs/下载
+[有关python中的pylab的下载安装 ](http://blog.sina.com.cn/s/blog_76cb58fb0102vcx7.html)
+
+
