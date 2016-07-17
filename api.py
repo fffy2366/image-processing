@@ -8,7 +8,7 @@ import logging
 import datetime
 import re
 import multiprocessing
-from pylab import *
+# from pylab import *
 
 from PIL import Image as image
 import cv2

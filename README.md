@@ -364,7 +364,7 @@ q&a:
 
 pylab 包含numpy ,scipy,matplotlib ,从http://www.lfd.uci.edu/~gohlke/pythonlibs/下载
 [有关python中的pylab的下载安装 ](http://blog.sina.com.cn/s/blog_76cb58fb0102vcx7.html)
-
+[Installing the SciPy Stack](http://www.scipy.org/install.html)
 
 Todo:
 * 人脸数判断√
@@ -381,3 +381,10 @@ sudo pip install pillow imagehash
 
 [图文教程：百度云主机BCC挂载云盘CDS](http://xiaohost.com/1376.html)
 
+
+## centos 安装pip
+wget --no-check-certificate https://github.com/pypa/pip/archive/1.5.5.tar.gz
+
+tar zvxf 1.5.5.tar.gz    #解压文件
+cd pip-1.5.5/
+python setup.py install
