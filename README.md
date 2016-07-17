@@ -377,3 +377,7 @@ Todo:
 [Matlab 2015a &2014b Mac版+教程（百度云限速破解）](http://bbs.feng.com/read-htm-tid-9711547.html)
 
 sudo pip install pillow imagehash
+
+
+[图文教程：百度云主机BCC挂载云盘CDS](http://xiaohost.com/1376.html)
+

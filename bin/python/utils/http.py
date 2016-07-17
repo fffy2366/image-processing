@@ -75,4 +75,6 @@ class Http((object)):
         # print res['retmsg']
 if __name__ == '__main__':
     h = Http()
-    h.detect("../../../public/images/damita2.jpg")
+    # h.detect("../../../public/images/damita2.jpg")
+    # h.detect("/Users/fengxuting/Downloads/photo/photo_pass/photo_pass/1464318494483A9B1A59.jpg")
+    h.detect("/Users/fengxuting/Downloads/photo/photo_pass/photo_pass/1464318775245A552D29.jpg")

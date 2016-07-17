@@ -40,7 +40,8 @@ conf = logger.Logger()
 # IMAGE_DIR = "/Users/fengxuting/Downloads/testphoto/"
 IMAGE_DIR = "public/uploads/api/"
 class Api:
-
+    def __init__(self):
+        self.IMAGE_HASH = ""
     # 获取图片哈希值
     def get_image_hash(self,file):
         img = image.open(file)
@@ -90,7 +91,7 @@ class Api:
         faces_new = []
         if(len(faces_area)>1):
             face_max = max(faces_area)
-            for index,face in faces:
+            for index,face in enumerate(faces) :
                 (x, y, w, h) = face
                 # 脸占最大脸的比例
                 scale = (w*h)/float(face_max) * 100
@@ -228,7 +229,8 @@ class Api:
     def one(self,file):
         filepath = IMAGE_DIR+file
         if(os.path.isfile(filepath)):
-            redis_result = self.get_result_from_redis(filepath)
+            self.IMAGE_HASH = self.get_image_hash(filepath)
+            redis_result = self.get_result_from_redis(self.IMAGE_HASH)
             if(redis_result):
                 #删除图像
                 self.delImg(file)
@@ -264,21 +266,19 @@ class Api:
             # print {"face_count":len(fc),"digital_count":l,"is_nude":is_nude,"pass":is_pass}
             result = str(len(fc))+","+str(l)+","+str(is_nude)+","+str(is_pass)
             # 结果保存redis数据库
-            self.save_redis(filepath,result)
+            self.save_redis(self.IMAGE_HASH,result)
             print result
 
         else:
             print("error:",file, "is not a img file")
 
     # 保存redis
-    def save_redis(self,file,result):
-        hash = self.get_image_hash(file)
+    def save_redis(self,hash,result):
         rr = RedisResults()
         rr.save(hash,result)
 
     # redis数据是否存在，并返回检测结果
-    def get_result_from_redis(self,file):
-        hash = self.get_image_hash(file)
+    def get_result_from_redis(self,hash):
         rr = RedisResults()
         return rr.get(hash)
 
@@ -286,4 +286,5 @@ if __name__ == '__main__':
     api = Api()
     api.one(sys.argv[1])
     # api.one("9d27d550-4beb-11e6-aefd-4f827560e966.png")
+    # api.one("91787150-4bf1-11e6-aefd-4f827560e966.png")
     pass
