@@ -57,10 +57,18 @@ def detect(filename):
         face_area = w * h
         # 脸占整个图的比例
         face_scale = (face_area) / float(height * width) * 100
-        print("name %s,scale %s,x %s,y %s" % (filename,face_scale,x,y))
+        print("name %s,scale %s,x %s,y %s,w %s,h %s,area %s" % (filename,face_scale,x,y,w,h,face_area))
         # if face_scale<0.5:
         #     continue
         faces_area.append(face_area)
+        # 显示
+        # cv2.rectangle(image, (x, y), (x + w, y + h), (0, 255, 0), 2)
+        # cv2.imshow("Faces found" ,image)
+        # cv2.waitKey(0)
+
+    # 显示
+    # cv2.destroyAllWindows()
+
 
     if(len(faces_area)>1):
         face_max = max(faces_area)
@@ -107,4 +115,12 @@ if __name__ == '__main__':
     # detect('1464319613177A1D9E90.jpg')
     # detect('1464319804427A27BB9A.jpg')
     # detect('1464319922780AEAE79B.png')
-    main()
+    #del
+    detect('1464320205821AB7BEE4.jpg')
+    # detect('1464320345553AEE2F9E.jpg')
+    # detect('1464317841826A9D45E4.jpg')
+    # detect('1464317434576AC6BD82.jpg')
+    # detect('1464316375514A869DAA.jpg')
+    # detect('1464319394752A037CCD.jpg')
+
+    # main()

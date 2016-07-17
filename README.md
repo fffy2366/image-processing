@@ -306,6 +306,7 @@ https://www.azure.cn/cognitive-services/zh-cn/face-api
 
 ## [用Python做科学计算](http://old.sebug.net/paper/books/scipydoc/index.html)
 
+[numpy.ndarray](http://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html)
 
 ## 爬虫
 
@@ -365,3 +366,14 @@ pylab 包含numpy ,scipy,matplotlib ,从http://www.lfd.uci.edu/~gohlke/pythonlib
 [有关python中的pylab的下载安装 ](http://blog.sina.com.cn/s/blog_76cb58fb0102vcx7.html)
 
 
+Todo:
+* 人脸数判断√
+* 生成指纹 redis 存储√
+* 鉴黄根据人脸比例
+* ocr matlab
+
+[CentOS安装Matlab R2015b](http://www.centoscn.com/image-text/install/2016/0408/7018.html)
+
+[Matlab 2015a &2014b Mac版+教程（百度云限速破解）](http://bbs.feng.com/read-htm-tid-9711547.html)
+
+sudo pip install pillow imagehash
