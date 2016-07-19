@@ -194,7 +194,7 @@ class Api:
 
         # print(ipl_image.height)
         if (len(faces) < 1):
-            print("no face")
+            # print("no face")
             return faces
         (x, y, w, h) = faces[0]
         yy = y + h
@@ -213,7 +213,7 @@ class Api:
         self.resizeImg(ori_img=imagePath,dst_img=nudeImg,dst_w=300,dst_h=300,save_q=100)
 
         faces = self.face("nude_"+file)
-        self.cropImg(nudeImg,faces)
+        self.cropImg("nude_"+file,faces)
         n = Nude(nudeImg)
         # n.setFaces(faces)
         # n.resize(1000,1000)
