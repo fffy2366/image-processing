@@ -199,8 +199,9 @@ class Api:
         (x, y, w, h) = faces[0]
         yy = y + h
         hh = h * 6
-        if (hh > ipl_image.height - y):
-            hh = ipl_image.height - y
+        (width, height) = ipl_image.size
+        if (hh > height - y):
+            hh = height - y
         dst = ipl_image.crop((x, yy, x + w, y + hh))
         dst.save(IMAGE_DIR + "nude_" + file)
 
