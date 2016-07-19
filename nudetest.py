@@ -8,6 +8,7 @@ import sys
 from nude import Nude
 import time
 import cv2
+import cv2.cv as cv
 from PIL import Image as image
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
@@ -78,10 +79,22 @@ class NudeTest:
         else:
             faces_new = faces
         #裁剪人脸以下的图片
-        ipl_image = cv2.cv.LoadImage(oriImg)
-        cv2.cv.SetImageROI(ipl_image,tuple(faces_new[0]))
-        cv2.cv.ResetImageROI(ipl_image)
-        cv2.cv.ShowImage("Faces except" ,ipl_image)
+        ipl_image = cv.LoadImage(oriImg)
+        print(ipl_image.height)
+        (x,y,w,h) = faces_new[0]
+        yy = y+h
+        hh = h*5
+        if(hh>ipl_image.height-y):
+            hh = ipl_image.height-y
+        cv.SetImageROI(ipl_image,(x,yy,w,hh))
+        dst = cv.CreateImage((w,hh),ipl_image.depth,ipl_image.nChannels)
+        cv.Copy(ipl_image,dst)
+        cv.ResetImageROI(ipl_image)
+        cv.SaveImage(IMAGE_DIR + "roi_"+file,dst)
+        # print(dst)
+        # cv.ShowImage("Faces except" ,ipl_image)
+        # cv2.waitKey(0)
+        cv.ShowImage("Faces except" ,dst)
         cv2.waitKey(0)
         return faces_new
 
@@ -131,7 +144,8 @@ class NudeTest:
         newImg = self.resizeImg(ori_img=imagePath,dst_img=disImg,dst_w=300,dst_h=300,save_q=100)
 
         faces = self.face("dis"+file)
-        n = Nude(newImg)
+        n = Nude(IMAGE_DIR + "roi_dis"+file)
+        # n = Nude(newImg)
         # n.setFaces(faces)
         # n.resize(1000,1000)
         n.parse()
