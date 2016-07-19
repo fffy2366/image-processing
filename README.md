@@ -373,7 +373,9 @@ Todo:
 * ocr matlab
 
 [CentOS安装Matlab R2015b](http://www.centoscn.com/image-text/install/2016/0408/7018.html)
-
+1. Set an X11 display, and restart the install process
+2. Use the silent install feature by specifying the -mode silent option
+./install -mode silent
 [Matlab 2015a &2014b Mac版+教程（百度云限速破解）](http://bbs.feng.com/read-htm-tid-9711547.html)
 
 sudo pip install pillow imagehash
