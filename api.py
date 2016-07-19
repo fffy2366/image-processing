@@ -10,7 +10,7 @@ import re
 import multiprocessing
 # from pylab import *
 
-from PIL import Image as image
+from PIL import Image
 import cv2
 
 from bceocrapi import BceOCRAPI
@@ -21,7 +21,7 @@ from bin.python.utils import logger
 from bin.python.models.redis_results import RedisResults
 
 
-image.LOAD_TRUNCATED_IMAGES = True
+Image.LOAD_TRUNCATED_IMAGES = True
 
 reload(sys)
 sys.setdefaultencoding('utf-8')
@@ -44,7 +44,7 @@ class Api:
         self.IMAGE_HASH = ""
     # 获取图片哈希值
     def get_image_hash(self,file):
-        img = image.open(file)
+        img = Image.open(file)
         h = str(imagehash.dhash(img))
         return h
     # 人脸识别
@@ -108,7 +108,7 @@ class Api:
 
     #黑白处理
     def blackWhite(self,filename):
-        image_file = image.open(IMAGE_DIR+filename) # open colour image
+        image_file = Image.open(IMAGE_DIR+filename) # open colour image
         #exception : Premature end of JPEG file . IOError: image file is truncated (1 bytes not processed)
         try:
             image_file = image_file.convert('L') # convert image to black and white
@@ -154,7 +154,7 @@ class Api:
             if key in args:
                 arg[key] = args[key]
 
-        im = image.open(arg['ori_img'])
+        im = Image.open(arg['ori_img'])
         ori_w, ori_h = im.size
 
         widthRatio = heightRatio = None
@@ -182,20 +182,40 @@ class Api:
             newWidth = ori_w
             newHeight = ori_h
 
-        im.resize((newWidth, newHeight), image.ANTIALIAS).save(arg['dst_img'], quality=arg['save_q'])
+        im.resize((newWidth, newHeight), Image.ANTIALIAS).save(arg['dst_img'], quality=arg['save_q'])
         return arg['dst_img']
+
+    # 裁剪人脸以下的图片
+    def cropImg(self, file, faces):
+        oriImg = IMAGE_DIR + file
+        # 裁剪人脸以下最多五倍高度的图片
+        # ipl_image = cv.LoadImage(oriImg)
+        ipl_image = Image.open(oriImg)
+
+        # print(ipl_image.height)
+        if (len(faces) < 1):
+            print("no face")
+            return faces
+        (x, y, w, h) = faces[0]
+        yy = y + h
+        hh = h * 6
+        if (hh > ipl_image.height - y):
+            hh = ipl_image.height - y
+        dst = ipl_image.crop((x, yy, x + w, y + hh))
+        dst.save(IMAGE_DIR + "nude_" + file)
 
 
     #鉴别黄色图片
     def isnude(self,file):
         #图像压缩处理
         imagePath = IMAGE_DIR + file
-        disImg = IMAGE_DIR +"dis"+file
-        newImg = self.resizeImg(ori_img=imagePath,dst_img=disImg,dst_w=300,dst_h=300,save_q=100)
+        nudeImg = IMAGE_DIR +"nude_"+file
+        self.resizeImg(ori_img=imagePath,dst_img=nudeImg,dst_w=300,dst_h=300,save_q=100)
 
-        faces = self.face("dis"+file)
-        n = Nude(newImg)
-        n.setFaces(faces)
+        faces = self.face("nude_"+file)
+        self.cropImg(nudeImg,faces)
+        n = Nude(nudeImg)
+        # n.setFaces(faces)
         # n.resize(1000,1000)
         n.parse()
         # print n.result
@@ -214,7 +234,7 @@ class Api:
         ocrImg300 = IMAGE_DIR +"dis"+file
         #大于1600的
         ocrImg1600 = IMAGE_DIR +"ocrdis"+file
-
+        nudeImg = IMAGE_DIR +"nude_"+file
 
         if os.path.isfile(wbImg):
             os.remove(wbImg)
@@ -222,6 +242,9 @@ class Api:
             os.remove(ocrImg300)
         if os.path.isfile(ocrImg1600):
             os.remove(ocrImg1600)
+        # 鉴黄裁剪图
+        if os.path.isfile(nudeImg):
+            os.remove(nudeImg)
 
         #删除原文件
         os.remove(IMAGE_DIR+file)

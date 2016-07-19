@@ -371,13 +371,24 @@ Todo:
 * 生成指纹 redis 存储√
 * 鉴黄根据人脸比例
 * ocr matlab
-
+## Matlab
 [CentOS安装Matlab R2015b](http://www.centoscn.com/image-text/install/2016/0408/7018.html)
 1. Set an X11 display, and restart the install process
 2. Use the silent install feature by specifying the -mode silent option
 ./install -mode silent
 [Matlab 2015a &2014b Mac版+教程（百度云限速破解）](http://bbs.feng.com/read-htm-tid-9711547.html)
-
+[命令行运行matlab](http://blog.sina.com.cn/s/blog_6bebbb2f0100w6h5.html)
+matlab程序也可以在命令行里直接运行，只需要使用 -r 选项。比如运行当前目录下的example.m
+matlab  -nodesktop -nosplash -r example
+或者
+matlab  -nojvm -nosplash -r example
+或者
+matlab -nodisplay -r example
+ 可以将如下命令加到~/.bashrc文件
+alias mrun='matlab -nodesktop -nosplash -r'
+这样下次（或者执行source ~/.bashrc）之后就可以直接
+mrun example
+来在命令行运行matlab文件。
 sudo pip install pillow imagehash
 
 

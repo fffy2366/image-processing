@@ -13,7 +13,8 @@ import threading
 import multiprocessing
 
 
-imgDir = "/Users/fengxuting/Downloads/photo/photo_del/photo_del/"
+# imgDir = "/Users/fengxuting/Downloads/photo/photo_del/photo_del/"
+imgDir = "D:/photo/photo_pass/"
 def show(name,img):
     cv2.imshow(name, img)
     cv2.waitKey(0)
@@ -116,11 +117,13 @@ if __name__ == '__main__':
     # detect('1464319804427A27BB9A.jpg')
     # detect('1464319922780AEAE79B.png')
     #del
-    detect('1464320205821AB7BEE4.jpg')
+    # detect('1464320205821AB7BEE4.jpg')
     # detect('1464320345553AEE2F9E.jpg')
     # detect('1464317841826A9D45E4.jpg')
     # detect('1464317434576AC6BD82.jpg')
     # detect('1464316375514A869DAA.jpg')
     # detect('1464319394752A037CCD.jpg')
+    # detect('1464317845545A3080CD.jpg')
+    detect('1464318026880ADE2A0B.jpg')
 
     # main()
