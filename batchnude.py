@@ -180,14 +180,14 @@ class BatchNude:
             os.remove(nudeImg)  
     
     # 多进程
-    def main():
+    def main(self):
         count = multiprocessing.cpu_count()-1
         pool = multiprocessing.Pool(processes=count)
         images = Images().findAll()
         print(len(images))
         # sys.exit(0)
         for f in images:
-            pool.apply_async(detect, (f['name'],))  # 维持执行的进程总数为processes，当一个进程执行完毕后会添加新的进程进去
+            pool.apply_async(self.detect, (f['name'],))  # 维持执行的进程总数为processes，当一个进程执行完毕后会添加新的进程进去
 
         print "Mark~ Mark~ Mark~~~~~~~~~~~~~~~~~~~~~~"
         pool.close()
@@ -196,8 +196,6 @@ class BatchNude:
 
 if __name__ == '__main__':
     batch_nude = BatchNude()
-    # batch_nude.main()
-    
-
-    batch_nude.detect('1464317845545A3080CD.jpg')
+    batch_nude.main()
+    # batch_nude.detect('1464317845545A3080CD.jpg')
 
