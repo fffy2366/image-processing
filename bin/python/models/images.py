@@ -38,6 +38,12 @@ class Images:
         tbname = 'images'
         n.update(tbname, { 'is_face': count}, "name='"+filename+"'")
         n.commit()
+    def updateNude(self,filename,result):
+        n = MySQL()
+        n.selectDb('images')
+        tbname = 'images'
+        n.update(tbname, { 'is_nude': result}, "name='"+filename+"'")
+        n.commit()
 
 if __name__ == '__main__':
     i = Images()
