@@ -406,3 +406,4 @@ q:
 error: no lapack/blas resources found
 
 
+[Python多进程multiprocessing使用示例](http://outofmemory.cn/code-snippet/2267/Python-duojincheng-multiprocessing-usage-example)
