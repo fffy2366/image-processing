@@ -5,6 +5,7 @@
 批量鉴黄
 name:batchnude.py
 $ python batchnude.py
+$ nohup python batchnude.py &
 '''
 import os
 import sys
@@ -104,8 +105,12 @@ class BatchNude:
             hh = height - y
         dst = ipl_image.crop((x, yy, x + w, y + hh))
         dst.save(IMAGE_DIR + "nude_" + file)
-
-
+    # 文件是否存在
+    def is_file(self,file):
+        if (not os.path.isfile(file)):
+            print(file," not exist")
+            sys.exit(0)
+        return 1
     # 图片如果宽或高大于300则等比例压缩
     def resizeImg(self,**args):
         args_key = {'ori_img': '', 'dst_img': '', 'dst_w': '', 'dst_h': '', 'save_q': 75}
@@ -113,7 +118,7 @@ class BatchNude:
         for key in args_key:
             if key in args:
                 arg[key] = args[key]
-
+        self.is_file(arg['ori_img'])
         im = Image.open(arg['ori_img'])
         ori_w, ori_h = im.size
 
@@ -149,6 +154,7 @@ class BatchNude:
         #图像压缩处理
         imagePath = IMAGE_DIR + file
         nudeImg = IMAGE_DIR +"nude_"+file
+        print  nudeImg
         # disImg = IMAGE_DIR +file
         self.resizeImg(ori_img=imagePath,dst_img=nudeImg,dst_w=300,dst_h=300,save_q=100)
 
@@ -168,6 +174,7 @@ class BatchNude:
         return 1 if n.result else 0
     # 检测并保存数据库
     def detect(self,file):
+        print file
         result = self.isnude(file)
         #更新数据库
         images = Images().updateNude(file,result)
@@ -177,8 +184,8 @@ class BatchNude:
     def delImg(self,file):
         nudeImg = IMAGE_DIR +"nude_"+file
         if os.path.isfile(nudeImg):
-            os.remove(nudeImg)  
-    
+            os.remove(nudeImg)
+
     # 多进程
     def main(self):
         count = multiprocessing.cpu_count()-1
@@ -187,7 +194,9 @@ class BatchNude:
         print(len(images))
         # sys.exit(0)
         for f in images:
-            pool.apply_async(self.detect, (f['name'],))  # 维持执行的进程总数为processes，当一个进程执行完毕后会添加新的进程进去
+            # print f['name']
+            self.detect(f['name'])
+            # pool.apply_async(self.detect, (f['name'],))  # 维持执行的进程总数为processes，当一个进程执行完毕后会添加新的进程进去
 
         print "Mark~ Mark~ Mark~~~~~~~~~~~~~~~~~~~~~~"
         pool.close()
