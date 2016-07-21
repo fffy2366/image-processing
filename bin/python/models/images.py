@@ -23,6 +23,13 @@ class Images:
         tbname = 'images'
         n.query("select name from %s where is_face = %s" %(tbname,v))
         return n.fetchAll()
+    def findByNude(self,v):
+        n = MySQL()
+
+        n.selectDb('images')
+        tbname = 'images'
+        n.query("select name from %s where is_nude = %s" %(tbname,v))
+        return n.fetchAll()
     def findAll(self):
         n = MySQL()
 

@@ -3,15 +3,35 @@
 	{
 		"selected_items":
 		[
+			[
+				"con",
+				"configs"
+			]
 		]
 	},
 	"buffers":
 	[
 		{
-			"file": "/D/vastrek/20150706更新服务器信息.txt",
+			"file": "batchnude.py",
 			"settings":
 			{
-				"buffer_size": 2831,
+				"buffer_size": 6696,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "bin/python/models/images.py",
+			"settings":
+			{
+				"buffer_size": 2436,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "nudedetect.py",
+			"settings":
+			{
+				"buffer_size": 6979,
 				"line_ending": "Windows"
 			}
 		}
@@ -48,13 +68,25 @@
 	},
 	"expanded_folders":
 	[
-		"/D/python/image-processing"
+		"/D/python/image-processing",
+		"/D/python/image-processing/bin",
+		"/D/python/image-processing/bin/python",
+		"/D/python/image-processing/bin/python/config",
+		"/D/python/image-processing/bin/python/models"
 	],
 	"file_history":
 	[
-		"/D/MathWorks MATLAB R2015b Win64/Matlab_R2015B x64_Full crack/MW_2015B_readme.txt",
-		"/C/Windows/System32/drivers/etc/hosts",
+		"/D/python/image-processing/nudetest.py",
 		"/D/python/image-processing/README.md",
+		"/C/Windows/System32/drivers/etc/hosts",
+		"/D/vastrek/20150706更新服务器信息.txt",
+		"/D/python/image-processing/bin/python/config/config_dev.py",
+		"/D/python/image-processing/batchface.py",
+		"/D/python/image-processing/bin/python/config/config_prod.py",
+		"/D/python/image-processing/bin/python/config/config.py",
+		"/D/python/image-processing/bin/python/config/__init__.py",
+		"/D/python/image-processing/bin/python/models/images.py",
+		"/D/MathWorks MATLAB R2015b Win64/Matlab_R2015B x64_Full crack/MW_2015B_readme.txt",
 		"/D/MathWorks MATLAB R2015b Win64/Matlab_R2015B x64_Full crack/Matlab 2015b_info.txt",
 		"/D/shell/git/README.md",
 		"/D/shell/git/upwork.md",
@@ -66,7 +98,7 @@
 	],
 	"find":
 	{
-		"height": 34.0
+		"height": 38.0
 	},
 	"find_in_files":
 	{
@@ -80,6 +112,10 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"Images",
+			"192.168.60.61",
+			"Images",
+			"']\n",
 			"        modified:   ",
 			"\\",
 			"User",
@@ -114,30 +150,92 @@
 			[
 				{
 					"buffer": 0,
-					"file": "/D/vastrek/20150706更新服务器信息.txt",
+					"file": "batchnude.py",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 2831,
+						"buffer_size": 6696,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1225,
-								1241
+								3513,
+								3513
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/Text/Plain text.tmLanguage"
+							"syntax": "Packages/Python/Python.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 495.0,
+						"translation.y": 2376.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "bin/python/models/images.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2436,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								524,
+								534
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": -0.0,
+						"translation.y": 371.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "nudedetect.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 6979,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								3567,
+								3567
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 2313.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
 					"type": "text"
 				}
 			]
@@ -145,11 +243,11 @@
 	],
 	"incremental_find":
 	{
-		"height": 23.0
+		"height": 30.0
 	},
 	"input":
 	{
-		"height": 0.0
+		"height": 31.0
 	},
 	"layout":
 	{
@@ -182,7 +280,7 @@
 	"project": "image-processing.sublime-project",
 	"replace":
 	{
-		"height": 42.0
+		"height": 56.0
 	},
 	"save_all_on_build": true,
 	"select_file":

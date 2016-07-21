@@ -98,18 +98,22 @@ class BatchNude:
             print("no face")
             return faces
         (x, y, w, h) = faces[0]
-        yy = y + h
+        yy = y + 1.5*h
+
         hh = h * 6
         (width,height) = ipl_image.size
         if (hh > height - y):
             hh = height - y
+        if(yy>=height):
+            return False
         dst = ipl_image.crop((x, yy, x + w, y + hh))
         dst.save(IMAGE_DIR + "nude_" + file)
+        return True
     # 文件是否存在
     def is_file(self,file):
         if (not os.path.isfile(file)):
             print(file," not exist")
-            sys.exit(0)
+            # sys.exit(0)
         return 1
     # 图片如果宽或高大于300则等比例压缩
     def resizeImg(self,**args):
@@ -118,7 +122,6 @@ class BatchNude:
         for key in args_key:
             if key in args:
                 arg[key] = args[key]
-        self.is_file(arg['ori_img'])
         im = Image.open(arg['ori_img'])
         ori_w, ori_h = im.size
 
@@ -164,7 +167,8 @@ class BatchNude:
             print("no face")
             return -1
         else:
-            self.cropImg(file, faces)
+            if(not self.cropImg(file, faces)):
+                return 0
         n = Nude(nudeImg)
         # n = Nude(newImg)
         # n.setFaces(faces)
@@ -172,14 +176,7 @@ class BatchNude:
         n.parse()
         # print n.result
         return 1 if n.result else 0
-    # 检测并保存数据库
-    def detect(self,file):
-        print file
-        result = self.isnude(file)
-        #更新数据库
-        images = Images().updateNude(file,result)
-        self.delImg(file)
-    
+
     # 删除截图
     def delImg(self,file):
         nudeImg = IMAGE_DIR +"nude_"+file
@@ -190,18 +187,34 @@ class BatchNude:
     def main(self):
         count = multiprocessing.cpu_count()-1
         pool = multiprocessing.Pool(processes=count)
-        images = Images().findAll()
-        print(len(images))
+        images = Images().findByNude(1)
+        print("file count:"+str(len(images)))
         # sys.exit(0)
         for f in images:
             # print f['name']
-            self.detect(f['name'])
-            # pool.apply_async(self.detect, (f['name'],))  # 维持执行的进程总数为processes，当一个进程执行完毕后会添加新的进程进去
+            if(not os.path.isfile(IMAGE_DIR + f['name'])):
+                print(IMAGE_DIR + f['name'], " not exist")
+            else:
+                # self.detect(f['name'])
+                # bn = BatchNude()
+                # pool.map(self.detect,f['name'] )
+                pool.apply_async(detect, (f['name'],))  # 维持执行的进程总数为processes，当一个进程执行完毕后会添加新的进程进去
 
         print "Mark~ Mark~ Mark~~~~~~~~~~~~~~~~~~~~~~"
         pool.close()
         pool.join()  # 调用join之前，先调用close函数，否则会出错。执行完close后不会有新的进程加入到pool,join函数等待所有子进程结束
         print "Sub-process(es) done."
+
+
+# 检测并保存数据库
+def detect(file):
+    print file
+    batch_nude = BatchNude()
+    result = batch_nude.isnude(file)
+    # 更新数据库
+    images = Images().updateNude(file, result)
+    batch_nude.delImg(file)
+
 
 if __name__ == '__main__':
     batch_nude = BatchNude()
