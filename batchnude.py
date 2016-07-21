@@ -187,7 +187,8 @@ class BatchNude:
     def main(self):
         count = multiprocessing.cpu_count()-1
         pool = multiprocessing.Pool(processes=count)
-        images = Images().findByNude(1)
+        # images = Images().findByNude(1)
+        images = Images().findAll()
         print("file count:"+str(len(images)))
         # sys.exit(0)
         for f in images:
