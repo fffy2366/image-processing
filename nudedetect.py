@@ -28,11 +28,11 @@ import multiprocessing
 from PIL import Image
 from nude import Nude
 from bin.python.models.images import Images
-from bin.python.config.config import configs
 
 # imgDir = "/Users/fengxuting/Downloads/photo/photo_del/photo_del/"
-IMAGE_DIR = configs['image_dir']
-class BatchNude:
+IMAGE_DIR = "public/uploads/nude/"
+
+class NudeDetect:
     # 人脸识别
     def face(self,file):
         # Get user supplied values
@@ -167,7 +167,7 @@ class BatchNude:
         #图像压缩处理
         imagePath = IMAGE_DIR + file
         nudeImg = IMAGE_DIR +"nude_"+file
-        print  nudeImg
+        print(nudeImg)
         # disImg = IMAGE_DIR +file
         self.resizeImg(ori_img=imagePath,dst_img=nudeImg,dst_w=300,dst_h=300,save_q=100)
 
@@ -190,7 +190,7 @@ class BatchNude:
         return 1 if n.result else 0
     # 检测并保存数据库
     def detect(self,file):
-        print file
+        print(file)
         result = self.isnude(file)
         #更新数据库
         images = Images().updateNude(file,result)
@@ -214,16 +214,17 @@ class BatchNude:
             self.detect(f['name'])
             # pool.apply_async(self.detect, (f['name'],))  # 维持执行的进程总数为processes，当一个进程执行完毕后会添加新的进程进去
 
-        print "Mark~ Mark~ Mark~~~~~~~~~~~~~~~~~~~~~~"
+        print("Mark~ Mark~ Mark~~~~~~~~~~~~~~~~~~~~~~")
         pool.close()
         pool.join()  # 调用join之前，先调用close函数，否则会出错。执行完close后不会有新的进程加入到pool,join函数等待所有子进程结束
-        print "Sub-process(es) done."
+        print("Sub-process(es) done.")
 
 if __name__ == '__main__':
-    batch_nude = BatchNude()
-    batch_nude.main()
+    nude_detect = NudeDetect()
+    nude_detect.detect()
+    # nude_detect.main()
     # batch_nude.detect('1464317845545A3080CD.jpg')
-# n.resize(1000,1000)
-n.parse()
+    # n.resize(1000,1000)
+    # n.parse()
 
 
