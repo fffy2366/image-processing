@@ -111,13 +111,15 @@ class NudeDetect:
             print("no face")
             return faces
         (x, y, w, h) = faces[0]
-        yy = y + h
+        yy = y + 1.5*h
         hh = h * 6
         (width,height) = ipl_image.size
         if (hh > height - y):
             hh = height - y
+        if(yy>=height):
+            return False
         dst = ipl_image.crop((x, yy, x + w, y + hh))
-        dst.save(IMAGE_DIR + "nude_" + file)
+        dst.save(IMAGE_DIR + file)
     # 文件是否存在
     def is_file(self,file):
         if (not os.path.isfile(file)):
@@ -167,17 +169,17 @@ class NudeDetect:
         #图像压缩处理
         imagePath = IMAGE_DIR + file
         nudeImg = IMAGE_DIR +"nude_"+file
-        print(nudeImg)
+        # print(nudeImg)
         # disImg = IMAGE_DIR +file
         self.resizeImg(ori_img=imagePath,dst_img=nudeImg,dst_w=300,dst_h=300,save_q=100)
 
         # faces = self.face("dis"+file)
-        faces = self.face(file)
+        faces = self.face("nude_"+file)
         if(len(faces)<1):
             print("no face")
             return -1
         else:
-            self.cropImg(file, faces)
+            self.cropImg("nude_"+file, faces)
         n = Nude(nudeImg)
         # n = Nude(newImg)
         # n.setFaces(faces)
@@ -190,11 +192,10 @@ class NudeDetect:
         return 1 if n.result else 0
     # 检测并保存数据库
     def detect(self,file):
-        print(file)
+        # print(file)
         result = self.isnude(file)
-        #更新数据库
-        images = Images().updateNude(file,result)
-        self.delImg(file)
+
+        # self.delImg(file)
     
     # 删除截图
     def delImg(self,file):
@@ -202,29 +203,12 @@ class NudeDetect:
         if os.path.isfile(nudeImg):
             os.remove(nudeImg)
 
-    # 多进程
-    def main(self):
-        count = multiprocessing.cpu_count()-1
-        pool = multiprocessing.Pool(processes=count)
-        images = Images().findAll()
-        print(len(images))
-        # sys.exit(0)
-        for f in images:
-            # print f['name']
-            self.detect(f['name'])
-            # pool.apply_async(self.detect, (f['name'],))  # 维持执行的进程总数为processes，当一个进程执行完毕后会添加新的进程进去
-
-        print("Mark~ Mark~ Mark~~~~~~~~~~~~~~~~~~~~~~")
-        pool.close()
-        pool.join()  # 调用join之前，先调用close函数，否则会出错。执行完close后不会有新的进程加入到pool,join函数等待所有子进程结束
-        print("Sub-process(es) done.")
 
 if __name__ == '__main__':
+    file = sys.argv[1]
+    disImg = IMAGE_DIR +"nude_"+sys.argv[1]
     nude_detect = NudeDetect()
-    nude_detect.detect()
-    # nude_detect.main()
-    # batch_nude.detect('1464317845545A3080CD.jpg')
-    # n.resize(1000,1000)
-    # n.parse()
+    nude_detect.detect(file)
+
 
 
