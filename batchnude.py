@@ -152,6 +152,14 @@ class BatchNude:
 
         im.resize((newWidth, newHeight), Image.ANTIALIAS).save(arg['dst_img'], quality=arg['save_q'])
         return arg['dst_img']
+
+    # 检测并保存数据库
+    def detect(self,file):
+        print file
+        result = self.isnude(file)
+        # 更新数据库
+        images = Images().updateNude(file, result)
+        self.delImg(file)
     #鉴别黄色图片
     def isnude(self,file):
         #图像压缩处理
@@ -163,8 +171,8 @@ class BatchNude:
 
         # faces = self.face("dis"+file)
         faces = self.face(file)
-        if(len(faces)<1):
-            print("no face")
+        if(len(faces)!=1):
+            print("no face or lt 2")
             return -1
         else:
             if(not self.cropImg(file, faces)):
@@ -197,9 +205,11 @@ class BatchNude:
                 print(IMAGE_DIR + f['name'], " not exist")
             else:
                 # self.detect(f['name'])
-                # bn = BatchNude()
                 # pool.map(self.detect,f['name'] )
                 pool.apply_async(detect, (f['name'],))  # 维持执行的进程总数为processes，当一个进程执行完毕后会添加新的进程进去
+
+                # bn = BatchNude()
+                # pool.apply_async(bn.detect(f['name']))  # 维持执行的进程总数为processes，当一个进程执行完毕后会添加新的进程进去
 
         print "Mark~ Mark~ Mark~~~~~~~~~~~~~~~~~~~~~~"
         pool.close()
