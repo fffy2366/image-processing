@@ -234,6 +234,9 @@ class Nude(object):
                 self.skin_regions.append(region)
 
     def _analyse_regions(self):
+
+        self.draw_regions()
+
         # if there are less than 1 regions
         if len(self.skin_regions) < 1:
             self.message = "Less than 1 skin regions ({_skin_regions_size})".format(
@@ -431,10 +434,20 @@ class Nude(object):
 
         return [h, 1.0 - (3.0 * (_min / _sum)), (1.0 / 3.0) * _max]
 
+    #
+    # https://en.wikibooks.org/wiki/Python_Imaging_Library/Editing_Pixels
     def draw_regions(self):
-
-        self.skin_regions
-        pass
+        fname = self.image.filename
+        pil_img = Image.new ("RGBA", (self.image.width, self.image.height), (255, 0, 0))
+        pixels = pil_img.load()
+        # pil_img.getpixel()
+        for skin in self.skin_map:
+            if(skin.skin):
+                pixels[skin.x,skin.y] = (0,0,0)
+                # pil_img.setpixel()
+            else:
+                pixels[skin.x,skin.y] = (255,255,255)
+        pil_img.show()
 
 
 
