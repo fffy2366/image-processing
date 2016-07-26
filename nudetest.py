@@ -14,8 +14,10 @@ from PIL import Image
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
 # IMAGE_DIR = "/Users/fengxuting/Downloads/photo/photo_pass/photo_pass/"
-IMAGE_DIR = "/Users/fengxuting//python/image-processing/public/uploads/nude/"
+# IMAGE_DIR = "/Users/fengxuting//python/image-processing/public/uploads/nude/"
 # IMAGE_DIR = "D:/photo/photo_pass/"
+IMAGE_DIR = "D:/python/image-processing/public/uploads/nude/"
+
 class NudeTest:
     # 人脸识别
     def face(self,file):
@@ -186,7 +188,9 @@ if __name__ == '__main__':
     # print (nude_test.isnude("1464318775245A552D29.jpg"))
     # print (nude_test.isnude("1464320172441A29C28E.jpg"))
     # print (nude_test.isnude("nude_3fcca160-50a5-11e6-8012-33ccd5ab34ad.jpg"))
-    print (nude_test.isnude("nude_10b68460-50ad-11e6-8012-33ccd5ab34ad.jpeg"))
+    # print (nude_test.isnude("nude_10b68460-50ad-11e6-8012-33ccd5ab34ad.jpeg"))
     # print (nude_test.isnude("nude_fecedc00-50ae-11e6-8012-33ccd5ab34ad.jpg"))
     # print (nude_test.isnude("1464319611254AF3E1F7.jpg"))
     # print (nude_test.isnude("1464318026880ADE2A0B.jpg"))
+    print (nude_test.isnude(sys.argv[1]))
+    
