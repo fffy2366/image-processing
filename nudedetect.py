@@ -171,7 +171,7 @@ class NudeDetect:
         nudeImg = IMAGE_DIR +"nude_"+file
         # print(nudeImg)
         # disImg = IMAGE_DIR +file
-        # self.resizeImg(ori_img=imagePath,dst_img=nudeImg,dst_w=300,dst_h=300,save_q=100)
+        self.resizeImg(ori_img=imagePath,dst_img=nudeImg,dst_w=300,dst_h=300,save_q=100)
 
         # faces = self.face("dis"+file)
         faces = self.face("nude_"+file)
