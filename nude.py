@@ -235,7 +235,7 @@ class Nude(object):
 
     def _analyse_regions(self):
 
-        self.draw_regions()
+        # self.draw_regions()
 
         # if there are less than 1 regions
         if len(self.skin_regions) < 1:
