@@ -111,7 +111,7 @@ class NudeDetect:
             print("no face")
             return faces
         (x, y, w, h) = faces[0]
-        yy = y + 1.5*h
+        yy = int(y + 1.5*h)
         hh = h * 6
         (width,height) = ipl_image.size
         if (hh > height - y):
@@ -171,7 +171,7 @@ class NudeDetect:
         nudeImg = IMAGE_DIR +"nude_"+file
         # print(nudeImg)
         # disImg = IMAGE_DIR +file
-        self.resizeImg(ori_img=imagePath,dst_img=nudeImg,dst_w=300,dst_h=300,save_q=100)
+        # self.resizeImg(ori_img=imagePath,dst_img=nudeImg,dst_w=300,dst_h=300,save_q=100)
 
         # faces = self.face("dis"+file)
         faces = self.face("nude_"+file)

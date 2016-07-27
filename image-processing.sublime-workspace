@@ -15,7 +15,23 @@
 			"file": "batchnude.py",
 			"settings":
 			{
-				"buffer_size": 6696,
+				"buffer_size": 7250,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "nudetest.py",
+			"settings":
+			{
+				"buffer_size": 6533,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "nude.py",
+			"settings":
+			{
+				"buffer_size": 20111,
 				"line_ending": "Windows"
 			}
 		},
@@ -28,27 +44,58 @@
 			}
 		},
 		{
+			"contents": "#!bin/evn python\n# encoding:utf-8\n\nfrom __future__ import print_function\n\nimport os\nimport sys\nfrom nude import Nude\nimport time\nimport cv2\nfrom PIL import Image as image\n\nROOT = os.path.dirname(os.path.abspath(__file__))\n\nprint('start waiting', time.strftime('%H:%M:%S'), '\\n<br/>')\n'''\n从数据库选取图片\n批量鉴黄\nname:batchnude.py\n$ python batchnude.py\n$ nohup python batchnude.py &\n'''\nimport os\nimport sys\nimport cv2\nimport threading\nimport multiprocessing\nfrom PIL import Image\nfrom nude import Nude\nfrom bin.python.models.images import Images\n\n# imgDir = \"/Users/fengxuting/Downloads/photo/photo_del/photo_del/\"\nIMAGE_DIR = \"public/uploads/nude/\"\n\nclass NudeDetect:\n    # 人脸识别\n    def face(self,file):\n        # Get user supplied values\n        oriImg = IMAGE_DIR + file\n\n        #图像压缩处理\n        # disImg = IMAGE_DIR +\"ocrdis\"+file\n        # newImg = resizeImg(ori_img=oriImg,dst_img=disImg,dst_w=2048,dst_h=2048,save_q=100)\n\n        # cascPath = \"./data/haarcascades/haarcascade_frontalface_alt.xml\"\n        cascPath = \"./data/lbpcascades/lbpcascade_frontalface.xml\"\n\n        # Create the haar 级联\n        facecascade = cv2.CascadeClassifier(cascPath)\n\n        # Read the image\n        image = cv2.imread(oriImg)\n        gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)\n        gray = cv2.equalizeHist(gray, gray)  # 直方图均衡化：直方图均衡化是通过拉伸像素强度分布范围来增强图像对比度的一种方法。\n        gray = cv2.medianBlur(gray, 3)  # 降噪？\n        (height, width, a) = image.shape\n        # Detect faces in the image\n        faces = facecascade.detectMultiScale(\n            gray,\n            scaleFactor=1.1,\n            minNeighbors=2,\n            minSize=(30, 30),\n            flags=cv2.cv.CV_HAAR_SCALE_IMAGE\n        )\n        # 1，如果小于0.5%的 不认为头像。2，多个头像的  与最大的对比，如果比值小于50%，不认为是头像。\n        faces_area = []\n        face_count = 0\n        for (x, y, w, h) in faces:\n            face_area = w * h\n            # 脸占整个图的比例\n            face_scale = (face_area) / float(height * width) * 100\n            # print(\"name %s,scale %s,x %s,y %s,w %s,h %s,area %s\" % (file,face_scale,x,y,w,h,face_area))\n            # if face_scale<0.5:\n            #     continue\n            faces_area.append(face_area)\n\n            # 显示\n            # cv2.rectangle(image, (x, y), (x + w, y + h), (0, 255, 0), 2)\n            # cv2.imshow(\"Faces found\" ,image)\n            # cv2.waitKey(0)\n        # 显示\n        # cv2.destroyAllWindows()\n\n        faces_new = []\n        if(len(faces_area)>1):\n            face_max = max(faces_area)\n            for index,face in enumerate(faces) :\n                (x, y, w, h) = face\n                # 脸占最大脸的比例\n                scale = (w*h)/float(face_max) * 100\n                # print(\"scale %s\" % (scale))\n                if(scale<50):\n                    # delete(faces,index,axis=0)\n                    pass\n                else:\n                    faces_new.append(face)\n        else:\n            faces_new = faces\n\n        return faces_new\n\n    # 裁剪人脸以下的图片\n    def cropImg(self,file,faces):\n        oriImg =  IMAGE_DIR + file\n        # 裁剪人脸以下最多五倍高度的图片\n        # ipl_image = cv.LoadImage(oriImg)\n        ipl_image = Image.open(oriImg)\n\n        # print(ipl_image.height)\n        if (len(faces) < 1):\n            print(\"no face\")\n            return faces\n        (x, y, w, h) = faces[0]\n        yy = y + 1.5*h\n        hh = h * 6\n        (width,height) = ipl_image.size\n        if (hh > height - y):\n            hh = height - y\n        if(yy>=height):\n            return False\n        dst = ipl_image.crop((x, yy, x + w, y + hh))\n        dst.save(IMAGE_DIR + file)\n    # 文件是否存在\n    def is_file(self,file):\n        if (not os.path.isfile(file)):\n            print(file,\" not exist\")\n            sys.exit(0)\n        return 1\n    # 图片如果宽或高大于300则等比例压缩\n    def resizeImg(self,**args):\n        args_key = {'ori_img': '', 'dst_img': '', 'dst_w': '', 'dst_h': '', 'save_q': 75}\n        arg = {}\n        for key in args_key:\n            if key in args:\n                arg[key] = args[key]\n        self.is_file(arg['ori_img'])\n        im = Image.open(arg['ori_img'])\n        ori_w, ori_h = im.size\n\n        widthRatio = heightRatio = None\n        ratio = 1\n        if (ori_w and ori_w > arg['dst_w']) or (ori_h and ori_h > arg['dst_h']):\n            if arg['dst_w'] and ori_w > arg['dst_w']:\n                widthRatio = float(arg['dst_w']) / ori_w  # 正确获取小数的方式\n            if arg['dst_h'] and ori_h > arg['dst_h']:\n                heightRatio = float(arg['dst_h']) / ori_h\n\n            if widthRatio and heightRatio:\n                if widthRatio < heightRatio:\n                    ratio = widthRatio\n                else:\n                    ratio = heightRatio\n\n            if widthRatio and not heightRatio:\n                ratio = widthRatio\n            if heightRatio and not widthRatio:\n                ratio = heightRatio\n\n            newWidth = int(ori_w * ratio)\n            newHeight = int(ori_h * ratio)\n        else:\n            newWidth = ori_w\n            newHeight = ori_h\n\n        im.resize((newWidth, newHeight), Image.ANTIALIAS).save(arg['dst_img'], quality=arg['save_q'])\n        return arg['dst_img']\n    #鉴别黄色图片\n    def isnude(self,file):\n        #图像压缩处理\n        imagePath = IMAGE_DIR + file\n        nudeImg = IMAGE_DIR +\"nude_\"+file\n        # print(nudeImg)\n        # disImg = IMAGE_DIR +file\n        # self.resizeImg(ori_img=imagePath,dst_img=nudeImg,dst_w=300,dst_h=300,save_q=100)\n\n        # faces = self.face(\"dis\"+file)\n        faces = self.face(\"nude_\"+file)\n        if(len(faces)<1):\n            print(\"no face\")\n            return -1\n        else:\n            self.cropImg(\"nude_\"+file, faces)\n        n = Nude(nudeImg)\n        # n = Nude(newImg)\n        # n.setFaces(faces)\n        # n.resize(1000,1000)\n        n.parse()\n        # print n.result\n        print(n.result, n.inspect(), '\\n<br/>')\n\n        print('stop waiting', time.strftime('%H:%M:%S'), '\\n<br/>')\n        return 1 if n.result else 0\n    # 检测并保存数据库\n    def detect(self,file):\n        # print(file)\n        result = self.isnude(file)\n\n        # self.delImg(file)\n    \n    # 删除截图\n    def delImg(self,file):\n        nudeImg = IMAGE_DIR +\"nude_\"+file\n        if os.path.isfile(nudeImg):\n            os.remove(nudeImg)\n\n\nif __name__ == '__main__':\n    file = sys.argv[1]\n    disImg = IMAGE_DIR +\"nude_\"+sys.argv[1]\n    nude_detect = NudeDetect()\n    nude_detect.detect(file)\n\n\n\n",
 			"file": "nudedetect.py",
+			"file_size": 6946,
+			"file_write_time": 131138844955934154,
 			"settings":
 			{
-				"buffer_size": 6979,
+				"buffer_size": 6326,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "face.py",
+			"settings":
+			{
+				"buffer_size": 2088,
 				"line_ending": "Windows"
 			}
 		}
 	],
-	"build_system": "",
+	"build_system": "Packages/Python/Python.sublime-build",
 	"build_system_choices":
 	[
+		[
+			[
+				[
+					"Packages/Python/Python.sublime-build",
+					""
+				],
+				[
+					"Packages/Python/Python.sublime-build",
+					"Syntax Check"
+				]
+			],
+			[
+				"Packages/Python/Python.sublime-build",
+				""
+			]
+		]
 	],
 	"build_varint": "",
 	"command_palette":
 	{
-		"height": 0.0,
-		"last_filter": "",
+		"height": 150.0,
+		"last_filter": "Package Control: ins",
 		"selected_items":
 		[
+			[
+				"Package Control: ins",
+				"Package Control: Install Package"
+			]
 		],
-		"width": 0.0
+		"width": 400.0
 	},
 	"console":
 	{
@@ -68,11 +115,7 @@
 	},
 	"expanded_folders":
 	[
-		"/D/python/image-processing",
-		"/D/python/image-processing/bin",
-		"/D/python/image-processing/bin/python",
-		"/D/python/image-processing/bin/python/config",
-		"/D/python/image-processing/bin/python/models"
+		"/D/python/image-processing"
 	],
 	"file_history":
 	[
@@ -112,6 +155,7 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"photo_pass",
 			"Images",
 			"192.168.60.61",
 			"Images",
@@ -145,7 +189,7 @@
 	"groups":
 	[
 		{
-			"selected": 0,
+			"selected": 1,
 			"sheets":
 			[
 				{
@@ -154,15 +198,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 6696,
+						"buffer_size": 7250,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								3513,
-								3513
+								7226,
+								7226
 							]
 						],
 						"settings":
@@ -172,14 +216,74 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 2376.0,
+						"translation.y": 4246.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 4,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "nudetest.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 6533,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								5784,
+								5784
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 3664.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 0,
 					"type": "text"
 				},
 				{
-					"buffer": 1,
+					"buffer": 2,
+					"file": "nude.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 20111,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								14483,
+								14483
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 7773.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
 					"file": "bin/python/models/images.py",
 					"semi_transient": false,
 					"settings":
@@ -191,8 +295,8 @@
 						"selection":
 						[
 							[
-								524,
-								534
+								1088,
+								1088
 							]
 						],
 						"settings":
@@ -202,27 +306,27 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": -0.0,
-						"translation.y": 371.0,
+						"translation.y": 569.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 1,
+					"stack_index": 5,
 					"type": "text"
 				},
 				{
-					"buffer": 2,
+					"buffer": 4,
 					"file": "nudedetect.py",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 6979,
+						"buffer_size": 6326,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								3567,
-								3567
+								5362,
+								5362
 							]
 						],
 						"settings":
@@ -232,10 +336,40 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 2313.0,
+						"translation.y": 3633.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "face.py",
+					"semi_transient": true,
+					"settings":
+					{
+						"buffer_size": 2088,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								590,
+								590
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": -0.0,
+						"translation.y": 1122.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
 					"type": "text"
 				}
 			]
@@ -272,6 +406,10 @@
 		]
 	},
 	"menu_visible": true,
+	"output.exec":
+	{
+		"height": 142.0
+	},
 	"output.find_results":
 	{
 		"height": 0.0

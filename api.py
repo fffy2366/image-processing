@@ -197,11 +197,13 @@ class Api:
             # print("no face")
             return faces
         (x, y, w, h) = faces[0]
-        yy = y + h
+        yy = int(y + 1.5*h)
         hh = h * 6
         (width, height) = ipl_image.size
         if (hh > height - y):
             hh = height - y
+        if(yy>=height):
+            return False
         dst = ipl_image.crop((x, yy, x + w, y + hh))
         dst.save(IMAGE_DIR + "nude_" + file)
 
