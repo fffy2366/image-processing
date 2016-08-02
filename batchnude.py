@@ -173,6 +173,7 @@ class BatchNude:
         faces = self.face(file)
         if(len(faces)!=1):
             print("no face or lt 2")
+            self.delImg(file)
             return -1
         else:
             if(not self.cropImg(file, faces)):
