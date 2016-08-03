@@ -107,7 +107,7 @@ class BatchNude:
         if(yy>=height):
             return False
         dst = ipl_image.crop((x, yy, x + w, y + hh))
-        dst.save(IMAGE_DIR + "nude_" + file)
+        dst.save(IMAGE_DIR + file)
         return True
     # 文件是否存在
     def is_file(self,file):
@@ -170,13 +170,13 @@ class BatchNude:
         self.resizeImg(ori_img=imagePath,dst_img=nudeImg,dst_w=300,dst_h=300,save_q=100)
 
         # faces = self.face("dis"+file)
-        faces = self.face(file)
+        faces = self.face("nude_"+file)
         if(len(faces)!=1):
             print("no face or lt 2")
             self.delImg(file)
             return -1
         else:
-            if(not self.cropImg(file, faces)):
+            if(not self.cropImg("nude_"+file, faces)):
                 return 0
         n = Nude(nudeImg)
         # n = Nude(newImg)
