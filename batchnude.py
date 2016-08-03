@@ -98,7 +98,7 @@ class BatchNude:
             print("no face")
             return faces
         (x, y, w, h) = faces[0]
-        yy = y + 1.5*h
+        yy = int(y + 1.5*h)
 
         hh = h * 6
         (width,height) = ipl_image.size
