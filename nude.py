@@ -246,7 +246,7 @@ class Nude(object):
 
     def _analyse_regions(self):
 
-        # self.draw_regions()
+        self.draw_regions()
 
         # if there are less than 1 regions
         if len(self.skin_regions) < 1:
@@ -400,7 +400,9 @@ class Nude(object):
         
 
     def _ycbcr(self,y, cb, cr,bbPath_y_cb,bbPath_y_cr):
-        return bbPath_y_cb.contains_point((y, cb)) and bbPath_y_cr.contains_point((y, cr))
+        return bbPath_y_cb.contains_point((y, cb)) and \
+                bbPath_y_cr.contains_point((y, cr)) and \
+                18<cr-cb<55
 
     def _to_normalized_hsv(self, h, s, v):
         if h == 0:
