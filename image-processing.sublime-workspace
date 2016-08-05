@@ -15,7 +15,15 @@
 			"file": "tests/python/ycbcr.py",
 			"settings":
 			{
-				"buffer_size": 2274,
+				"buffer_size": 2275,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "nude.py",
+			"settings":
+			{
+				"buffer_size": 21119,
 				"line_ending": "Windows"
 			}
 		},
@@ -116,10 +124,7 @@
 	},
 	"expanded_folders":
 	[
-		"/D/python/image-processing",
-		"/D/python/image-processing/bin/python",
-		"/D/python/image-processing/bin/python/config",
-		"/D/python/image-processing/bin/python/utils"
+		"/D/python/image-processing"
 	],
 	"file_history":
 	[
@@ -217,7 +222,7 @@
 	"groups":
 	[
 		{
-			"selected": 0,
+			"selected": 1,
 			"sheets":
 			[
 				{
@@ -226,15 +231,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 2274,
+						"buffer_size": 2275,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1106,
-								1106
+								1010,
+								1010
 							]
 						],
 						"settings":
@@ -244,14 +249,44 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 352.0,
+						"translation.y": 193.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "nude.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 21119,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								13092,
+								13092
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 6129.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 0,
 					"type": "text"
 				},
 				{
-					"buffer": 1,
+					"buffer": 2,
 					"file": "bin/python/config/config_dev.py",
 					"semi_transient": false,
 					"settings":
@@ -277,11 +312,11 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 2,
+					"stack_index": 1,
 					"type": "text"
 				},
 				{
-					"buffer": 2,
+					"buffer": 3,
 					"file": "bin/python/utils/logger.py",
 					"semi_transient": false,
 					"settings":
@@ -304,14 +339,14 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 80.0,
+						"translation.y": 84.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 1,
+					"stack_index": 3,
 					"type": "text"
 				},
 				{
-					"buffer": 3,
+					"buffer": 4,
 					"file": "tests/python/nude.py",
 					"semi_transient": false,
 					"settings":
@@ -337,7 +372,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 3,
+					"stack_index": 4,
 					"type": "text"
 				}
 			]
