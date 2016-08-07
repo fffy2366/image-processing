@@ -235,7 +235,7 @@ class Nude(object):
 
     def _analyse_regions(self):
 
-        # self.draw_regions()
+        self.draw_regions()
 
         # if there are less than 1 regions
         if len(self.skin_regions) < 1:
@@ -379,7 +379,8 @@ class Nude(object):
         nh, ns, nv = self._to_normalized(h, s, v)
         # norm_hsv_classifier =
         # ycc doesn't work
-        return rgb_classifier or norm_rgb_classifier or hsv_classifier or ycbcr_classifier
+        # return rgb_classifier or norm_rgb_classifier or hsv_classifier or ycbcr_classifier
+        return rgb_classifier and norm_rgb_classifier and hsv_classifier and ycbcr_classifier
 
     def _to_normalized_hsv(self, h, s, v):
         if h == 0:

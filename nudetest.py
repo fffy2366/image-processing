@@ -14,9 +14,9 @@ from PIL import Image
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
 # IMAGE_DIR = "/Users/fengxuting/Downloads/photo/photo_pass/photo_pass/"
-# IMAGE_DIR = "/Users/fengxuting//python/image-processing/public/uploads/nude/"
+IMAGE_DIR = "/Users/fengxuting//python/image-processing/public/uploads/nude/"
 # IMAGE_DIR = "D:/photo/photo_pass/"
-IMAGE_DIR = "D:/python/image-processing/public/uploads/nude/"
+# IMAGE_DIR = "D:/python/image-processing/public/uploads/nude/"
 
 class NudeTest:
     # 人脸识别
