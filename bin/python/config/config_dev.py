@@ -9,5 +9,5 @@ configs = {
     'session': {
         'secret': 'AwEsOmE'
     },
-    'image_dir':"D:/photo/photo_del/"
+    'image_dir':"D:/photo/skins/"
 }

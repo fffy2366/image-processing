@@ -97,13 +97,15 @@ class NudeTest:
             print("no face")
             return faces
         (x, y, w, h) = faces[0]
-        yy = y + h
+        yy = int(y + 1.5*h)
         hh = h * 6
         (width,height) = ipl_image.size
         if (hh > height - y):
             hh = height - y
+        if(yy>=height):
+            return False
         dst = ipl_image.crop((x, yy, x + w, y + hh))
-        dst.save(IMAGE_DIR + "nude_" + file)
+        dst.save(IMAGE_DIR + file)
 
         # 以下是cv裁剪图片，y值大于100会报错，不知道为什么
         # cv.SetImageROI(ipl_image,(x,y,w,h))
@@ -167,19 +169,20 @@ class NudeTest:
         self.resizeImg(ori_img=imagePath,dst_img=nudeImg,dst_w=300,dst_h=300,save_q=100)
 
         # faces = self.face("dis"+file)
-        faces = self.face(file)
+        faces = self.face("nude_"+file)
 
-        # if(len(faces)<1):
-        #     print("no face")
-        #     return -1
-        # else:
-        #     self.cropImg(file, faces)
+        if(len(faces)<1):
+            print("no face")
+            return -1
+        else:
+            self.cropImg("nude_"+file, faces)
 
         n = Nude(nudeImg)
         # n = Nude(newImg)
         # n.setFaces(faces)
         # n.resize(1000,1000)
         n.parse()
+        print(n.result, n.inspect(), '\n<br/>')
         # print n.result
         return 1 if n.result else 0
 

@@ -205,7 +205,7 @@ class Api:
         if(yy>=height):
             return False
         dst = ipl_image.crop((x, yy, x + w, y + hh))
-        dst.save(IMAGE_DIR + "nude_" + file)
+        dst.save(IMAGE_DIR + file)
 
 
     #鉴别黄色图片

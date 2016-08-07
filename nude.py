@@ -10,7 +10,8 @@ import sys
 import time
 from collections import namedtuple
 from PIL import Image
-
+import matplotlib.path as mplPath
+import numpy as np
 
 def is_nude(path_or_io):
     nude = Nude(path_or_io)
@@ -102,6 +103,16 @@ class Nude(object):
             return self
 
         pixels = self.image.load()
+        poly_y_cb = [[25,127],[235,127],[200,77],[125,77]]
+        bbPath_y_cb = mplPath.Path(np.array([poly_y_cb[0],
+                     poly_y_cb[1],
+                     poly_y_cb[2],
+                     poly_y_cb[3]]))
+        poly_y_cr = [[100,173],[188,173],[235,133],[25,133]]
+        bbPath_y_cr = mplPath.Path(np.array([poly_y_cr[0],
+                     poly_y_cr[1],
+                     poly_y_cr[2],
+                     poly_y_cr[3]]))
         for y in range(self.height):
             for x in range(self.width):
                 r = pixels[x, y][0]   # red
@@ -109,7 +120,7 @@ class Nude(object):
                 b = pixels[x, y][2]   # blue
                 _id = x + y * self.width + 1
 
-                if not self._classify_skin(r, g, b):
+                if not self._classify_skin(r, g, b,bbPath_y_cb,bbPath_y_cr):
                     self.skin_map.append(self.Skin(_id, False, 0, x, y, False))
                 else:
                     # 排除人脸
@@ -350,7 +361,9 @@ class Nude(object):
         return self.result
 
     # A Survey on Pixel-Based Skin Color Detection Techniques
-    def _classify_skin(self, r, g, b):
+    def _classify_skin(self, r, g, b,bbPath_y_cb,bbPath_y_cr):
+        y, cb, cr = self._to_ycbcr(r, g, b)
+        return self._ycbcr(y, cb, cr,bbPath_y_cb,bbPath_y_cr)
         rgb_classifier = r > 95 and \
                          g > 40 and g < 100 and \
                          b > 20 and \
@@ -380,7 +393,16 @@ class Nude(object):
         # norm_hsv_classifier =
         # ycc doesn't work
         # return rgb_classifier or norm_rgb_classifier or hsv_classifier or ycbcr_classifier
-        return rgb_classifier and norm_rgb_classifier and hsv_classifier and ycbcr_classifier
+        # return rgb_classifier
+        # return norm_rgb_classifier 
+        # return hsv_classifier 
+        # return ycbcr_classifier 
+        
+
+    def _ycbcr(self,y, cb, cr,bbPath_y_cb,bbPath_y_cr):
+        return bbPath_y_cb.contains_point((y, cb)) and \
+                bbPath_y_cr.contains_point((y, cr)) and \
+                18<cr-cb<55
 
     def _to_normalized_hsv(self, h, s, v):
         if h == 0:
