@@ -237,6 +237,7 @@ router.post('/detect', function(req, res){
     req.on('end', function () {
         var key = settings.youyuan_key ;
         var bodyObj = JSON.parse(req.rawBody) ;
+        logger.info(bodyObj) ;
         var timestamp = bodyObj.timestamp ;
         logger.info(timestamp) ;
         //验证请求时间，跟当前时间比较上下不超过5分钟
@@ -279,7 +280,7 @@ router.post('/detect', function(req, res){
                         console.log(stdout);
                         var out_arr = stdout.split(",") ;
                         var results = {"face_count":out_arr[0],"digital_count":out_arr[1],"is_nude":out_arr[2],"pass":out_arr[3]}
-                        res.send({retcode: 0, retmsg: "success","results":results});
+                        res.end({retcode: 0, retmsg: "success","results":results});
                     }
                 });
             }
