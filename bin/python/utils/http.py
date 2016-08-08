@@ -25,7 +25,7 @@ class Http((object)):
         req_type = 'imageidentify'
         headers = self.get_headers(req_type)
         r = {}
-        print json.dumps(data)
+        # print json.dumps(data)
         try:
             r = requests.post(url, headers=headers, data=json.dumps(data))
             if r.status_code != 200:
@@ -51,8 +51,9 @@ class Http((object)):
     def detect(self,image_path):
         m2 = hashlib.md5()
         t = str(int(time.time()))
+        # print t
         m2.update(t+"N6AG2WHLH74S5WC5m2")
-        print m2.hexdigest()
+        # print m2.hexdigest()
         sign = m2.hexdigest()
         filepath = os.path.abspath(image_path)
         if not os.path.exists(filepath):
@@ -75,6 +76,7 @@ class Http((object)):
         # print res['retmsg']
 if __name__ == '__main__':
     h = Http()
-    h.detect("../../../public/images/p3.jpg")
+    # h.detect("../../../public/images/p3.jpg")
+    h.detect("../../../public/images/ln.jpg")
     # h.detect("/Users/fengxuting/Downloads/photo/photo_pass/photo_pass/1464318494483A9B1A59.jpg")
     # h.detect("/Users/fengxuting/Downloads/photo/photo_pass/photo_pass/1464318775245A552D29.jpg")
