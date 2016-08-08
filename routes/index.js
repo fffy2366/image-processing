@@ -237,7 +237,7 @@ router.post('/detect', function(req, res){
     req.on('end', function () {
         var key = settings.youyuan_key ;
         var bodyObj = JSON.parse(req.rawBody) ;
-        logger.info(bodyObj) ;
+        logger.info(bodyObj.sign) ;
         var timestamp = bodyObj.timestamp ;
         logger.info(timestamp) ;
         //验证请求时间，跟当前时间比较上下不超过5分钟
