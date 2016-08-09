@@ -51,10 +51,15 @@ class Http((object)):
     def detect(self,image_path):
         m2 = hashlib.md5()
         t = str(int(time.time()))
+        t = "1470651663"
+        #65cf7cc9121451f536ae301a8ab8c7d5
+        #1470651663
+
         # print t
         m2.update(t+"N6AG2WHLH74S5WC5m2")
         # print m2.hexdigest()
         sign = m2.hexdigest()
+        print sign
         filepath = os.path.abspath(image_path)
         if not os.path.exists(filepath):
             print {'httpcode':0, 'errorcode':self.IMAGE_FILE_NOT_EXISTS, 'errormsg':'IMAGE_FILE_NOT_EXISTS', "session_id":'', "image_id":'', "image_height":0, "image_width":0, "face":[{}]}
@@ -69,9 +74,9 @@ class Http((object)):
         }
         # print data
         # res = self.post('http://localhost:3002/detect', data)
-        res = self.post('http://180.76.143.82:3002/detect', data)
+        # res = self.post('http://180.76.143.82:3002/detect', data)
 
-        print res
+        # print res
         # print res['results']
         # print res['retmsg']
 if __name__ == '__main__':
