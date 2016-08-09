@@ -391,7 +391,37 @@ mrun example
 来在命令行运行matlab文件。
 sudo pip install pillow imagehash
 
+$ yum install tigervnc tigervnc-server -y 
 
+
+放弃vnc，用下面的方法安装:
+1) 修改配置文件
+查看install_guide.pdf ,拷贝installer_input.txt 为my_installer_input.txt
+修改配置，详见docs/my_installer_input.txt
+```
+destinationFolder=/mnt/MATLAB/R2015b
+fileInstallationKey=09806-07443-53955-64350-21751-41297
+agreeToLicense=yes
+mode=silent
+# licensePath=
+```
+2) 安装
+$ ./install -inputFile ../my_installer_input.txt
+
+安装成功！
+$ /mnt/MATLAB/R2015b/bin/matlab -h
+3) 破解
+- Use license_standalone.lic to activate,
+  or make a "licenses" folder in %installdir% and copy license_standalone.lic to it,and run matlab without activation
+- after the installation finishes copy the folders to %installdir% to overwriting the originally installed files
+
+4) 添加环境变量
+$ vim ~/.bash_profile
+export PATH 之前添加
+PATH=$PATH:/mnt/MATLAB/R2015b/bin
+
+$ source ~/.bash_profile
+5) 测试
 [图文教程：百度云主机BCC挂载云盘CDS](http://xiaohost.com/1376.html)
 
 
