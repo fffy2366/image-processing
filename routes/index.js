@@ -279,8 +279,9 @@ router.post('/detect', function(req, res){
                             }else{
                                 console.log(stdout);
                                 var out_arr = stdout.split(",") ;
-                                var results = {"face_count":out_arr[0],"digital_count":out_arr[1],"is_nude":out_arr[2],"pass":out_arr[3]}
-                                res.send({retcode: 0, retmsg: "success","results":results});
+                                var results = {"face_count":out_arr[0],"digital_count":out_arr[1],"is_nude":out_arr[2],"pass":out_arr[3].replace('\n','')}
+                                console.log(results);
+                                res.send({retcode: 0, retmsg: "success","result":results});
                             }
                         });
                     }

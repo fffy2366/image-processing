@@ -51,7 +51,7 @@ class Http((object)):
     def detect(self,image_path):
         m2 = hashlib.md5()
         t = str(int(time.time()))
-        t = "1470705185"
+        # t = "1470705185"
         #41e857576c18f3692b9bff75e7059148
         #1470705185
         #mysql ae6e5fbc1ea6b59c17876cad24a40ea9
@@ -83,6 +83,7 @@ class Http((object)):
 if __name__ == '__main__':
     h = Http()
     # h.detect("../../../public/images/p3.jpg")
-    h.detect("../../../public/images/ln.jpg")
+    # h.detect("../../../public/images/ln.jpg")
+    h.detect("../../../public/images/ocr1.jpg")
     # h.detect("/Users/fengxuting/Downloads/photo/photo_pass/photo_pass/1464318494483A9B1A59.jpg")
     # h.detect("/Users/fengxuting/Downloads/photo/photo_pass/photo_pass/1464318775245A552D29.jpg")
