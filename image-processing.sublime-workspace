@@ -12,57 +12,58 @@
 	"buffers":
 	[
 		{
-			"file": "tests/python/ycbcr.py",
-			"settings":
-			{
-				"buffer_size": 2275,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "nude.py",
-			"settings":
-			{
-				"buffer_size": 21121,
-				"line_ending": "Windows"
-			}
-		},
-		{
 			"file": "bin/python/utils/http.py",
 			"settings":
 			{
-				"buffer_size": 2677,
+				"buffer_size": 2898,
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "bin/python/config/config_dev.py",
+			"file": "tests/java/MD5Util.java",
 			"settings":
 			{
-				"buffer_size": 259,
+				"buffer_size": 1165,
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "bin/python/utils/logger.py",
+			"file": "/C/Users/liuwan/AppData/Roaming/Sublime Text 3/Packages/User/java.sublime-build",
 			"settings":
 			{
-				"buffer_size": 4267,
-				"line_ending": "Windows"
+				"buffer_size": 202,
+				"line_ending": "Windows",
+				"name": "untitled.sublime-build"
 			}
 		},
 		{
-			"file": "tests/python/nude.py",
+			"file": "/C/Users/liuwan/Desktop/open.html",
 			"settings":
 			{
-				"buffer_size": 16501,
+				"buffer_size": 218,
 				"line_ending": "Windows"
 			}
 		}
 	],
-	"build_system": "Packages/Python/Python.sublime-build",
+	"build_system": "Packages/Java/JavaC.sublime-build",
 	"build_system_choices":
 	[
+		[
+			[
+				[
+					"Packages/Java/Ant.sublime-build",
+					""
+				],
+				[
+					"Packages/Java/JavaC.sublime-build",
+					""
+				]
+			],
+			[
+				"Packages/Java/JavaC.sublime-build",
+				""
+			]
+		],
 		[
 			[
 				[
@@ -133,18 +134,24 @@
 	"expanded_folders":
 	[
 		"/D/python/image-processing",
-		"/D/python/image-processing/bin",
-		"/D/python/image-processing/bin/python",
-		"/D/python/image-processing/bin/python/utils"
+		"/D/python/image-processing/tests",
+		"/D/python/image-processing/tests/java"
 	],
 	"file_history":
 	[
+		"/D/python/image-processing/routes/index.js",
+		"/D/Program Files/Java/jdk1.8.0_91/bin/runJava.bat",
+		"/D/python/image-processing/tests/python/ycbcr.py",
+		"/D/python/image-processing/nude.py",
+		"/D/python/image-processing/bin/python/utils/http.py",
+		"/D/python/image-processing/bin/python/config/config_dev.py",
+		"/D/python/image-processing/bin/python/utils/logger.py",
+		"/D/python/image-processing/tests/python/nude.py",
 		"/D/python/image-processing/logs/ycbcr_001.jpg.info.20160804.log",
 		"/D/python/image-processing/logs/ycbcr_1nude_test.jpg.info.20160804.log",
 		"/D/python/image-processing/logs/ycbcr.info.20160804.log",
 		"/D/python/image-processing/batchnude.py",
 		"/D/python/image-processing/nudedetect.py",
-		"/D/python/image-processing/nude.py",
 		"/D/python/image-processing/nudetest.py",
 		"/D/python/image-processing/README.md",
 		"/D/python/image-processing/api.py",
@@ -155,7 +162,6 @@
 		"/D/python/image-processing/bin/python/models/images.py",
 		"/C/Windows/System32/drivers/etc/hosts",
 		"/D/vastrek/20150706更新服务器信息.txt",
-		"/D/python/image-processing/bin/python/config/config_dev.py",
 		"/D/python/image-processing/batchface.py",
 		"/D/python/image-processing/bin/python/config/config_prod.py",
 		"/D/python/image-processing/bin/python/config/config.py",
@@ -186,6 +192,8 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"print",
+			"/api",
 			"print",
 			"logger",
 			".jpg",
@@ -239,19 +247,19 @@
 			[
 				{
 					"buffer": 0,
-					"file": "tests/python/ycbcr.py",
+					"file": "bin/python/utils/http.py",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 2275,
+						"buffer_size": 2898,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1010,
-								1010
+								1796,
+								1796
 							]
 						],
 						"settings":
@@ -260,8 +268,8 @@
 							"tab_size": 4,
 							"translate_tabs_to_spaces": true
 						},
-						"translation.x": 0.0,
-						"translation.y": 193.0,
+						"translation.x": 1.0,
+						"translation.y": 830.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 3,
@@ -269,29 +277,29 @@
 				},
 				{
 					"buffer": 1,
-					"file": "nude.py",
+					"file": "tests/java/MD5Util.java",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 21121,
+						"buffer_size": 1165,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								10310,
-								10310
+								856,
+								856
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/Python/Python.sublime-syntax",
+							"syntax": "Packages/Java/Java.sublime-syntax",
 							"tab_size": 4,
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 4790.0,
+						"translation.y": 211.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 1,
@@ -299,29 +307,27 @@
 				},
 				{
 					"buffer": 2,
-					"file": "bin/python/utils/http.py",
+					"file": "/C/Users/liuwan/AppData/Roaming/Sublime Text 3/Packages/User/java.sublime-build",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 2677,
+						"buffer_size": 202,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								714,
-								714
+								202,
+								202
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/Python/Python.sublime-syntax",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
+							"syntax": "Packages/JavaScript/JSON.sublime-syntax"
 						},
-						"translation.x": -0.0,
-						"translation.y": 261.0,
+						"translation.x": 0.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 0,
@@ -329,92 +335,30 @@
 				},
 				{
 					"buffer": 3,
-					"file": "bin/python/config/config_dev.py",
+					"file": "/C/Users/liuwan/Desktop/open.html",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 259,
+						"buffer_size": 218,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								259,
-								259
+								202,
+								202
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/Python/Python.sublime-syntax",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
+							"syntax": "Packages/HTML/HTML.sublime-syntax"
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 2,
-					"type": "text"
-				},
-				{
-					"buffer": 4,
-					"file": "bin/python/utils/logger.py",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 4267,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								322,
-								322
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Python/Python.sublime-syntax",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 84.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 4,
-					"type": "text"
-				},
-				{
-					"buffer": 5,
-					"file": "tests/python/nude.py",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 16501,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								254,
-								254
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Python/Python.sublime-syntax",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 5,
 					"type": "text"
 				}
 			]
@@ -453,13 +397,13 @@
 	"menu_visible": true,
 	"output.exec":
 	{
-		"height": 224.0
+		"height": 258.0
 	},
 	"output.find_results":
 	{
 		"height": 0.0
 	},
-	"pinned_build_system": "",
+	"pinned_build_system": "Packages/User/java.sublime-build",
 	"project": "image-processing.sublime-project",
 	"replace":
 	{

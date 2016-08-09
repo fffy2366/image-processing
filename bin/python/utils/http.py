@@ -51,12 +51,13 @@ class Http((object)):
     def detect(self,image_path):
         m2 = hashlib.md5()
         t = str(int(time.time()))
-        t = "1470651663"
-        #65cf7cc9121451f536ae301a8ab8c7d5
-        #1470651663
+        t = "1470705185"
+        #41e857576c18f3692b9bff75e7059148
+        #1470705185
+        #mysql ae6e5fbc1ea6b59c17876cad24a40ea9
 
         # print t
-        m2.update(t+"N6AG2WHLH74S5WC5m2")
+        m2.update(t+"N6AG2WHLH74S5WC5")
         # print m2.hexdigest()
         sign = m2.hexdigest()
         print sign
@@ -74,9 +75,9 @@ class Http((object)):
         }
         # print data
         # res = self.post('http://localhost:3002/detect', data)
-        # res = self.post('http://180.76.143.82:3002/detect', data)
+        res = self.post('http://180.76.143.82:3002/detect', data)
+        print res
 
-        # print res
         # print res['results']
         # print res['retmsg']
 if __name__ == '__main__':

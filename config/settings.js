@@ -39,7 +39,7 @@ module.exports = {
     prod:{
         url:'http://localhost:3000'
     },
-    youyuan_key:'N6AG2WHLH74S5WC5m2'
+    youyuan_key:'N6AG2WHLH74S5WC5'
 
 
 };
