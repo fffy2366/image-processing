@@ -422,6 +422,14 @@ PATH=$PATH:/mnt/MATLAB/R2015b/bin
 
 $ source ~/.bash_profile
 5) 测试
+matlab -nodisplay -r example
+6) python 调用matlab
+[mlab](https://github.com/ewiger/mlab#windows)
+[matlab_wrapper](https://github.com/mrkrd/matlab_wrapper)
+```
+$ pip install matlab_wrapper
+$ yum install csh
+```
 [图文教程：百度云主机BCC挂载云盘CDS](http://xiaohost.com/1376.html)
 
 
