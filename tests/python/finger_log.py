@@ -13,7 +13,7 @@ import multiprocessing
 from PIL import Image
 import cv2
 sys.path.append("../..")
-from bin.python.models.images import Images
+from bin.python.models.youyuan_log import YouyuanLog
 from nude import Nude
 import imagehash
 from bin.python.utils import logger
