@@ -51,9 +51,10 @@ class Figerlog(object):
         return rr.get(hash)
 
     def save_log(self,result):
-    	youyuan = Youyuanlog()
+    	pass
+    	# youyuan = Youyuanlog()
     	#{'name':'test','finger':'xxx','is_face':'1','ocr':'乱码','is_qq':'1','is_pass':'1','created_at':datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")}
-    	youyuan.insert(result) ;
+    	# youyuan.insert(result)
 
     def get_result(self):
     	redis_result = self.get_result_from_redis(self.IMAGE_HASH)
@@ -67,7 +68,10 @@ class Figerlog(object):
     	self.IMAGE_HASH = self.get_image_hash(IMAGE_DIR+self.filename)
     	result = self.get_result()
     	if(result):
-    		self.save_log(result)
+    		# self.save_log(result)
+    		return result
+    	else:
+    		return False
 
 
 def main():
@@ -76,7 +80,10 @@ def main():
 	for file in fileList:
 		print("=============="+file+"==============")
 		finger = Figerlog(file)
-		finger.deal()
+		result = finger.deal()
+		youyuan = Youyuanlog()
+    	#{'name':'test','finger':'xxx','is_face':'1','ocr':'乱码','is_qq':'1','is_pass':'1','created_at':datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")}
+    	youyuan.insert(result)
 
 if __name__ == "__main__":
     main()
