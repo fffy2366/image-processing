@@ -63,20 +63,20 @@ class Figerlog(object):
         else:
         	return False
 
-    def deal(self,filename):
-    	self.IMAGE_HASH = self.get_image_hash(IMAGE_DIR+filename)
+    def deal(self):
+    	self.IMAGE_HASH = self.get_image_hash(IMAGE_DIR+self.filename)
     	result = self.get_result()
     	if(result):
     		self.save_log(result)
 
 
 def main():
-	figerlog = Figerlog()
-    fileList = figerlog.getFileList(IMAGE_DIR)
-    for file in fileList:
-        print("=============="+file+"==============")
-        finger = Figerlog(file)
-
+	figerlog = Figerlog("")
+	fileList = figerlog.getFileList(IMAGE_DIR)
+	for file in fileList:
+		print("=============="+file+"==============")
+		finger = Figerlog(file)
+		finger.deal()
 
 if __name__ == "__main__":
     main()
