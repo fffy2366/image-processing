@@ -449,3 +449,9 @@ error: no lapack/blas resources found
 
 
 [Python多进程multiprocessing使用示例](http://outofmemory.cn/code-snippet/2267/Python-duojincheng-multiprocessing-usage-example)
+
+
+##删除0字节图片
+```
+$ find -type f -size 0 -exec rm -rf {} \;
+```

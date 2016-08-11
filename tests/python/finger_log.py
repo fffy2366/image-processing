@@ -19,6 +19,8 @@ import imagehash
 from bin.python.utils import logger
 from bin.python.models.redis_results import RedisResults
 
+from PIL import ImageFile
+ImageFile.LOAD_TRUNCATED_IMAGES = True
 
 Image.LOAD_TRUNCATED_IMAGES = True
 
@@ -27,6 +29,7 @@ sys.setdefaultencoding('utf-8')
 IMAGE_DIR = ""
 '''
 生成指纹，从缓存取检测结果保存到mysql
+$ find -type f -size 0 -exec rm -rf {} \;
 '''
 class Figerlog(object):
     def __init__(self, path):
@@ -36,11 +39,18 @@ class Figerlog(object):
     def get_image_hash(self,file):
     	if(not os.path.isfile(file)):
     		print file+"is not a file"
-    		sys.exit(0)
+    		# sys.exit(0)
+    	try:
+    		img = Image.open(file)
+	        h = str(imagehash.dhash(img))
+	        return h
+    	except Exception, e:
+    		raise
+    	else:
+    		pass
+    	finally:
+    		pass
 
-        img = Image.open(file)
-        h = str(imagehash.dhash(img))
-        return h
     # 获取图片列表
     def getFileList(self,p):
         p = str(p)
