@@ -369,8 +369,12 @@ pylab 包含numpy ,scipy,matplotlib ,从http://www.lfd.uci.edu/~gohlke/pythonlib
 Todo:
 * 人脸数判断√
 * 生成指纹 redis 存储√
-* 鉴黄根据人脸比例
+* 鉴黄根据人脸比例√
 * ocr matlab
+* nude根据人脸皮肤排除背景 junzhi-10<cb<junzhi+10 junzhi-10<cr<junzhi+15
+* 人脸识别添加皮肤判断？
+
+
 ## Matlab
 [CentOS安装Matlab R2015b](http://www.centoscn.com/image-text/install/2016/0408/7018.html)
 1. Set an X11 display, and restart the install process

@@ -15,32 +15,39 @@
 			"file": "bin/python/utils/http.py",
 			"settings":
 			{
-				"buffer_size": 2898,
+				"buffer_size": 2948,
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "tests/java/MD5Util.java",
+			"file": "routes/index.js",
 			"settings":
 			{
-				"buffer_size": 1165,
+				"buffer_size": 12619,
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "/C/Users/liuwan/AppData/Roaming/Sublime Text 3/Packages/User/java.sublime-build",
+			"file": "api.py",
 			"settings":
 			{
-				"buffer_size": 202,
-				"line_ending": "Windows",
-				"name": "untitled.sublime-build"
+				"buffer_size": 9422,
+				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "/C/Users/liuwan/Desktop/open.html",
+			"file": "README.md",
 			"settings":
 			{
-				"buffer_size": 218,
+				"buffer_size": 12740,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "/D/BaiduYunDownload/Matlab 2015b Linux64 Crack/readme.txt",
+			"settings":
+			{
+				"buffer_size": 931,
 				"line_ending": "Windows"
 			}
 		}
@@ -84,10 +91,14 @@
 	"build_varint": "",
 	"command_palette":
 	{
-		"height": 392.0,
-		"last_filter": ": sd",
+		"height": 150.0,
+		"last_filter": "Package Control: in",
 		"selected_items":
 		[
+			[
+				"Package Control: in",
+				"Package Control: Install Package"
+			],
 			[
 				": sd",
 				"Nodejs::Default File Settings"
@@ -113,7 +124,7 @@
 				"Package Control: Install Package"
 			]
 		],
-		"width": 432.0
+		"width": 400.0
 	},
 	"console":
 	{
@@ -133,12 +144,19 @@
 	},
 	"expanded_folders":
 	[
-		"/D/python/image-processing",
-		"/D/python/image-processing/tests",
+		"/D/python/image-processing/public/uploads",
 		"/D/python/image-processing/tests/java"
 	],
 	"file_history":
 	[
+		"/D/python/image-processing/docs/图片识别1.0.md",
+		"/D/python/image-processing/tests/java/MD5Util.java",
+		"/D/python/image-processing/tests/java/Test.java",
+		"/D/python/image-processing/config/settings.js",
+		"/C/Users/liuwan/AppData/Roaming/Sublime Text 3/Packages/User/java.sublime-build",
+		"/C/Users/liuwan/Desktop/open.html",
+		"/D/BaiduYunDownload/Mac/Instructions.txt",
+		"/D/python/image-processing/docs/my_installer_input.txt",
 		"/D/python/image-processing/routes/index.js",
 		"/D/Program Files/Java/jdk1.8.0_91/bin/runJava.bat",
 		"/D/python/image-processing/tests/python/ycbcr.py",
@@ -192,6 +210,7 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"matlab",
 			"print",
 			"/api",
 			"print",
@@ -242,7 +261,7 @@
 	"groups":
 	[
 		{
-			"selected": 2,
+			"selected": 3,
 			"sheets":
 			[
 				{
@@ -251,15 +270,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 2898,
+						"buffer_size": 2948,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1796,
-								1796
+								2948,
+								2948
 							]
 						],
 						"settings":
@@ -268,8 +287,8 @@
 							"tab_size": 4,
 							"translate_tabs_to_spaces": true
 						},
-						"translation.x": 1.0,
-						"translation.y": 830.0,
+						"translation.x": 0.0,
+						"translation.y": 1499.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 3,
@@ -277,29 +296,29 @@
 				},
 				{
 					"buffer": 1,
-					"file": "tests/java/MD5Util.java",
+					"file": "routes/index.js",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1165,
+						"buffer_size": 12619,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								856,
-								856
+								10185,
+								10190
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/Java/Java.sublime-syntax",
+							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
 							"tab_size": 4,
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 211.0,
+						"translation.y": 4082.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 1,
@@ -307,52 +326,84 @@
 				},
 				{
 					"buffer": 2,
-					"file": "/C/Users/liuwan/AppData/Roaming/Sublime Text 3/Packages/User/java.sublime-build",
+					"file": "api.py",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 202,
+						"buffer_size": 9422,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								202,
-								202
+								7509,
+								7509
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/JavaScript/JSON.sublime-syntax"
+							"syntax": "Packages/Python/Python.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 4579.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 4,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "README.md",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 12740,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								12238,
+								12238
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Markdown/Markdown.sublime-syntax",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 8420.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 0,
 					"type": "text"
 				},
 				{
-					"buffer": 3,
-					"file": "/C/Users/liuwan/Desktop/open.html",
+					"buffer": 4,
+					"file": "/D/BaiduYunDownload/Matlab 2015b Linux64 Crack/readme.txt",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 218,
+						"buffer_size": 931,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								202,
-								202
+								257,
+								529
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/HTML/HTML.sublime-syntax"
+							"syntax": "Packages/Text/Plain text.tmLanguage"
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
@@ -397,7 +448,7 @@
 	"menu_visible": true,
 	"output.exec":
 	{
-		"height": 258.0
+		"height": 96.0
 	},
 	"output.find_results":
 	{

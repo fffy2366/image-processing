@@ -68,8 +68,14 @@ router.post('/upload',function(req,res){
             console.log("target_path:" + target_path);
             console.log("src_path:" + src_path);
 
-            fs.rename(src_path, target_path, function (err) {
-                res.setHeader('Content-Type','text/html');
+            var is = fs.createReadStream(src_path);
+            var os = fs.createWriteStream(target_path);
+            is.pipe(os);
+            is.on('end', function () {
+                fs.unlinkSync(src_path, target_path);
+            });
+            
+            res.setHeader('Content-Type','text/html');
                 res.setHeader('charset','utf-8');
                 if (err) {
                     console.log("err:"+err) ;
@@ -154,8 +160,6 @@ router.post('/upload',function(req,res){
                 if(type=="photo"){
                     res.send({status: "y", info: "上传成功", "path": target_path, "filename": newFile});
                 }
-
-            });
         }
     });
 
