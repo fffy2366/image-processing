@@ -34,6 +34,10 @@ class Figerlog(object):
     	self.IMAGE_HASH = ""
  	# 获取图片哈希值
     def get_image_hash(self,file):
+    	if(not os.path.isfile(file)):
+    		print file+"is not a file"
+    		sys.exit(0)
+
         img = Image.open(file)
         h = str(imagehash.dhash(img))
         return h
