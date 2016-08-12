@@ -244,6 +244,15 @@ scaleFactor     :    官网文档说是每次图片缩小的比例,其实可以�
 minNeighbors :   可以理解为每次检测时,对检测点(Scale)周边多少有效点同时检测,因为可能选取的检测点大小不足而导致遗漏
 [【原】训练自己haar-like特征分类器并识别物体（2）](http://www.cnblogs.com/wengzilin/p/3849118.html)
 
+### 人脸识别其他方法
+[Matlab人脸检测方法（Face Parts Detection）详解](http://blog.csdn.net/u013088062/article/details/50810988)
+[Face Detection, Pose Estimation and Landmark Localization in the Wild](http://www.ics.uci.edu/~xzhu/face/)
+[基于Matlab的简单人脸识别实例](http://blog.sina.com.cn/s/blog_725866260100ryg2.html)
+[免费、高性能的人脸检测库(二进制)](http://www.opencv.org.cn/portal.php?mod=view&aid=2)
+[libfacedetection](https://github.com/ShiqiYu/libfacedetection)
+[人脸检测发展：从VJ到深度学习（上）](https://mp.weixin.qq.com/s?__biz=MzI5NTIxNTg0OA==&mid=2247484422&idx=2&sn=a68638b34e32b2641a003bad81b53219&scene=1&srcid=0811SMx0wAJ51tNOvhouLk9h&key=305bc10ec50ec19b13006541fdfe99de1a1480d8c683edcac33d4da35611ca2097256ade5cb4563b9efb92cd4f4a3fd5&ascene=0&uin=MTA2ODMxMjkyOA%3D%3D&devicetype=iMac+MacBookPro11%2C4+OSX+OSX+10.11.3+build(15D21)&version=11020201&pass_ticket=AhSK0mvkJf04YGh0i1uPAym7GW1PjJ1Wf%2FtIMtxdGAxSUUacmzM8JEwyzUOU1TQs)
+
+
 ## plupload
 [plupload](http://www.plupload.com/download)
 
@@ -455,3 +464,20 @@ error: no lapack/blas resources found
 ```
 $ find -type f -size 0 -exec rm -rf {} \;
 ```
+==============898b67a0-5e2e-11e6-b75e-87fc586a8584.png==============
+Traceback (most recent call last):
+  File "finger_log.py", line 93, in <module>
+    main()
+  File "finger_log.py", line 87, in main
+    result = finger.deal()
+  File "finger_log.py", line 72, in deal
+    self.IMAGE_HASH = self.get_image_hash(IMAGE_DIR+self.filename)
+  File "finger_log.py", line 42, in get_image_hash
+    h = str(imagehash.dhash(img))
+  File "/usr/lib/python2.7/site-packages/imagehash/__init__.py", line 160, in dhash
+    image = image.convert("L").resize((hash_size + 1, hash_size), Image.ANTIALIAS)
+  File "/usr/lib64/python2.7/site-packages/PIL/Image.py", line 699, in convert
+    self.load()
+  File "/usr/lib64/python2.7/site-packages/PIL/ImageFile.py", line 215, in load
+    raise IOError("image file is truncated (%d bytes not processed)" % len(b))
+IOError: image file is truncated (43 bytes not processed)
