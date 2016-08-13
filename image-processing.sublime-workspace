@@ -12,49 +12,65 @@
 	"buffers":
 	[
 		{
-			"file": "tests/python/ycbcr.py",
+			"file": "bin/python/utils/http.py",
 			"settings":
 			{
-				"buffer_size": 2275,
+				"buffer_size": 2948,
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "nude.py",
+			"file": "routes/index.js",
 			"settings":
 			{
-				"buffer_size": 21119,
+				"buffer_size": 12619,
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "bin/python/config/config_dev.py",
+			"file": "api.py",
 			"settings":
 			{
-				"buffer_size": 259,
+				"buffer_size": 9422,
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "bin/python/utils/logger.py",
+			"file": "README.md",
 			"settings":
 			{
-				"buffer_size": 4267,
+				"buffer_size": 12740,
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "tests/python/nude.py",
+			"file": "/D/BaiduYunDownload/Matlab 2015b Linux64 Crack/readme.txt",
 			"settings":
 			{
-				"buffer_size": 16501,
+				"buffer_size": 931,
 				"line_ending": "Windows"
 			}
 		}
 	],
-	"build_system": "Packages/Python/Python.sublime-build",
+	"build_system": "Packages/Java/JavaC.sublime-build",
 	"build_system_choices":
 	[
+		[
+			[
+				[
+					"Packages/Java/Ant.sublime-build",
+					""
+				],
+				[
+					"Packages/Java/JavaC.sublime-build",
+					""
+				]
+			],
+			[
+				"Packages/Java/JavaC.sublime-build",
+				""
+			]
+		],
 		[
 			[
 				[
@@ -75,10 +91,14 @@
 	"build_varint": "",
 	"command_palette":
 	{
-		"height": 392.0,
-		"last_filter": ": sd",
+		"height": 150.0,
+		"last_filter": "Package Control: in",
 		"selected_items":
 		[
+			[
+				"Package Control: in",
+				"Package Control: Install Package"
+			],
 			[
 				": sd",
 				"Nodejs::Default File Settings"
@@ -104,7 +124,7 @@
 				"Package Control: Install Package"
 			]
 		],
-		"width": 432.0
+		"width": 400.0
 	},
 	"console":
 	{
@@ -124,16 +144,32 @@
 	},
 	"expanded_folders":
 	[
-		"/D/python/image-processing"
+		"/D/python/image-processing/public/uploads",
+		"/D/python/image-processing/tests/java"
 	],
 	"file_history":
 	[
+		"/D/python/image-processing/docs/图片识别1.0.md",
+		"/D/python/image-processing/tests/java/MD5Util.java",
+		"/D/python/image-processing/tests/java/Test.java",
+		"/D/python/image-processing/config/settings.js",
+		"/C/Users/liuwan/AppData/Roaming/Sublime Text 3/Packages/User/java.sublime-build",
+		"/C/Users/liuwan/Desktop/open.html",
+		"/D/BaiduYunDownload/Mac/Instructions.txt",
+		"/D/python/image-processing/docs/my_installer_input.txt",
+		"/D/python/image-processing/routes/index.js",
+		"/D/Program Files/Java/jdk1.8.0_91/bin/runJava.bat",
+		"/D/python/image-processing/tests/python/ycbcr.py",
+		"/D/python/image-processing/nude.py",
+		"/D/python/image-processing/bin/python/utils/http.py",
+		"/D/python/image-processing/bin/python/config/config_dev.py",
+		"/D/python/image-processing/bin/python/utils/logger.py",
+		"/D/python/image-processing/tests/python/nude.py",
 		"/D/python/image-processing/logs/ycbcr_001.jpg.info.20160804.log",
 		"/D/python/image-processing/logs/ycbcr_1nude_test.jpg.info.20160804.log",
 		"/D/python/image-processing/logs/ycbcr.info.20160804.log",
 		"/D/python/image-processing/batchnude.py",
 		"/D/python/image-processing/nudedetect.py",
-		"/D/python/image-processing/nude.py",
 		"/D/python/image-processing/nudetest.py",
 		"/D/python/image-processing/README.md",
 		"/D/python/image-processing/api.py",
@@ -144,7 +180,6 @@
 		"/D/python/image-processing/bin/python/models/images.py",
 		"/C/Windows/System32/drivers/etc/hosts",
 		"/D/vastrek/20150706更新服务器信息.txt",
-		"/D/python/image-processing/bin/python/config/config_dev.py",
 		"/D/python/image-processing/batchface.py",
 		"/D/python/image-processing/bin/python/config/config_prod.py",
 		"/D/python/image-processing/bin/python/config/config.py",
@@ -161,7 +196,7 @@
 	],
 	"find":
 	{
-		"height": 35.0
+		"height": 36.0
 	},
 	"find_in_files":
 	{
@@ -175,6 +210,10 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"matlab",
+			"print",
+			"/api",
+			"print",
 			"logger",
 			".jpg",
 			"print",
@@ -222,24 +261,24 @@
 	"groups":
 	[
 		{
-			"selected": 1,
+			"selected": 3,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "tests/python/ycbcr.py",
+					"file": "bin/python/utils/http.py",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 2275,
+						"buffer_size": 2948,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1010,
-								1010
+								2948,
+								2948
 							]
 						],
 						"settings":
@@ -249,117 +288,57 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 193.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 2,
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"file": "nude.py",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 21119,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								13092,
-								13092
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Python/Python.sublime-syntax",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 6129.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 0,
-					"type": "text"
-				},
-				{
-					"buffer": 2,
-					"file": "bin/python/config/config_dev.py",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 259,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								259,
-								259
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Python/Python.sublime-syntax",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 1,
-					"type": "text"
-				},
-				{
-					"buffer": 3,
-					"file": "bin/python/utils/logger.py",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 4267,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								322,
-								322
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Python/Python.sublime-syntax",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 84.0,
+						"translation.y": 1499.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 3,
 					"type": "text"
 				},
 				{
-					"buffer": 4,
-					"file": "tests/python/nude.py",
+					"buffer": 1,
+					"file": "routes/index.js",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 16501,
+						"buffer_size": 12619,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								254,
-								254
+								10185,
+								10190
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 4082.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "api.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 9422,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								7509,
+								7509
 							]
 						],
 						"settings":
@@ -369,10 +348,68 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 4579.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 4,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "README.md",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 12740,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								12238,
+								12238
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Markdown/Markdown.sublime-syntax",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 8420.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "/D/BaiduYunDownload/Matlab 2015b Linux64 Crack/readme.txt",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 931,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								257,
+								529
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Text/Plain text.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
 					"type": "text"
 				}
 			]
@@ -411,13 +448,13 @@
 	"menu_visible": true,
 	"output.exec":
 	{
-		"height": 224.0
+		"height": 96.0
 	},
 	"output.find_results":
 	{
 		"height": 0.0
 	},
-	"pinned_build_system": "",
+	"pinned_build_system": "Packages/User/java.sublime-build",
 	"project": "image-processing.sublime-project",
 	"replace":
 	{

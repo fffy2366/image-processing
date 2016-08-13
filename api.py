@@ -250,7 +250,7 @@ class Api:
             os.remove(nudeImg)
 
         #删除原文件
-        os.remove(IMAGE_DIR+file)
+        # os.remove(IMAGE_DIR+file)
 
     def one(self,file):
         filepath = IMAGE_DIR+file

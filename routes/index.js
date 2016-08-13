@@ -68,8 +68,14 @@ router.post('/upload',function(req,res){
             console.log("target_path:" + target_path);
             console.log("src_path:" + src_path);
 
-            fs.rename(src_path, target_path, function (err) {
-                res.setHeader('Content-Type','text/html');
+            var is = fs.createReadStream(src_path);
+            var os = fs.createWriteStream(target_path);
+            is.pipe(os);
+            is.on('end', function () {
+                fs.unlinkSync(src_path, target_path);
+            });
+            
+            res.setHeader('Content-Type','text/html');
                 res.setHeader('charset','utf-8');
                 if (err) {
                     console.log("err:"+err) ;
@@ -154,8 +160,6 @@ router.post('/upload',function(req,res){
                 if(type=="photo"){
                     res.send({status: "y", info: "上传成功", "path": target_path, "filename": newFile});
                 }
-
-            });
         }
     });
 
@@ -237,53 +241,58 @@ router.post('/detect', function(req, res){
     req.on('end', function () {
         var key = settings.youyuan_key ;
         var bodyObj = JSON.parse(req.rawBody) ;
+        logger.info(bodyObj.sign) ;
         var timestamp = bodyObj.timestamp ;
         logger.info(timestamp) ;
         //验证请求时间，跟当前时间比较上下不超过5分钟
         logger.info(parseInt((moment().unix()-timestamp)/60)>5) ;
         if(parseInt((moment().unix()-timestamp)/60)>5){
             res.send({"retcode":"2","retmsg":"非法请求！"}) ;
-        }
-        //验证签名
-        var sign = bodyObj.sign ;
-        var md5 = crypto.createHash('md5');
-        md5.update(timestamp+key);
-        var vilidSign = md5.digest('hex');
-        if(vilidSign!=sign){
-            res.send({"retcode":"3","retmsg":"签名错误！"}) ;
-        }
-        //保存图片
-        var base64Data = bodyObj.base64 ;
-        var newFile = uuid.v1() + ".png";
-        StringUtils.mkdirSync('../public/uploads/api');
-        var target_path = "./public/uploads/api/" + newFile;
-
-//        logger.info(base64Data) ;
-        var dataBuffer = new Buffer(base64Data, 'base64');
-
-        fs.writeFile(target_path, dataBuffer, function(err) {
-            if(err){
-                logger.error(err) ;
-                res.send({"retcode":"1","retmsg":err});
+        }else{
+             //验证签名
+            var sign = bodyObj.sign ;
+            var md5 = crypto.createHash('md5');
+            md5.update(timestamp+key);
+            var vilidSign = md5.digest('hex');
+            if(vilidSign!=sign){
+                res.send({"retcode":"3","retmsg":"签名错误！"}) ;
             }else{
-                //res.send({"retcode":"1","retmsg":"保存成功！"}) ;
-                //调用python检测图片，返回结果
-                //删除图片
-                var exec = require('child_process').exec;
-                var shell = 'cd '+__dirname+'/..'+' && python api.py '+newFile
-                var child = exec(shell, function(err, stdout, stderr) {
-                    if (err) {
-                        console.log(err) ;
-                        res.send({retcode: 1, info: "fail"});
+                //保存图片
+                var base64Data = bodyObj.base64 ;
+                var newFile = uuid.v1() + ".png";
+                StringUtils.mkdirSync('../public/uploads/api');
+                var target_path = "./public/uploads/api/" + newFile;
+
+        //        logger.info(base64Data) ;
+                var dataBuffer = new Buffer(base64Data, 'base64');
+
+                fs.writeFile(target_path, dataBuffer, function(err) {
+                    if(err){
+                        logger.error(err) ;
+                        res.send({"retcode":"1","retmsg":err});
                     }else{
-                        console.log(stdout);
-                        var out_arr = stdout.split(",") ;
-                        var results = {"face_count":out_arr[0],"digital_count":out_arr[1],"is_nude":out_arr[2],"pass":out_arr[3]}
-                        res.send({retcode: 0, retmsg: "success","results":results});
+                        //res.send({"retcode":"1","retmsg":"保存成功！"}) ;
+                        //调用python检测图片，返回结果
+                        //删除图片
+                        var exec = require('child_process').exec;
+                        var shell = 'cd '+__dirname+'/..'+' && python api.py '+newFile
+                        var child = exec(shell, function(err, stdout, stderr) {
+                            if (err) {
+                                console.log(err) ;
+                                res.send({retcode: 1, info: "fail"});
+                            }else{
+                                console.log(stdout);
+                                var out_arr = stdout.split(",") ;
+                                var results = {"face_count":out_arr[0],"digital_count":out_arr[1],"is_nude":out_arr[2],"pass":out_arr[3].replace('\n','')}
+                                console.log(results);
+                                res.send({retcode: 0, retmsg: "success","result":results});
+                            }
+                        });
                     }
                 });
             }
-        });
+        }
+              
 
     }) ;
 
