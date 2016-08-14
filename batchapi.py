@@ -50,7 +50,7 @@ class Api:
 
         has_crop = matlab.get('has_crop')
 
-        return int(count),has_crop
+        return int(count),int(has_crop)==1
 
 
     #黑白处理
@@ -179,13 +179,13 @@ class Api:
     def one(self,file):
         filepath = IMAGE_DIR+file
         if(os.path.isfile(filepath)):
-            self.IMAGE_HASH = self.get_image_hash(filepath)
-            redis_result = self.get_result_from_redis(self.IMAGE_HASH)
-            if(redis_result):
-                #删除图像
-                self.delImg(file)
-                print redis_result
-                sys.exit(0)
+            # self.IMAGE_HASH = self.get_image_hash(filepath)
+            # redis_result = self.get_result_from_redis(self.IMAGE_HASH)
+            # if(redis_result):
+            #     #删除图像
+            #     self.delImg(file)
+            #     print redis_result
+            #     sys.exit(0)
             is_pass = 1
             #人脸检测
             count,has_crop = self.face(file)
@@ -225,9 +225,11 @@ class Api:
             # 结果保存redis数据库
             self.save_redis(self.IMAGE_HASH,result)
             print result
+            return {"is_face":count,"is_qq":l,"is_nude":is_nude,"is_pass":is_pass}
 
         else:
             print("error:",file, "is not a img file")
+            return {"is_face":-1,"is_qq":-1,"is_nude":-1,"is_pass":-1}
 
     # 保存redis
     def save_redis(self,hash,result):
@@ -243,7 +245,7 @@ class Api:
         count = multiprocessing.cpu_count()-1
         pool = multiprocessing.Pool(processes=count)
         # images = Images().findByNude(1)
-        youyuan = YouyuanLog().findAll()
+        youyuan = YouyuanLog().findByFace(0)
         print("file count:"+str(len(youyuan)))
         # sys.exit(0)
         for f in youyuan:
@@ -269,7 +271,7 @@ def detect(file):
     api = Api()
     result = api.one(file)
     # 更新数据库
-    images = YouyuanLog().update(file, result)
+    YouyuanLog().update(file, result)
 
 if __name__ == '__main__':
     api = Api()

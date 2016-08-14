@@ -19,14 +19,23 @@ from nude import Nude
 import imagehash
 from bin.python.utils import logger
 from bin.python.models.redis_results import RedisResults
-import matlab_wrapper
 
 
 Image.LOAD_TRUNCATED_IMAGES = True
 
 reload(sys)
 sys.setdefaultencoding('utf-8')
+#日志
+# 默认log存放目录,需要在程序入口调用才能生效,可省略
+logger.log_dir = "./logs"
+# log文件名前缀,需要在程序入口调用才能生效,可省略
+logger.log_name = "api"
 
+conf = logger.Logger()
+# conf.debug('debug')
+# conf.warn('tr-warn')
+# conf.info('ds-info')
+# conf.error('ss-error')
 
 # IMAGE_DIR = "/Users/fengxuting/Downloads/testphoto/"
 IMAGE_DIR = "public/uploads/api/"
@@ -40,17 +49,61 @@ class Api:
         return h
     # 人脸识别
     def face(self,file):
-        matlab = matlab_wrapper.MatlabSession()
+        # Get user supplied values
+        oriImg = IMAGE_DIR + file
 
-        matlab.put('filename', file)
-        matlab.put('IMAGE_DIR', IMAGE_DIR)
-        matlab.eval('face')
+        #图像压缩处理
+        # disImg = IMAGE_DIR +"ocrdis"+file
+        # newImg = resizeImg(ori_img=oriImg,dst_img=disImg,dst_w=2048,dst_h=2048,save_q=100)
 
-        count = matlab.get('count')
+        # cascPath = "./data/haarcascades/haarcascade_frontalface_alt.xml"
+        cascPath = "./data/lbpcascades/lbpcascade_frontalface.xml"
 
-        has_crop = matlab.get('has_crop')
+        # Create the haar 级联
+        facecascade = cv2.CascadeClassifier(cascPath)
 
-        return int(count),has_crop
+        # Read the image
+        image = cv2.imread(oriImg)
+        gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+        gray = cv2.equalizeHist(gray, gray)  # 直方图均衡化：直方图均衡化是通过拉伸像素强度分布范围来增强图像对比度的一种方法。
+        gray = cv2.medianBlur(gray, 3)  # 降噪？
+        (height, width, a) = image.shape
+        # Detect faces in the image
+        faces = facecascade.detectMultiScale(
+            gray,
+            scaleFactor=1.1,
+            minNeighbors=2,
+            minSize=(30, 30),
+            flags=cv2.cv.CV_HAAR_SCALE_IMAGE
+        )
+        # 1，如果小于0.5%的 不认为头像。2，多个头像的  与最大的对比，如果比值小于50%，不认为是头像。
+        faces_area = []
+        face_count = 0
+        for (x, y, w, h) in faces:
+            face_area = w * h
+            # 脸占整个图的比例
+            face_scale = (face_area) / float(height * width) * 100
+            # print("name %s,scale %s,x %s,y %s,w %s,h %s,area %s" % (file,face_scale,x,y,w,h,face_area))
+            # if face_scale<0.5:
+            #     continue
+            faces_area.append(face_area)
+
+        faces_new = []
+        if(len(faces_area)>1):
+            face_max = max(faces_area)
+            for index,face in enumerate(faces) :
+                (x, y, w, h) = face
+                # 脸占最大脸的比例
+                scale = (w*h)/float(face_max) * 100
+                # print("scale %s" % (scale))
+                if(scale<50):
+                    # delete(faces,index,axis=0)
+                    pass
+                else:
+                    faces_new.append(face)
+        else:
+            faces_new = faces
+        return faces_new
 
 
     #黑白处理
@@ -88,6 +141,7 @@ class Api:
             # result = ocr.get_ocr_text(content, language='CHN_ENG')
             result = ocr.get_ocr_text(content, language='ENG')
             # print("file:"+file+"----------result:"+result)
+            # conf.info("file:"+file+"----------result:"+result)
             return result
         except Exception as e:
             raise
@@ -130,6 +184,28 @@ class Api:
 
         im.resize((newWidth, newHeight), Image.ANTIALIAS).save(arg['dst_img'], quality=arg['save_q'])
         return arg['dst_img']
+
+    # 裁剪人脸以下的图片
+    def cropImg(self, file, faces):
+        oriImg = IMAGE_DIR + file
+        # 裁剪人脸以下最多五倍高度的图片
+        # ipl_image = cv.LoadImage(oriImg)
+        ipl_image = Image.open(oriImg)
+
+        # print(ipl_image.height)
+        if (len(faces) < 1):
+            # print("no face")
+            return faces
+        (x, y, w, h) = faces[0]
+        yy = int(y + 1.5*h)
+        hh = h * 6
+        (width, height) = ipl_image.size
+        if (hh > height - y):
+            hh = height - y
+        if(yy>=height):
+            return False
+        dst = ipl_image.crop((x, yy, x + w, y + hh))
+        dst.save(IMAGE_DIR + file)
 
 
     #鉴别黄色图片
@@ -188,9 +264,9 @@ class Api:
                 sys.exit(0)
             is_pass = 1
             #人脸检测
-            count,has_crop = self.face(file)
+            fc = self.face(file)
             # 如果人脸不是1则 ocr和鉴黄不用检测
-            if(count!=1):
+            if(len(fc)!=1):
                 l = -1
                 is_nude = -1
                 is_pass = 0
@@ -205,23 +281,16 @@ class Api:
                     is_nude = -1
                     is_pass = 0
                 else:
-                    #鉴黄 没有截图通过
-                    if not has_crop:
-                        is_nude = 0
-                        is_pass = 1
-
-                    else:
-                        is_nude = self.isnude(file)
-                        if(is_nude==1):
-                            is_pass = 0
-                        else:
-                            is_pass = 1
+                    #鉴黄
+                    is_nude = self.isnude(file)
+                if(is_nude==1):
+                    is_pass = 0
 
             #删除图像
             self.delImg(file)
 
             # print {"face_count":len(fc),"digital_count":l,"is_nude":is_nude,"pass":is_pass}
-            result = str(count)+","+str(l)+","+str(is_nude)+","+str(is_pass)
+            result = str(len(fc))+","+str(l)+","+str(is_nude)+","+str(is_pass)
             # 结果保存redis数据库
             self.save_redis(self.IMAGE_HASH,result)
             print result

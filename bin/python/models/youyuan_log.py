@@ -51,6 +51,12 @@ class YouyuanLog:
         tbname = 'youyuan_log'
         n.update(tbname, { 'is_nude': result}, "name='"+filename+"'")
         n.commit()
+    def update(self,filename,result):
+        n = MySQL()
+        n.selectDb('images')
+        tbname = 'youyuan_log'
+        n.update(tbname, result, "name='"+filename+"'")
+        n.commit()
 
 if __name__ == '__main__':
     i = YouyuanLog()

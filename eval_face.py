@@ -13,7 +13,7 @@ IMAGE_DIR = "public/uploads/api/"
 def main():
     matlab = matlab_wrapper.MatlabSession()
 
-    matlab.put('filename', "f078bf00-4bf3-11e6-aefd-4f827560e966.png")
+    matlab.put('filename', "555.png")
     matlab.put('IMAGE_DIR', IMAGE_DIR)
     matlab.eval('face')
 
@@ -21,8 +21,8 @@ def main():
     count = matlab.get('count')
 
     has_crop = matlab.get('has_crop')
-    print(count)
-    print(has_crop)
+    print(int(count))
+    print(int(has_crop)==1)
 
 
 if __name__ == "__main__":

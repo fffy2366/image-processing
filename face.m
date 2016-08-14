@@ -36,34 +36,64 @@ else
     error('Can not recognize this model');
 end
 
-ims = dir('public/images/*.png');
+
+im = imread([IMAGE_DIR filename]);
+% clf; imagesc(im); axis image; axis off; drawnow;
+
+tic;
+bs = detect(im, model, model.thresh);
+bs = clipboxes(im, bs);
+bs = nms_face(bs,0.3);
+
+bscount = length(bs);
+
+count = bscount ;
+has_crop = 0 ;
+
+xx1 =min(bs(1).xy(:,1))+20;
+xx2 =max(bs(1).xy(:,3))-20;
+yy1 =min(bs(1).xy(:,2))+20;
+yy2 =max(bs(1).xy(:,4))-20;
+
+width = xx2-xx1;
+height = yy2-yy1;
+yy3 = yy2+1.5*height;
+yy4 = yy2+5.5*height;
+
+newheight = yy2 + 1.5*height ;
+
+[imwidth, imheight] = size(im);
+
+if yy3 >= imheight && yy4 >imheight;
+    has_crop = 0
+elseif yy3 < imheight && yy4 <imheight ;
+    newheight1 = yy4-yy3;
+else
+    newheight1 = imheight - yy3;
+end
+%
+im1 = imcrop(im,[xx1 yy3 width newheight1]);
+
+if(~isempty(im1))
+    %Do stuff
+    imwrite(im1,[IMAGE_DIR 'nude_' filename]);
+    has_crop = 1
+end
 
 
+dettime = toc;
 
-%for i = 1:length(ims),
-%     fprintf('testing: %d/%d\n', i, length(ims));
-    im = imread([IMAGE_DIR filename]);
-%     clf; imagesc(im); axis image; axis off; drawnow;
-    
-    tic;
-    bs = detect(im, model, model.thresh);
-    bs = clipboxes(im, bs);
-%     bs = nms_face(bs,0.3);
-    bs = nms_face(bs,0.3);
-    dettime = toc;
-    
-    % show highest scoring one
-%     figure,showboxes(im, bs(1),posemap),title('Highest scoring detection');
-    % show all
-    %figure,showboxes(im, bs,posemap),title('All detections above the threshold');
-    %posemap
-    y = [1,2,3,4] ;
-    count = 0 ;
-    has_crop = 0 ;
-    fprintf('Detection took %.1f seconds\n',dettime);
-%     disp('press any key to continue');
-%     pause;
-    close all;
-%end
-disp('done!');
+% show highest scoring one
+% figure,showboxes(im, bs(1),posemap),title('Highest scoring detection');
+% show all
+% figure,showboxes(im, bs,posemap),title('All detections above the threshold');
+% posemap
+% y = [1,2,3,4] ;
+fprintf('Detection took %.1f seconds\n',dettime);
+% disp('press any key to continue');
+% pause;
+close all;
+
+
+% disp('done!');
 
