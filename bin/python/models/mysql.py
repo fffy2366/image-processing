@@ -84,7 +84,7 @@ class MySQL:
             _fields.append("%s = %s" % (key, data[key]))
         _fieldsStr = ",".join([_field for _field in _fields])
         _sql = "".join([_prefix, _fieldsStr, " WHERE ", condition])
-
+        print _sql
         return self.cur.execute(_sql)
 
     def delete(self, tbname, condition):

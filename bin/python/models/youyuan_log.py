@@ -60,6 +60,6 @@ class YouyuanLog:
 
 if __name__ == '__main__':
     i = YouyuanLog()
-    i.insert({'name':'test','finger':'xxx','is_face':'1','ocr':'乱码','is_qq':'1','is_pass':'1','created_at':datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")})
+    # i.insert({'name':'test','finger':'xxx','is_face':'1','ocr':'乱码','is_qq':'1','is_pass':'1','created_at':datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")})
 
-   
+    YouyuanLog().update('85a9de20-5e22-11e6-b75e-87fc586a8584.png',{"is_face":1,"is_qq":1,"is_nude":1,"is_pass":1})

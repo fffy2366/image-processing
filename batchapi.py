@@ -178,6 +178,7 @@ class Api:
 
     def one(self,file):
         filepath = IMAGE_DIR+file
+        self.resizeImg(ori_img=filepath,dst_img=filepath,dst_w=480,dst_h=640,save_q=100)
         if(os.path.isfile(filepath)):
             # self.IMAGE_HASH = self.get_image_hash(filepath)
             # redis_result = self.get_result_from_redis(self.IMAGE_HASH)
