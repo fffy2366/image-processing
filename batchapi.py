@@ -137,10 +137,10 @@ class Api:
         #图像压缩处理
         imagePath = IMAGE_DIR + file
         nudeImg = IMAGE_DIR +"nude_"+file
-        self.resizeImg(ori_img=imagePath,dst_img=nudeImg,dst_w=300,dst_h=300,save_q=100)
+        # self.resizeImg(ori_img=imagePath,dst_img=nudeImg,dst_w=300,dst_h=300,save_q=100)
 
-        faces = self.face("nude_"+file)
-        self.cropImg("nude_"+file,faces)
+        # faces = self.face("nude_"+file)
+        # self.cropImg("nude_"+file,faces)
         n = Nude(nudeImg)
         # n.setFaces(faces)
         # n.resize(1000,1000)
