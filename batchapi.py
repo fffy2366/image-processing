@@ -275,7 +275,7 @@ def detect(file):
 
 if __name__ == '__main__':
     api = Api()
-
+    api.main()
     # api.one(sys.argv[1])
     # api.one("9d27d550-4beb-11e6-aefd-4f827560e966.png")
     # api.one("91787150-4bf1-11e6-aefd-4f827560e966.png")
