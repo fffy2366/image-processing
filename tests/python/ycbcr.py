@@ -14,7 +14,8 @@ sys.path.append("../..")
 from bin.python.config.config import configs
 from bin.python.utils import logger
 # IMAGE_DIR = configs['image_dir']
-IMAGE_DIR = "D:/photo/skins/"
+# IMAGE_DIR = "D:/photo/skins/"
+IMAGE_DIR = "/Users/fengxuting/Downloads/nude/"
 
 class Ycbcr(object):
     def __init__(self, path):
