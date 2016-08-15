@@ -248,7 +248,7 @@ class Api:
     # 多进程
     def main(self):
         count = multiprocessing.cpu_count()-1
-        pool = multiprocessing.Pool(processes=1)
+        pool = multiprocessing.Pool(processes=count)
         # images = Images().findByNude(1)
         youyuan = YouyuanLog().findByFace(0)
         print("file count:"+str(len(youyuan)))
