@@ -7,6 +7,7 @@ var StringUtils = require('../components/StringUtils') ;
 var uuid = require('node-uuid') ;
 var shelljs = require('shelljs');
 var Sign = require('../models/sign')
+var YouyuanImages = require('../models/YouyuanImages')
 var moment = require('moment');
 var logger = require('../config/Logger') ;
 var crypto = require('crypto');
@@ -298,6 +299,51 @@ router.post('/detect', function(req, res){
 
 
 
+});
+/**
+ * 图片接收
+ * 
+ */
+router.post('/received', function(req, res){
+
+    req.rawBody = '';
+    var json = {};
+    req.setEncoding('utf8');
+
+    req.on('data', function (chunk) {
+        req.rawBody += chunk;
+    });
+    req.on('end', function () {
+        var key = settings.youyuan_key ;
+        var bodyObj = JSON.parse(req.rawBody) ;
+        logger.info(bodyObj.sign) ;
+        var timestamp = bodyObj.timestamp ;
+        logger.info(timestamp) ;
+        //验证请求时间，跟当前时间比较上下不超过5分钟
+        logger.info(parseInt((moment().unix()-timestamp)/60)>5) ;
+        if(parseInt((moment().unix()-timestamp)/60)>5){
+            res.send({"retcode":"2","retmsg":"非法请求！"}) ;
+        }else{
+             //验证签名
+            var sign = bodyObj.sign ;
+            var md5 = crypto.createHash('md5');
+            md5.update(timestamp+key);
+            var vilidSign = md5.digest('hex');
+            if(vilidSign!=sign){
+                res.send({"retcode":"3","retmsg":"签名错误！"}) ;
+            }else{
+                //保存图片到数据库
+                var created_at = moment().format("YYYY-MM-DD HH:mm:ss") ;
+                YouyuanImages.save(bodyObj.img_id,bodyObj.img_link,created_at,function(err,result){
+                    if(err){
+                        res.send({retcode: 1, info: "fail"});
+                    }else{
+                        res.send({retcode: 0, retmsg: "success"});
+                    }
+                }) ;
+            }
+        }
+    }) ;
 });
 /**
  * 聚会报名

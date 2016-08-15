@@ -80,10 +80,31 @@ class Http((object)):
 
         # print res['results']
         # print res['retmsg']
+    def received(self):
+        m2 = hashlib.md5()
+        t = str(int(time.time()))
+        print t
+        m2.update(t+"N6AG2WHLH74S5WC5")
+        # print m2.hexdigest()
+        sign = m2.hexdigest()
+        print sign
+        
+        data = {
+            "appid": "youyuan",
+            "sign": sign,
+            "timestamp": t,
+            "img_id": "123",
+            "img_link": "http://xxx.xx/xx.jpg",
+        }
+        # print data
+        res = self.post('http://localhost:3002/received', data)
+        print res
 if __name__ == '__main__':
     h = Http()
     # h.detect("../../../public/images/p3.jpg")
     # h.detect("../../../public/images/ln.jpg")
-    h.detect("../../../public/images/ocr1.jpg")
+    # h.detect("../../../public/images/ocr1.jpg")
     # h.detect("/Users/fengxuting/Downloads/photo/photo_pass/photo_pass/1464318494483A9B1A59.jpg")
     # h.detect("/Users/fengxuting/Downloads/photo/photo_pass/photo_pass/1464318775245A552D29.jpg")
+
+    h.received()
