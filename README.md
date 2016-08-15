@@ -252,6 +252,14 @@ minNeighbors :   可以理解为每次检测时,对检测点(Scale)周边多少�
 [libfacedetection](https://github.com/ShiqiYu/libfacedetection)
 [人脸检测发展：从VJ到深度学习（上）](https://mp.weixin.qq.com/s?__biz=MzI5NTIxNTg0OA==&mid=2247484422&idx=2&sn=a68638b34e32b2641a003bad81b53219&scene=1&srcid=0811SMx0wAJ51tNOvhouLk9h&key=305bc10ec50ec19b13006541fdfe99de1a1480d8c683edcac33d4da35611ca2097256ade5cb4563b9efb92cd4f4a3fd5&ascene=0&uin=MTA2ODMxMjkyOA%3D%3D&devicetype=iMac+MacBookPro11%2C4+OSX+OSX+10.11.3+build(15D21)&version=11020201&pass_ticket=AhSK0mvkJf04YGh0i1uPAym7GW1PjJ1Wf%2FtIMtxdGAxSUUacmzM8JEwyzUOU1TQs)
 
+[Python调用C语言函数](http://coolshell.cn/articles/671.html)
+```pytyon
+>>> from ctypes import *
+>>> import os
+>>> libtest = cdll.LoadLibrary(os.getcwd() + '/libtest.so')
+>>> print libtest.multiply(2, 2)
+4
+```
 
 ## plupload
 [plupload](http://www.plupload.com/download)

@@ -8,12 +8,13 @@ from __future__ import division, print_function, absolute_import
 from __future__ import unicode_literals
 
 import matlab_wrapper
+import sys
 
 IMAGE_DIR = "public/uploads/api/"
 def main():
     matlab = matlab_wrapper.MatlabSession()
 
-    matlab.put('filename', "555.png")
+    matlab.put('filename', sys.argv[1])
     matlab.put('IMAGE_DIR', IMAGE_DIR)
     matlab.eval('face')
 

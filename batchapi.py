@@ -190,6 +190,10 @@ class Api:
             is_pass = 1
             #人脸检测
             count,has_crop = self.face(file)
+            print("count:")
+            print(count)
+            print("has_crop:")
+            print(has_crop)
             # 如果人脸不是1则 ocr和鉴黄不用检测
             if(count!=1):
                 l = -1
@@ -256,10 +260,8 @@ class Api:
             else:
                 # self.detect(f['name'])
                 # pool.map(self.detect,f['name'] )
-                pool.apply_async(detect, (f['name'],))  # 维持执行的进程总数为processes，当一个进程执行完毕后会添加新的进程进去
-
-                # bn = BatchNude()
-                # pool.apply_async(bn.detect(f['name']))  # 维持执行的进程总数为processes，当一个进程执行完毕后会添加新的进程进去
+                # pool.apply_async(detect, (f['name'],))  # 维持执行的进程总数为processes，当一个进程执行完毕后会添加新的进程进去
+                detect(f['name'])
 
         print "Mark~ Mark~ Mark~~~~~~~~~~~~~~~~~~~~~~"
         pool.close()
