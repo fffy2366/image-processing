@@ -49,37 +49,39 @@ bscount = length(bs);
 
 count = bscount ;
 has_crop = 0 ;
+if count==1;
+	xx1 =min(bs(1).xy(:,1))+20;
+	xx2 =max(bs(1).xy(:,3))-20;
+	yy1 =min(bs(1).xy(:,2))+20;
+	yy2 =max(bs(1).xy(:,4))-20;
 
-xx1 =min(bs(1).xy(:,1))+20;
-xx2 =max(bs(1).xy(:,3))-20;
-yy1 =min(bs(1).xy(:,2))+20;
-yy2 =max(bs(1).xy(:,4))-20;
+	width = xx2-xx1;
+	height = yy2-yy1;
+	yy3 = yy2+1.5*height;
+	yy4 = yy2+5.5*height;
 
-width = xx2-xx1;
-height = yy2-yy1;
-yy3 = yy2+1.5*height;
-yy4 = yy2+5.5*height;
+	newheight = yy2 + 1.5*height ;
 
-newheight = yy2 + 1.5*height ;
+	[imwidth, imheight] = size(im);
 
-[imwidth, imheight] = size(im);
+	if yy3 >= imheight && yy4 >imheight;
+	    has_crop = 0
+	elseif yy3 < imheight && yy4 <imheight ;
+	    newheight1 = yy4-yy3;
+	else
+	    newheight1 = imheight - yy3;
+	end
+	%
+	im1 = imcrop(im,[xx1 yy3 width newheight1]);
 
-if yy3 >= imheight && yy4 >imheight;
-    has_crop = 0
-elseif yy3 < imheight && yy4 <imheight ;
-    newheight1 = yy4-yy3;
+	if(~isempty(im1))
+	    %Do stuff
+	    imwrite(im1,[IMAGE_DIR 'nude_' filename]);
+	    has_crop = 1
+	end
 else
-    newheight1 = imheight - yy3;
+	
 end
-%
-im1 = imcrop(im,[xx1 yy3 width newheight1]);
-
-if(~isempty(im1))
-    %Do stuff
-    imwrite(im1,[IMAGE_DIR 'nude_' filename]);
-    has_crop = 1
-end
-
 
 dettime = toc;
 
