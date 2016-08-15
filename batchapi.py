@@ -260,8 +260,8 @@ class Api:
             else:
                 # self.detect(f['name'])
                 # pool.map(self.detect,f['name'] )
-                # pool.apply_async(detect, (f['name'],))  # 维持执行的进程总数为processes，当一个进程执行完毕后会添加新的进程进去
-                detect(f['name'])
+                pool.apply_async(detect, (f['name'],))  # 维持执行的进程总数为processes，当一个进程执行完毕后会添加新的进程进去
+                # detect(f['name'])
 
         print "Mark~ Mark~ Mark~~~~~~~~~~~~~~~~~~~~~~"
         pool.close()
