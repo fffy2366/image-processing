@@ -15,7 +15,7 @@
     "less-middleware": "1.0.x",
     "log4js": "^0.6.37",
     "moment": "^2.14.1",
-    "morgan": "~1.6.1",
+    "morgan": "~1.9.1",
     "multiparty": "^4.1.2",
     "mysql": "^2.11.1",
     "node-pluploader": "0.0.5",
